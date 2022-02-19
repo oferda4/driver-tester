@@ -38,8 +38,12 @@ void traceUsage() {
 
 void cleanup(const wstring& pePath) {
     traceInfo(L"Cleaning up driver");
-    // Simply open the service and let it's dtor make all the cleanups
-    SCManager().openService(DRIVER_SERVICE_NAME);
+    SCManager manager;
+    Service driverService = manager.openService(DRIVER_SERVICE_NAME);
+    traceInfo(L"Stopping driver");
+    tryExecute([&]() { driverService.stop(); });
+    traceInfo(L"Deleting driver");
+    driverService.remove();
 }
 
 void run(const wstring& pePath) {
@@ -48,4 +52,8 @@ void run(const wstring& pePath) {
     Service driverService = manager.createService(DRIVER_SERVICE_NAME, pePath);
     traceInfo(L"Starting driver");
     driverService.start();
+    traceInfo(L"Stopping driver");
+    driverService.stop();
+    traceInfo(L"Deleting driver");
+    driverService.remove();
 }

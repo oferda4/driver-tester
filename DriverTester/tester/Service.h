@@ -2,24 +2,21 @@
 
 #include "Defs.h"
 
-#include <optional>
-
 #include "Handle.h"
 
 class Service final {
 public:
-	~Service();
-
 	MOVEABLE(Service);
 
 	void start();
+	void stop();
+	void remove();
 	
 private:
 	/// You should create and open services using SCManager class 
 	Service(ServiceHandle serviceHandle);
 
-	std::optional<ServiceHandle> m_handle;
-	bool isStarted;
+	ServiceHandle m_handle;
 
 	friend class SCManager;
 };

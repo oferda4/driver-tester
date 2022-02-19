@@ -12,10 +12,6 @@
 #define MOVEABLE(className) className(className&&) noexcept = default; \
 						    className& operator=(className&&) noexcept = default
 
-inline void traceError(const std::wstring& msg) {
-	std::wcout << "[Error] " << msg << std::endl;
-}
-
 inline void traceException(const Exception& exc) {
 	std::wcout << "[Exception] msg - " << exc.viewMsg() << " ; num - " << exc.getNum() << std::endl;
 }
