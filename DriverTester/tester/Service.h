@@ -15,8 +15,8 @@ public:
 	void start();
 	
 private:
-	/// You should create services using SCManager class 
-	Service(const ServiceHandle& managerHandle, const std::wstring& name, const std::wstring& pePath);
+	/// You should create and open services using SCManager class 
+	Service(ServiceHandle serviceHandle);
 
 	std::optional<ServiceHandle> m_handle;
 	bool isStarted;

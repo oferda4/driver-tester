@@ -19,14 +19,14 @@ Handle<HandleTraits>::~Handle() {
 }
 
 template<typename HandleTraits>
-Handle<HandleTraits>::Handle(Handle&& other) noexcept :
-	m_handle(std::exchange(other.m_hanlde, HandleTraits::INVALID_VALUE)) {
+Handle<HandleTraits>::Handle(Handle<HandleTraits>&& other) noexcept :
+	m_handle(std::exchange(other.m_handle, HandleTraits::INVALID_VALUE)) {
 	// Left blank intentionally
 }
 
 template<typename HandleTraits>
-Handle<HandleTraits>& Handle<HandleTraits>::operator=(Handle&& other) noexcept {
-	m_handle = std::exchange(other.m_hanlde, HandleTraits::INVALID_VALUE);
+Handle<HandleTraits>& Handle<HandleTraits>::operator=(Handle<HandleTraits>&& other) noexcept {
+	m_handle = std::exchange(other.m_handle, HandleTraits::INVALID_VALUE);
 	return *this;
 }
 
