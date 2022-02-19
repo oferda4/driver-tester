@@ -11,6 +11,7 @@ static constexpr auto DRIVER_SERVICE_NAME = L"DriverTest";
 static void traceUsage();
 static void cleanup(const wstring& pePath);
 static void run(const wstring& pePath);
+static wstring getAbsolutePath(const wstring& name);
 
 int wmain(int argc, wchar_t *argv[]) {
     if (argc < 2) {
@@ -48,12 +49,21 @@ void cleanup(const wstring& pePath) {
 
 void run(const wstring& pePath) {
     traceInfo(L"Installing driver");
+    const wstring fullPEPath = getAbsolutePath(pePath);
     SCManager manager;
-    Service driverService = manager.createService(DRIVER_SERVICE_NAME, pePath);
+    Service driverService = manager.createService(DRIVER_SERVICE_NAME, fullPEPath);
     traceInfo(L"Starting driver");
     driverService.start();
     traceInfo(L"Stopping driver");
     driverService.stop();
     traceInfo(L"Deleting driver");
     driverService.remove();
+}
+
+wstring getAbsolutePath(const wstring& name) {
+    wchar_t fullFilePath[MAX_PATH];
+    if (GetFullPathName(name.c_str(), MAX_PATH, fullFilePath, nullptr) == 0) {
+        throw Win32Exception(L"Failed getting file full path");
+    }
+    return fullFilePath;
 }
