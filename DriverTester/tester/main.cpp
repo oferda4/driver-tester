@@ -28,24 +28,24 @@ int wmain(int argc, wchar_t *argv[]) {
         tryExecute([&]() { run(argv[1]); });
     }
 
-    traceInfo("Finish");
+    traceInfo(L"Finish");
     return 0;
 }
 
 void traceUsage() {
-    traceInfo("Usage - tester.exe path_to_test_sys [--cleanup]");
+    traceInfo(L"Usage - tester.exe path_to_test_sys [--cleanup]");
 }
 
 void cleanup(const wstring& pePath) {
-    traceInfo("Cleaning up driver");
+    traceInfo(L"Cleaning up driver");
     // Simply open the service and let it's dtor make all the cleanups
     SCManager().openService(DRIVER_SERVICE_NAME);
 }
 
 void run(const wstring& pePath) {
-    traceInfo("Installing driver");
+    traceInfo(L"Installing driver");
     SCManager manager;
     Service driverService = manager.createService(DRIVER_SERVICE_NAME, pePath);
-    traceInfo("Starting driver");
+    traceInfo(L"Starting driver");
     driverService.start();
 }

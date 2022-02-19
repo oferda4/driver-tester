@@ -7,7 +7,7 @@
 template<typename HandleTraits>
 Handle<HandleTraits>::Handle(typename HandleTraits::Type handle) : m_handle(handle) {
 	if (handle == ServiceHandleTraits::INVALID_VALUE) {
-		throw Win32Exception("Invalid handle value");
+		throw Win32Exception(L"Invalid handle value");
 	}
 }
 

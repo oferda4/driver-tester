@@ -23,7 +23,7 @@ struct ServiceHandleTraits {
 	static constexpr Type INVALID_VALUE = nullptr;
 	static void close(Type handle) {
 		if (!CloseServiceHandle(handle)) {
-			traceException("Failed closing service handle");
+			traceError(L"Failed closing service handle");
 		}
 	}
 };

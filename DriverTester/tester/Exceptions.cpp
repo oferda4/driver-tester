@@ -2,10 +2,22 @@
 
 #include "Defs.h"
 
-using std::string;
+using std::wstring;
 using std::exception;
 
-Win32Exception::Win32Exception(const string& message) :
-	exception(message.c_str(), GetLastError()) {
+Exception::Exception(wstring msg, uint32_t num) : m_msg(std::move(msg)), m_num(num) {
+	// Left blank intentionally
+}
+
+const wstring& Exception::viewMsg() const {
+	return m_msg;
+}
+
+uint32_t Exception::getNum() const {
+	return m_num;
+}
+
+Win32Exception::Win32Exception(wstring msg) :
+	Exception(std::move(msg), GetLastError()) {
 	// Left blank intentionally
 }

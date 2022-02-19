@@ -24,20 +24,20 @@ Service::~Service() {
 
 void tryDeleteService(const ServiceHandle& handle) {
     if (DeleteService(handle)) {
-        traceException("Failed deleting service");
+        traceError(L"Failed deleting service");
     }
 }
 
 void tryStopService(const ServiceHandle& handle) {
     SERVICE_STATUS serviceStatus;
     if (!ControlService(handle, SERVICE_CONTROL_STOP, &serviceStatus)) {
-        traceException("Failed stopping service");
+        traceError(L"Failed stopping service");
     }
 }
 
 void Service::start() {
     if (!StartService(*m_handle, 0, nullptr)) {
-        throw Win32Exception("Failed starting service");
+        throw Win32Exception(L"Failed starting service");
     }
     isStarted = true;
 }
