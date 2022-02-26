@@ -7,7 +7,7 @@ static constexpr auto DOS_DEVICE_NAME = L"\\DosDevices\\TestDriver";
 
 static void unloadDriver(PDRIVER_OBJECT DriverObject);
 
-NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath) {
+EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath) {
 	NTSTATUS        status;
 	UNICODE_STRING  ntUnicodeString;
 	UNICODE_STRING  ntWin32NameString;

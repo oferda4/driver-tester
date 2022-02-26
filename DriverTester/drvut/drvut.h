@@ -10,5 +10,3 @@
 #else
 #define TRACE(_x_)
 #endif
-
-NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath);
