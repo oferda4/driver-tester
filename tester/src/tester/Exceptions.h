@@ -5,7 +5,7 @@
 class Exception {
 public:
 	Exception(std::wstring msg, uint32_t num);
-	~Exception() = default;
+	virtual ~Exception() = default;
 
 	const std::wstring& viewMsg() const;
 	uint32_t getNum() const;
