@@ -11,19 +11,19 @@ Service::Service(ServiceHandle serviceHandle) :
 
 void Service::start() {
     if (!StartService(m_handle, 0, nullptr)) {
-        throw Win32Exception(L"Failed starting service");
+        throw WinAPIException(L"Failed starting service");
     }
 }
 
 void Service::stop() {
     SERVICE_STATUS serviceStatus;
     if (!ControlService(m_handle, SERVICE_CONTROL_STOP, &serviceStatus)) {
-        throw Win32Exception(L"Failed stopping service");
+        throw WinAPIException(L"Failed stopping service");
     }
 }
 
 void Service::remove() {
     if (!DeleteService(m_handle)) {
-        throw Win32Exception(L"Failed deleting service");
+        throw WinAPIException(L"Failed deleting service");
     }
 }
