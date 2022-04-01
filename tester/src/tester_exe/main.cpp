@@ -13,7 +13,7 @@ static void cleanup(const wstring& pePath);
 static void run(const wstring& pePath);
 static wstring getAbsolutePath(const wstring& name);
 
-int wmain(int argc, wchar_t *argv[]) {
+int wmain(int argc, wchar_t* argv[]) {
     if (argc < 2) {
         traceUsage();
         return -1;
@@ -25,7 +25,8 @@ int wmain(int argc, wchar_t *argv[]) {
             return -1;
         }
         tryExecute([&]() { cleanup(argv[1]); });
-    } else {
+    }
+    else {
         tryExecute([&]() { run(argv[1]); });
     }
 

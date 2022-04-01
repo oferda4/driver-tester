@@ -1,5 +1,4 @@
 #include "Defs.h"
 
-void fntester()
-{
+void fntester() {
 }

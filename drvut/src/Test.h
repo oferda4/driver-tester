@@ -4,12 +4,12 @@
 #include <functional>
 
 namespace drvtest {
-namespace ut {
+    namespace ut {
 
-struct Test {
-	std::string name{};
-	std::function<void()> run;
-};
+        struct Test {
+            std::string name{};
+            std::function<void()> run;
+        };
 
-}
+    }
 }

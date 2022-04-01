@@ -5,16 +5,16 @@
 #include "Fixture.h"
 
 namespace drvtest {
-namespace ut {
+    namespace ut {
 
-class Manager {
-public:
-	void add(Fixture fixture);
-	void list();
+        class Manager {
+        public:
+            void add(Fixture fixture);
+            void list();
 
-private:
-	std::vector<Fixture> m_fixtures;
-};
+        private:
+            std::vector<Fixture> m_fixtures;
+        };
 
-}
+    }
 }
