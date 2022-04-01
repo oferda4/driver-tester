@@ -17,7 +17,7 @@ uint32_t Exception::getNum() const {
 	return m_num;
 }
 
-Win32Exception::Win32Exception(wstring msg) :
+WinAPIException::WinAPIException(wstring msg) :
 	Exception(std::move(msg), GetLastError()) {
 	// Left blank intentionally
 }

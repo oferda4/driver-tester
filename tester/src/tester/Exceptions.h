@@ -15,7 +15,7 @@ private:
 	uint32_t m_num;
 };
 
-class Win32Exception : public Exception {
+class WinAPIException : public Exception {
 public:
-	Win32Exception(std::wstring msg);
+	WinAPIException(std::wstring msg);
 };

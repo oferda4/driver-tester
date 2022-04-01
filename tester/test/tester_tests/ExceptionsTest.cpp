@@ -11,3 +11,7 @@ TEST(Exceptions, ExceptionConstruction) {
 	ASSERT_EQ(arbitraryExceptionMessage, myException.viewMsg());
 	ASSERT_EQ(arbitraryExceptionNum, myException.getNum());
 }
+
+TEST(Exceptions, WinAPIException) {
+
+}

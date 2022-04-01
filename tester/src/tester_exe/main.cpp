@@ -63,7 +63,7 @@ void run(const wstring& pePath) {
 wstring getAbsolutePath(const wstring& name) {
     wchar_t fullFilePath[MAX_PATH];
     if (GetFullPathName(name.c_str(), MAX_PATH, fullFilePath, nullptr) == 0) {
-        throw Win32Exception(L"Failed getting file full path");
+        throw WinAPIException(L"Failed getting file full path");
     }
     return fullFilePath;
 }
