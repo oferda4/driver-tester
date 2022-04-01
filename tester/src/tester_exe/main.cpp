@@ -1,7 +1,7 @@
-#include "Defs.h"
+#include "tester/Defs.h"
 
-#include "SCManager.h"
-#include "Service.h"
+#include "tester/SCManager.h"
+#include "tester/Service.h"
 
 using std::exception;
 using std::wstring;
