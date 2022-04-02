@@ -17,6 +17,6 @@ uint32_t Exception::getNum() const {
     return m_num;
 }
 
-WinAPIException::WinAPIException(wstring msg) : Exception(std::move(msg), GetLastError()) {
-    // Left blank intentionally
+uint32_t StandardLastErrorAPIImpl::getLastError() {
+    return GetLastError();
 }

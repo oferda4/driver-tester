@@ -15,7 +15,19 @@ private:
     uint32_t m_num;
 };
 
+template <typename T>
+concept LastErrorAPIImpl = requires(T) {
+    { T::getLastError() } -> std::same_as<uint32_t>;
+};
+
+struct StandardLastErrorAPIImpl {
+    static uint32_t getLastError();
+};
+
+template <LastErrorAPIImpl T = StandardLastErrorAPIImpl>
 class WinAPIException : public Exception {
 public:
     WinAPIException(std::wstring msg);
 };
+
+#include "Exceptions.inl"

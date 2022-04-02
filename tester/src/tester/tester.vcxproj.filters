@@ -49,5 +49,8 @@
     <None Include="Handle.inl">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="Exceptions.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

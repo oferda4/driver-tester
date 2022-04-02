@@ -36,6 +36,7 @@
     <ClCompile Include="ExceptionsTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".clang-format" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
