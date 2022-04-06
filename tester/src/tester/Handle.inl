@@ -9,7 +9,7 @@ template <typename T>
 Handle<T>::Handle(typename T::HandleType handle) : 
     m_handle(handle) {
     if (handle == T::INVALID_VALUE) {
-        throw WinAPIException(L"Invalid handle value");
+        throw T::ExceptionType(L"Invalid handle value");
     }
 }
 
@@ -18,7 +18,7 @@ template <typename T>
 Handle<T>::~Handle() {
     if (m_handle != T::INVALID_VALUE) {
         if (!T::close(m_handle)) {
-            traceException(WinAPIException(L"Failed closing service handle"));
+            traceException(T::ExceptionType(L"Failed closing service handle"));
         }
     }
 }

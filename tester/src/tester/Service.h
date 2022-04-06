@@ -3,12 +3,15 @@
 #include "Defs.h"
 
 #include "Handle.h"
+#include "Exceptions.h"
 
 class ServiceHandleTraits {
 public:
     MOVEABLE(ServiceHandleTraits);
 
     using HandleType = SC_HANDLE;
+    using ExceptionType = WinAPIException<>;
+    
     static constexpr HandleType INVALID_VALUE = nullptr;
     static bool close(HandleType handle);
 };
