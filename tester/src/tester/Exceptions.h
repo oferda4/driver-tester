@@ -16,18 +16,19 @@ private:
 };
 
 template <typename T>
-concept LastErrorAPIImpl = requires(T) {
-    { T::getLastError() } -> std::same_as<uint32_t>;
+concept LastErrorAPIImpl = requires(const T& t) {
+    { t.getLastError() } -> std::same_as<uint32_t>;
 };
 
-struct StandardLastErrorAPIImpl {
-    static uint32_t getLastError();
+class StandardLastErrorAPIImpl {
+public:
+    uint32_t getLastError() const;
 };
 
 template <LastErrorAPIImpl T = StandardLastErrorAPIImpl>
 class WinAPIException : public Exception {
 public:
-    WinAPIException(std::wstring msg);
+    WinAPIException(std::wstring msg, const T& t = StandardLastErrorAPIImpl());
 };
 
 #include "Exceptions.inl"

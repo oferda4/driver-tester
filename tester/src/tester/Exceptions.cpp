@@ -17,6 +17,6 @@ uint32_t Exception::getNum() const {
     return m_num;
 }
 
-uint32_t StandardLastErrorAPIImpl::getLastError() {
+uint32_t StandardLastErrorAPIImpl::getLastError() const {
     return GetLastError();
 }
