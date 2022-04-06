@@ -4,32 +4,41 @@
 
 #include "Exceptions.h"
 
-template <typename HandleTraits>
-Handle<HandleTraits>::Handle(typename HandleTraits::Type handle) : m_handle(handle) {
-    if (handle == ServiceHandleTraits::INVALID_VALUE) {
+template <typename T>
+    requires HandleTraits<T>
+Handle<T>::Handle(typename T::HandleType handle) : 
+    m_handle(handle) {
+    if (handle == T::INVALID_VALUE) {
         throw WinAPIException(L"Invalid handle value");
     }
 }
 
-template <typename HandleTraits>
-Handle<HandleTraits>::~Handle() {
-    if (m_handle != ServiceHandleTraits::INVALID_VALUE) {
-        ServiceHandleTraits::close(m_handle);
+template <typename T>
+    requires HandleTraits<T>
+Handle<T>::~Handle() {
+    if (m_handle != T::INVALID_VALUE) {
+        if (!T::close(m_handle)) {
+            traceException(WinAPIException(L"Failed closing service handle"));
+        }
     }
 }
 
-template <typename HandleTraits>
-Handle<HandleTraits>::Handle(Handle<HandleTraits>&& other) noexcept : m_handle(std::exchange(other.m_handle, HandleTraits::INVALID_VALUE)) {
+template <typename T>
+    requires HandleTraits<T>
+Handle<T>::Handle(Handle<T>&& other) noexcept : 
+    m_handle(std::exchange(other.m_handle, T::INVALID_VALUE)) {
     // Left blank intentionally
 }
 
-template <typename HandleTraits>
-Handle<HandleTraits>& Handle<HandleTraits>::operator=(Handle<HandleTraits>&& other) noexcept {
+template <typename T>
+    requires HandleTraits<T>
+Handle<T>& Handle<T>::operator=(Handle<T>&& other) noexcept {
     m_handle = std::exchange(other.m_handle, HandleTraits::INVALID_VALUE);
     return *this;
 }
 
-template <typename HandleTraits>
-Handle<HandleTraits>::operator typename HandleTraits::Type() const {
+template <typename T>
+    requires HandleTraits<T>
+Handle<T>::operator typename T::HandleType() const {
     return m_handle;
 }

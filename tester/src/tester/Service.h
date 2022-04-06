@@ -4,6 +4,17 @@
 
 #include "Handle.h"
 
+class ServiceHandleTraits {
+public:
+    MOVEABLE(ServiceHandleTraits);
+
+    using HandleType = SC_HANDLE;
+    static constexpr HandleType INVALID_VALUE = nullptr;
+    static bool close(HandleType handle);
+};
+
+using ServiceHandle = Handle<ServiceHandleTraits>;
+
 class Service final {
 public:
     MOVEABLE(Service);

@@ -26,3 +26,7 @@ void Service::remove() {
         throw WinAPIException(L"Failed deleting service");
     }
 }
+
+bool ServiceHandleTraits::close(HandleType handle) {
+    return CloseServiceHandle(handle);
+}
