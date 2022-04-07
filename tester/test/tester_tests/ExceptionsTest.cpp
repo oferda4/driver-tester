@@ -11,7 +11,7 @@ using testing::Return;
 static const wstring ARBITRARY_EXCEPTION_MESSAGE = L"arbitrary";
 static const uint32_t ARBITRARY_EXCEPTION_NUM = 8;
 
-TEST(Exceptions, ExceptionConstruction) {
+TEST(Exceptions, Ctor) {
     Exception myException(ARBITRARY_EXCEPTION_MESSAGE, ARBITRARY_EXCEPTION_NUM);
     EXPECT_EQ(ARBITRARY_EXCEPTION_MESSAGE, myException.viewMsg());
     EXPECT_EQ(ARBITRARY_EXCEPTION_NUM, myException.getNum());
