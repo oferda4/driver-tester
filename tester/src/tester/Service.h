@@ -5,8 +5,7 @@
 #include "Handle.h"
 #include "Exceptions.h"
 
-class ServiceHandleTraits {
-public:
+struct ServiceHandleTraits {
     MOVEABLE(ServiceHandleTraits);
 
     using HandleType = SC_HANDLE;
