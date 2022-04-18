@@ -4,7 +4,7 @@
 
 using std::wstring;
 
-Service::Service(ServiceHandle serviceHandle) : m_handle(std::move(serviceHandle)) {
+Service::Service(ServiceHandle serviceHandle, Passkey<SCManager>) : m_handle(std::move(serviceHandle)) {
     // Left blank intentionally
 }
 

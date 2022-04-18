@@ -30,6 +30,9 @@
     <ClInclude Include="Defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Passkey.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tester.cpp">

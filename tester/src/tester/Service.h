@@ -4,6 +4,7 @@
 
 #include "Handle.h"
 #include "Exceptions.h"
+#include "Passkey.h"
 
 struct ServiceHandleTraits {
     MOVEABLE(ServiceHandleTraits);
@@ -17,8 +18,11 @@ struct ServiceHandleTraits {
 
 using ServiceHandle = Handle<ServiceHandleTraits>;
 
+class SCManager;
+
 class Service final {
 public:
+    Service(ServiceHandle serviceHandle, Passkey<SCManager>);
     MOVEABLE(Service);
 
     void start();
@@ -26,10 +30,5 @@ public:
     void remove();
 
 private:
-    /// You should create and open services using SCManager class
-    Service(ServiceHandle serviceHandle);
-
     ServiceHandle m_handle;
-
-    friend class SCManager;
 };

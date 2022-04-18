@@ -15,5 +15,7 @@ public:
     Service openService(const std::wstring& name);
 
 private:
+    static Service createServiceObject(ServiceHandle serviceHandle);
+
     ServiceHandle m_handle;
 };

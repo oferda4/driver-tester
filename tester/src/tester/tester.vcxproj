@@ -158,6 +158,7 @@
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Handle.h" />
+    <ClInclude Include="Passkey.h" />
     <ClInclude Include="SCManager.h" />
     <ClInclude Include="Service.h" />
   </ItemGroup>
