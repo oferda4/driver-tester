@@ -26,8 +26,7 @@ template <typename Func>
 void tryExecute(Func f) {
     try {
         f();
-    }
-    catch (const Exception& exc) {
+    } catch (const Exception& exc) {
         traceException(exc);
     }
 }

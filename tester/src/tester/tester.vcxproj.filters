@@ -21,7 +21,7 @@
     <ClInclude Include="Handle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SCManager.h">
+    <ClInclude Include="ServiceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Service.h">
@@ -41,7 +41,7 @@
     <ClCompile Include="Exceptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SCManager.cpp">
+    <ClCompile Include="ServiceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Service.cpp">
@@ -53,6 +53,9 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="Exceptions.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Service.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

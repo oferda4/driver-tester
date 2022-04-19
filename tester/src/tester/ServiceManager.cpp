@@ -1,4 +1,4 @@
-#include "SCManager.h"
+#include "ServiceManager.h"
 
 #include "Exceptions.h"
 
@@ -6,7 +6,7 @@ SCManager::SCManager() : m_handle(OpenSCManager(nullptr, nullptr, SC_MANAGER_ALL
     // Left blank intentionally
 }
 
-Service SCManager::createService(const std::wstring& name, const std::wstring& pePath) {
+WinService SCManager::create(const std::wstring& name, const std::wstring& pePath) {
     return createServiceObject(CreateService(m_handle,
                                              name.c_str(),
                                              name.c_str(),
@@ -22,10 +22,10 @@ Service SCManager::createService(const std::wstring& name, const std::wstring& p
                                              nullptr));
 }
 
-Service SCManager::openService(const std::wstring& name) {
+WinService SCManager::open(const std::wstring& name) {
     return createServiceObject(OpenService(m_handle, name.c_str(), SERVICE_ALL_ACCESS));
 }
 
-Service SCManager::createServiceObject(ServiceHandle serviceHandle) {
-    return Service(std::move(serviceHandle), Passkey<SCManager>());
+WinService SCManager::createServiceObject(ServiceHandle serviceHandle) {
+    return WinService(WinServiceController(std::move(serviceHandle)));
 }

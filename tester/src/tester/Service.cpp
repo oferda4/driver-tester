@@ -1,30 +1,20 @@
 #include "Service.h"
 
-#include "Exceptions.h"
-
-using std::wstring;
-
-Service::Service(ServiceHandle serviceHandle, Passkey<SCManager>) : m_handle(std::move(serviceHandle)) {
-    // Left blank intentionally
+WinServiceController::WinServiceController(ServiceHandle handle) : m_handle(std::move(handle)) {
+    // Left blank
 }
 
-void Service::start() {
-    if (!StartService(m_handle, 0, nullptr)) {
-        throw WinAPIException(L"Failed starting service");
-    }
+bool WinServiceController::start() {
+    return StartService(m_handle, 0, nullptr);
 }
 
-void Service::stop() {
+bool WinServiceController::stop() {
     SERVICE_STATUS serviceStatus;
-    if (!ControlService(m_handle, SERVICE_CONTROL_STOP, &serviceStatus)) {
-        throw WinAPIException(L"Failed stopping service");
-    }
+    return ControlService(m_handle, SERVICE_CONTROL_STOP, &serviceStatus);
 }
 
-void Service::remove() {
-    if (!DeleteService(m_handle)) {
-        throw WinAPIException(L"Failed deleting service");
-    }
+bool WinServiceController::remove() {
+    return DeleteService(m_handle);
 }
 
 bool ServiceHandleTraits::close(HandleType handle) {

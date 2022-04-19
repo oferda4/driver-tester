@@ -19,9 +19,7 @@ public:
 
 struct MockHandleTraits {
     MockHandleTraits() = default;
-    MockHandleTraits(MockHandleTraits&&) noexcept = default;
-    MockHandleTraits& operator=(MockHandleTraits&&) noexcept = default;
-    // MOVEABLE(MockHandleTraits);
+    MOVEABLE(MockHandleTraits);
 
     using HandleType = uint32_t;
     using ExceptionType = MockException;

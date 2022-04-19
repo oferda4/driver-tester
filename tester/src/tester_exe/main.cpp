@@ -1,6 +1,6 @@
 #include "tester/Defs.h"
 
-#include "tester/SCManager.h"
+#include "tester/ServiceManager.h"
 #include "tester/Service.h"
 
 using std::exception;
@@ -41,7 +41,7 @@ void traceUsage() {
 void cleanup(const wstring& pePath) {
     traceInfo(L"Cleaning up driver");
     SCManager manager;
-    Service driverService = manager.openService(DRIVER_SERVICE_NAME);
+    auto driverService = manager.open(DRIVER_SERVICE_NAME);
     traceInfo(L"Stopping driver");
     tryExecute([&]() { driverService.stop(); });
     traceInfo(L"Deleting driver");
@@ -52,7 +52,7 @@ void run(const wstring& pePath) {
     traceInfo(L"Installing driver");
     const wstring fullPEPath = getAbsolutePath(pePath);
     SCManager manager;
-    Service driverService = manager.createService(DRIVER_SERVICE_NAME, fullPEPath);
+    auto driverService = manager.create(DRIVER_SERVICE_NAME, fullPEPath);
     traceInfo(L"Starting driver");
     driverService.start();
     traceInfo(L"Stopping driver");

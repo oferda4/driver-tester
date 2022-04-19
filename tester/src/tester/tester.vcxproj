@@ -159,18 +159,19 @@
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Handle.h" />
     <ClInclude Include="Passkey.h" />
-    <ClInclude Include="SCManager.h" />
+    <ClInclude Include="ServiceManager.h" />
     <ClInclude Include="Service.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Exceptions.cpp" />
-    <ClCompile Include="SCManager.cpp" />
+    <ClCompile Include="ServiceManager.cpp" />
     <ClCompile Include="Service.cpp" />
     <ClCompile Include="tester.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Exceptions.inl" />
     <None Include="Handle.inl" />
+    <None Include="Service.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
