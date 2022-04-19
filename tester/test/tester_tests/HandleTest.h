@@ -5,20 +5,21 @@
 
 #include "tester/Defs.h"
 #include "tester/Handle.h"
+#include "MockException.h"
 
 class HandleTest : public testing::Test {
+public:
+    virtual ~HandleTest() = default;
+
 private:
     void SetUp() override;
     void TearDown() override;
 };
 
-class MockException : public Exception {
-public:
-    MockException(std::wstring msg);
-};
-
 struct MockHandleTraits {
     MockHandleTraits() = default;
+    ~MockHandleTraits() = default;
+    NOCOPY(MockHandleTraits);
     MOVEABLE(MockHandleTraits);
 
     using HandleType = uint32_t;

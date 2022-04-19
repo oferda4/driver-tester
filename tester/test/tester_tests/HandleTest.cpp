@@ -2,7 +2,6 @@
 
 #include <gtest/gtest.h>
 
-using std::wstring;
 using std::optional;
 
 using testing::NiceMock;
@@ -75,9 +74,4 @@ void HandleTest::TearDown() {
 
 bool MockHandleTraits::close(HandleType handle) {
     return currMock->mockClose(handle);
-}
-
-MockException::MockException(wstring msg) : 
-    Exception(std::move(msg), 0) {
-    // Intentionally left blank
 }

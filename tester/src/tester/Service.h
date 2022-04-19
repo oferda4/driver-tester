@@ -41,7 +41,7 @@ concept ServiceController = requires(T t) {
     requires std::derived_from<typename T::ExceptionType, Exception>;
 };
 
-class WinServiceController {
+class WinServiceController final {
 public:
     using ExceptionType = WinAPIException<>;
 
