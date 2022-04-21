@@ -156,7 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Defs.h" />
-    <ClInclude Include="DriverInstallationGuard.h" />
+    <ClInclude Include="Driver.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Handle.h" />
     <ClInclude Include="Service.h" />
@@ -169,6 +169,7 @@
     <ClCompile Include="Tracer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Driver.inl" />
     <None Include="Exceptions.inl" />
     <None Include="Handle.inl" />
   </ItemGroup>
