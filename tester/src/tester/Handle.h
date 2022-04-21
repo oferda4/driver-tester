@@ -20,11 +20,11 @@ private:
 };
 
 template <typename T>
-concept HandleTraits = requires(T) {
+concept HandleTraits = requires(T, typename T::HandleType handle) {
     { T::HandleType };
     requires std::derived_from<typename T::ExceptionType, Exception>;
     { T::INVALID_VALUE } -> std::convertible_to<typename T::HandleType>;
-    { T::close(T::INVALID_VALUE) } -> std::same_as<bool>;
+    { T::close(handle) } -> std::same_as<bool>;
 };
 
 #include "Handle.inl"
