@@ -27,10 +27,10 @@
     <ClInclude Include="Defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Passkey.h">
+    <ClInclude Include="Tracer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tracer.h">
+    <ClInclude Include="DriverInstallationGuard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

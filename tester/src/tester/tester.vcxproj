@@ -156,9 +156,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Defs.h" />
+    <ClInclude Include="DriverInstallationGuard.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Handle.h" />
-    <ClInclude Include="Passkey.h" />
     <ClInclude Include="Service.h" />
     <ClInclude Include="Tracer.h" />
   </ItemGroup>

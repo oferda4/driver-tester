@@ -4,7 +4,6 @@
 
 #include "Handle.h"
 #include "Exceptions.h"
-#include "Passkey.h"
 
 struct ServiceHandleTraits {
     MOVEABLE(ServiceHandleTraits);
@@ -19,41 +18,42 @@ struct ServiceHandleTraits {
 using ServiceHandle = Handle<ServiceHandleTraits>;
 
 template <typename T>
-concept ServiceAPI = requires(T, typename T::HandleType& handle) {
+concept ServiceManagerAPI = requires(T, const std::wstring& name, const std::wstring& pePath) {
+    { T::create(name, pePath) } -> std::same_as<typename T::HandleType>;
+    { T::open(name) } -> std::same_as<typename T::HandleType>;
+};
+
+template <typename T>
+concept ServiceControlAPI = requires(T, typename T::HandleType& handle) {
     { T::start(handle) } -> std::same_as<void>;
     { T::stop(handle) } -> std::same_as<void>;
     { T::remove(handle) } -> std::same_as<void>;
 };
 
+template <typename API>
+concept ServiceAPI = ServiceManagerAPI<API> && ServiceControlAPI<API>;
+
 struct WinServiceAPI {
     using HandleType = ServiceHandle;
 
-    void start(HandleType& handle);
-    void stop(HandleType& handle);
-    void remove(HandleType& handle);
-};
-
-template <typename T>
-concept ServiceManager = requires(T, const std::wstring& name, const std::wstring& pePath) {
-    { T::HandleType };
-    { T::create(name, pePath) } -> std::same_as<typename T::HandleType>;
-    { T::open(name) } -> std::same_as<typename T::HandleType>;
+    static void start(HandleType& handle);
+    static void stop(HandleType& handle);
+    static void remove(HandleType& handle);
+    static HandleType create(const std::wstring& name, const std::wstring& pePath);
+    static HandleType open(const std::wstring& name);
 };
 
 class SCManager final {
 public:
     using HandleType = ServiceHandle;
 
-    static HandleType create(const std::wstring& name, const std::wstring& pePath);
-    static HandleType open(const std::wstring& name);
-
-private:
     SCManager();
     NOCOPY(SCManager);
     MOVEABLE(SCManager);
 
-    HandleType createInternal(const std::wstring& name, const std::wstring& pePath);
-    HandleType openInternal(const std::wstring& name);
+    HandleType create(const std::wstring& name, const std::wstring& pePath);
+    HandleType open(const std::wstring& name);
 
+private:
     ServiceHandle m_handle;
 };
