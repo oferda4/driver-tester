@@ -9,7 +9,7 @@
     <ClCompile Include="HandleTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MockException.cpp">
+    <ClCompile Include="MockHandle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -31,7 +31,7 @@
     <ClInclude Include="HandleTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MockException.h">
+    <ClInclude Include="MockHandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

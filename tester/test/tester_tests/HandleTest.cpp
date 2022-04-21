@@ -1,5 +1,7 @@
 #include "HandleTest.h"
 
+#include "MockHandle.h"
+
 #include <gtest/gtest.h>
 
 using std::optional;

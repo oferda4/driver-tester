@@ -1,5 +1,5 @@
 #include "tester/Defs.h"
-#include "MockException.h"
+#include "MockHandle.h"
 
 using std::wstring;
 
