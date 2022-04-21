@@ -159,13 +159,11 @@
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Handle.h" />
     <ClInclude Include="Passkey.h" />
-    <ClInclude Include="ServiceManager.h" />
     <ClInclude Include="Service.h" />
     <ClInclude Include="Tracer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Exceptions.cpp" />
-    <ClCompile Include="ServiceManager.cpp" />
     <ClCompile Include="Service.cpp" />
     <ClCompile Include="tester.cpp" />
     <ClCompile Include="Tracer.cpp" />
