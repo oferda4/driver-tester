@@ -1,22 +1,23 @@
 #pragma once
 
 #include "Defs.h"
+#include "Tracer.h"
 
-template <typename T>
-    requires HandleTraits<T>
+template <typename HandleTraitsType, typename TracerType = StdOutTracer>
+    requires HandleTraits<HandleTraitsType> && ExceptionTracer<TracerType>
 class Handle final {
 public:
-    Handle(typename T::HandleType handle);
+    Handle(typename HandleTraitsType::HandleType handle);
     ~Handle();
 
     NOCOPY(Handle);
     Handle(Handle&& other) noexcept;
     Handle& operator=(Handle&& other) noexcept;
 
-    operator typename T::HandleType() const;
+    operator typename HandleTraitsType::HandleType() const;
 
 private:
-    typename T::HandleType m_handle;
+    typename HandleTraitsType::HandleType m_handle;
 };
 
 template <typename T>

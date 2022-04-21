@@ -1,8 +1,6 @@
 #pragma once
 
 #include <windows.h>
-
-#include <iostream>
 #include <string>
 
 #include "Exceptions.h"
@@ -13,14 +11,6 @@
 #define MOVEABLE(className)                    \
     className(className&&) noexcept = default; \
     className& operator=(className&&) noexcept = default
-
-inline void traceException(const Exception& exc) {
-    std::wcout << "[Exception] msg - " << exc.viewMsg() << " ; num - " << exc.getNum() << std::endl;
-}
-
-inline void traceInfo(const std::wstring& msg) {
-    std::wcout << "[Info] " << msg << std::endl;
-}
 
 template <typename Func>
 void tryExecute(Func f) {
