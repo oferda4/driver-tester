@@ -18,43 +18,17 @@ struct ServiceHandleTraits {
 
 using ServiceHandle = Handle<ServiceHandleTraits>;
 
-template <typename ControllerType>
-    requires ServiceController<ControllerType>
-class Service final {
-public:
-    Service(ControllerType controller);
-    MOVEABLE(Service);
-
-    void start();
-    void stop();
-    void remove();
-
-private:
-    ControllerType m_controller;
-};
-
 template <typename T>
-concept ServiceController = requires(T t) {
-    { t.start() } -> std::same_as<bool>;
-    { t.stop() } -> std::same_as<bool>;
-    { t.remove() } -> std::same_as<bool>;
-    requires std::derived_from<typename T::ExceptionType, Exception>;
+concept ServiceAPI = requires(T, typename T::HandleType& handle) {
+    { T::start(handle) } -> std::same_as<void>;
+    { T::stop(handle) } -> std::same_as<void>;
+    { T::remove(handle) } -> std::same_as<void>;
 };
 
-class WinServiceController final {
-public:
-    using ExceptionType = WinAPIException<>;
+struct WinServiceAPI {
+    using HandleType = ServiceHandle;
 
-    WinServiceController(ServiceHandle handle);
-
-    bool start();
-    bool stop();
-    bool remove();
-    
-private:
-    ServiceHandle m_handle;
+    void start(HandleType& handle);
+    void stop(HandleType& handle);
+    void remove(HandleType& handle);
 };
-
-using WinService = Service<WinServiceController>;
-
-#include "Service.inl"

@@ -1,20 +1,22 @@
 #include "Service.h"
 
-WinServiceController::WinServiceController(ServiceHandle handle) : m_handle(std::move(handle)) {
-    // Left blank
+void WinServiceAPI::start(HandleType& handle) {
+    if (!StartService(handle, 0, nullptr)) {
+        throw WinAPIException(L"Failed starting service");
+    }
 }
 
-bool WinServiceController::start() {
-    return StartService(m_handle, 0, nullptr);
-}
-
-bool WinServiceController::stop() {
+void WinServiceAPI::stop(HandleType& handle) {
     SERVICE_STATUS serviceStatus;
-    return ControlService(m_handle, SERVICE_CONTROL_STOP, &serviceStatus);
+    if (!ControlService(handle, SERVICE_CONTROL_STOP, &serviceStatus)) {
+        throw WinAPIException(L"Failed stopping service");
+    }
 }
 
-bool WinServiceController::remove() {
-    return DeleteService(m_handle);
+void WinServiceAPI::remove(HandleType& handle) {
+    if (!DeleteService(handle)) {
+        throw WinAPIException(L"Failed deleting service");
+    }
 }
 
 bool ServiceHandleTraits::close(HandleType handle) {

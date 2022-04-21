@@ -171,7 +171,6 @@
   <ItemGroup>
     <None Include="Exceptions.inl" />
     <None Include="Handle.inl" />
-    <None Include="Service.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
