@@ -33,6 +33,9 @@
     <ClInclude Include="Driver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Safety.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tester.cpp">
@@ -56,6 +59,9 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="Driver.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Safety.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

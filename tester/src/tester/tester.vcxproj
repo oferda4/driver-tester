@@ -159,6 +159,7 @@
     <ClInclude Include="Driver.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Handle.h" />
+    <ClInclude Include="Safety.h" />
     <ClInclude Include="Service.h" />
     <ClInclude Include="Tracer.h" />
   </ItemGroup>
@@ -172,6 +173,7 @@
     <None Include="Driver.inl" />
     <None Include="Exceptions.inl" />
     <None Include="Handle.inl" />
+    <None Include="Safety.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

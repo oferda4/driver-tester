@@ -11,12 +11,6 @@
 #define MOVEABLE(className)                    \
     className(className&&) noexcept = default; \
     className& operator=(className&&) noexcept = default
-
-template <typename Func>
-void tryExecute(Func f) {
-    try {
-        f();
-    } catch (const Exception& exc) {
-        traceException(exc);
-    }
-}
+#define NOMOVE(className)                    \
+    className(className&&) noexcept = delete; \
+    className& operator=(className&&) noexcept = delete
