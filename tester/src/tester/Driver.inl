@@ -3,21 +3,21 @@
 #include "Driver.h"
 #include "Safety.h"
 
-template <ServiceAPI API>
-DriverInstallationGuard<API>::DriverInstallationGuard(const std::wstring& name, const std::wstring& pePath) : 
+template <ServiceControlAPI API, ExceptionTracer Tracer>
+DriverInstallationGuard<API, Tracer>::DriverInstallationGuard(const std::wstring& name, const std::wstring& pePath) : 
     m_handle(API::create(name, pePath)) {
     // Left blank
 }
 
-template <ServiceAPI API>
-DriverInstallationGuard<API>::~DriverInstallationGuard() {
+template <ServiceControlAPI API, ExceptionTracer Tracer>
+DriverInstallationGuard<API, Tracer>::~DriverInstallationGuard() {
     if (m_handle.has_value()) {
-        API::remove(*m_handle);
+        Safery::tryExecute([&]() { API::remove(*m_handle); });
     }
 }
 
-template <ServiceAPI API>
-DriverInstallationGuard<API>::operator typename API::HandleType() const {
+template <ServiceControlAPI API, ExceptionTracer Tracer>
+DriverInstallationGuard<API, Tracer>::operator typename API::HandleType() const {
     return m_handle.value();
 }
 

@@ -8,3 +8,5 @@ public:
     template <typename Func, ExceptionTracer Tracer>
     static void tryExecute(Func f);
 };
+
+#include "Safety.inl"

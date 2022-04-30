@@ -36,11 +36,11 @@
     <ClInclude Include="Safety.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Tester.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tester.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Exceptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -62,6 +62,9 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="Safety.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Tester.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

@@ -10,7 +10,7 @@
  * Then running it by starting the service.
  */
 
-template <ServiceAPI API>
+template <ServiceControlAPI API, ExceptionTracer Tracer>
 class DriverInstallationGuard final {
 public:
     DriverInstallationGuard(const std::wstring& name, const std::wstring& pePath);
