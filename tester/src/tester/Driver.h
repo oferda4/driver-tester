@@ -25,8 +25,7 @@ private:
     std::optional<typename API::HandleType> m_handle;
 };
 
-template <typename API, typename Tracer>
-    requires ServiceControlAPI<API> && ExceptionTracer<Tracer>
+template <ServiceControlAPI API, ExceptionTracer Tracer>
 class DriverRunningGuard final {
 public:
     DriverRunningGuard(typename API::HandleType& driverServiceHandle);

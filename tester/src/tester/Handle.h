@@ -3,8 +3,15 @@
 #include "Defs.h"
 #include "Tracer.h"
 
-template <typename HandleTraitsType, typename TracerType = StdOutTracer>
-    requires HandleTraits<HandleTraitsType> && ExceptionTracer<TracerType>
+template <typename T>
+concept HandleTraits = requires(T, typename T::HandleType handle) {
+    { T::HandleType };
+    requires std::derived_from<typename T::ExceptionType, Exception>;
+    { T::INVALID_VALUE } -> std::convertible_to<typename T::HandleType>;
+    { T::close(handle) } -> std::same_as<bool>;
+};
+
+template <HandleTraits HandleTraitsType, ExceptionTracer TracerType = StdOutTracer>
 class Handle final {
 public:
     Handle(typename HandleTraitsType::HandleType handle);
@@ -18,14 +25,6 @@ public:
 
 private:
     typename HandleTraitsType::HandleType m_handle;
-};
-
-template <typename T>
-concept HandleTraits = requires(T, typename T::HandleType handle) {
-    { T::HandleType };
-    requires std::derived_from<typename T::ExceptionType, Exception>;
-    { T::INVALID_VALUE } -> std::convertible_to<typename T::HandleType>;
-    { T::close(handle) } -> std::same_as<bool>;
 };
 
 #include "Handle.inl"

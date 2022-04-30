@@ -24,15 +24,13 @@ DriverInstallationGuard<API>::operator typename API::HandleType() const {
     return m_handle.value();
 }
 
-template <typename API, typename Tracer>
-    requires ServiceControlAPI<API> && ExceptionTracer<Tracer>
+template <ServiceControlAPI API, ExceptionTracer Tracer>
 DriverRunningGuard<API, Tracer>::DriverRunningGuard(typename API::HandleType& driverServiceHandle) : 
         m_driveServiceHandle(driverServiceHandle)  {
     API::start(m_driverServiceHandle);
 }
 
-template <typename API, typename Tracer>
-    requires ServiceControlAPI<API> && ExceptionTracer<Tracer>
+template <ServiceControlAPI API, ExceptionTracer Tracer>
 DriverRunningGuard<API, Tracer>::~DriverRunningGuard() {
     Safery::tryExecute([&]() { API::stop(m_driverServiceHandle); });
 }

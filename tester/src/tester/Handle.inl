@@ -4,8 +4,7 @@
 
 #include "Exceptions.h"
 
-template <typename HandleTraitsType, typename TracerType>
-    requires HandleTraits<HandleTraitsType> && ExceptionTracer<TracerType>
+template <HandleTraits HandleTraitsType, ExceptionTracer TracerType = StdOutTracer>
 Handle<HandleTraitsType, TracerType>::Handle(typename HandleTraitsType::HandleType handle) : 
     m_handle(handle) {
     if (handle == HandleTraitsType::INVALID_VALUE) {
@@ -13,8 +12,7 @@ Handle<HandleTraitsType, TracerType>::Handle(typename HandleTraitsType::HandleTy
     }
 }
 
-template <typename HandleTraitsType, typename TracerType>
-    requires HandleTraits<HandleTraitsType> && ExceptionTracer<TracerType>
+template <HandleTraits HandleTraitsType, ExceptionTracer TracerType = StdOutTracer>
 Handle<HandleTraitsType, TracerType>::~Handle() {
     if (m_handle != HandleTraitsType::INVALID_VALUE) {
         if (!HandleTraitsType::close(m_handle)) {
@@ -23,23 +21,20 @@ Handle<HandleTraitsType, TracerType>::~Handle() {
     }
 }
 
-template <typename HandleTraitsType, typename TracerType>
-requires HandleTraits<HandleTraitsType> && ExceptionTracer<TracerType>
+template <HandleTraits HandleTraitsType, ExceptionTracer TracerType = StdOutTracer>
 Handle<HandleTraitsType, TracerType>::Handle(Handle<HandleTraitsType, TracerType>&& other) noexcept : 
     m_handle(std::exchange(other.m_handle, HandleTraitsType::INVALID_VALUE)) {
     // Left blank intentionally
 }
 
-template <typename HandleTraitsType, typename TracerType>
-    requires HandleTraits<HandleTraitsType> && ExceptionTracer<TracerType>
+template <HandleTraits HandleTraitsType, ExceptionTracer TracerType = StdOutTracer>
 Handle<HandleTraitsType, TracerType>
 &Handle<HandleTraitsType, TracerType>::operator=(Handle<HandleTraitsType, TracerType>&& other) noexcept {
     m_handle = std::exchange(other.m_handle, HandleTraits::INVALID_VALUE);
     return *this;
 }
 
-template <typename HandleTraitsType, typename TracerType>
-    requires HandleTraits<HandleTraitsType> && ExceptionTracer<TracerType>
+template <HandleTraits HandleTraitsType, ExceptionTracer TracerType = StdOutTracer>
 Handle<HandleTraitsType, TracerType>::operator typename HandleTraitsType::HandleType() const {
     return m_handle;
 }
