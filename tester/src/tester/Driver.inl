@@ -3,14 +3,14 @@
 #include "Driver.h"
 #include "Safety.h"
 
-template <typename API>
+template <ServiceAPI API>
     requires ServiceAPI<API>
 DriverInstallationGuard<API>::DriverInstallationGuard(const std::wstring& name, const std::wstring& pePath) : 
     m_handle(API::create(name, pePath)) {
     // Left blank
 }
 
-template <typename API>
+template <ServiceAPI API>
     requires ServiceAPI<API>
 DriverInstallationGuard<API>::~DriverInstallationGuard() {
     if (m_handle.has_value()) {
@@ -18,7 +18,7 @@ DriverInstallationGuard<API>::~DriverInstallationGuard() {
     }
 }
 
-template <typename API>
+template <ServiceAPI API>
     requires ServiceAPI<API>
 DriverInstallationGuard<API>::operator typename API::HandleType() const {
     return m_handle.value();

@@ -10,8 +10,7 @@
  * Then running it by starting the service.
  */
 
-template <typename API>
-	requires ServiceAPI<API>
+template <ServiceAPI API>
 class DriverInstallationGuard final {
 public:
     DriverInstallationGuard(const std::wstring& name, const std::wstring& pePath);
