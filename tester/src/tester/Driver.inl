@@ -12,7 +12,7 @@ DriverInstallationGuard<API, Tracer>::DriverInstallationGuard(const std::wstring
 template <ServiceControlAPI API, ExceptionTracer Tracer>
 DriverInstallationGuard<API, Tracer>::~DriverInstallationGuard() {
     if (m_handle.has_value()) {
-        Safery::tryExecute([&]() { API::remove(*m_handle); });
+        Safety::tryExecute([&]() { API::remove(*m_handle); });
     }
 }
 
@@ -29,5 +29,5 @@ DriverRunningGuard<API, Tracer>::DriverRunningGuard(typename API::HandleType& dr
 
 template <ServiceControlAPI API, ExceptionTracer Tracer>
 DriverRunningGuard<API, Tracer>::~DriverRunningGuard() {
-    Safery::tryExecute([&]() { API::stop(m_driverServiceHandle); });
+    Safety::tryExecute([&]() { API::stop(m_driverServiceHandle); });
 }
