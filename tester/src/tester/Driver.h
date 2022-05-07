@@ -18,7 +18,7 @@ public:
     NOCOPY(DriverInstallationGuard);
     MOVEABLE(DriverInstallationGuard);
 
-    operator typename API::HandleType() const;
+    operator typename API::HandleType&();
 
 private:
     std::optional<typename API::HandleType> m_handle;
@@ -33,7 +33,7 @@ public:
     NOMOVE(DriverRunningGuard);
 
 private:
-    typename API::driverServiceHandle& m_driverServiceHandle;
+    typename API::HandleType& m_driverServiceHandle;
 };
 
 #include "Driver.inl"

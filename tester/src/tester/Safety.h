@@ -5,7 +5,7 @@
 
 class Safety {
 public:
-    template <typename Func, ExceptionTracer Tracer>
+    template <ExceptionTracer Tracer, typename Func>
     static void tryExecute(Func f);
 };
 

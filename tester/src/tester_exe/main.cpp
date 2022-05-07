@@ -1,7 +1,7 @@
 #include "tester/Defs.h"
 
-#include "tester/ServiceManager.h"
-#include "tester/Service.h"
+#include "tester/Tester.h"
+#include "tester/Safety.h"
 
 using std::exception;
 using std::wstring;
@@ -24,21 +24,20 @@ int wmain(int argc, wchar_t* argv[]) {
             traceUsage();
             return -1;
         }
-        tryExecute([&]() { cleanup(argv[1]); });
-    }
-    else {
-        tryExecute([&]() { run(argv[1]); });
+        Safety::tryExecute<StdOutTracer>([&]() { cleanup(argv[1]); });
+    } else {
+        Safety::tryExecute<StdOutTracer>([&]() { run(argv[1]); });
     }
 
-    traceInfo(L"Finish");
     return 0;
 }
 
 void traceUsage() {
-    traceInfo(L"Usage - tester.exe path_to_test_sys [--cleanup]");
+    StdOutTracer::info(L"Usage - tester.exe path_to_test_sys [--cleanup]");
 }
 
 void cleanup(const wstring& pePath) {
+    /*
     traceInfo(L"Cleaning up driver");
     SCManager manager;
     auto driverService = manager.open(DRIVER_SERVICE_NAME);
@@ -46,19 +45,11 @@ void cleanup(const wstring& pePath) {
     tryExecute([&]() { driverService.stop(); });
     traceInfo(L"Deleting driver");
     driverService.remove();
+    */
 }
 
 void run(const wstring& pePath) {
-    traceInfo(L"Installing driver");
-    const wstring fullPEPath = getAbsolutePath(pePath);
-    SCManager manager;
-    auto driverService = manager.create(DRIVER_SERVICE_NAME, fullPEPath);
-    traceInfo(L"Starting driver");
-    driverService.start();
-    traceInfo(L"Stopping driver");
-    driverService.stop();
-    traceInfo(L"Deleting driver");
-    driverService.remove();
+    WinTester tester(std::wstring(DRIVER_SERVICE_NAME), pePath);
 }
 
 wstring getAbsolutePath(const wstring& name) {

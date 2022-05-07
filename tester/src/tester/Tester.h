@@ -8,7 +8,7 @@ concept Tester = requires(T& t) {
     { t.runAllTests() } -> std::same_as<void>;
 };
 
-template <ServiceAPI API, ExceptionTracer Tracer>
+template <ServiceAPI API = WinServiceAPI, ExceptionTracer Tracer = StdOutTracer>
 class WinTester {
 public:
     WinTester(const std::wstring& name, const std::wstring& pePath);
