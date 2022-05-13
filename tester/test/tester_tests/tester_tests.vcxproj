@@ -36,6 +36,7 @@
     <ClCompile Include="ExceptionsTest.cpp" />
     <ClCompile Include="HandleTest.cpp" />
     <ClCompile Include="MockHandle.cpp" />
+    <ClCompile Include="SafetyTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -48,7 +49,9 @@
   <ItemGroup>
     <ClInclude Include="ExceptionsTest.h" />
     <ClInclude Include="HandleTest.h" />
+    <ClInclude Include="MockException.h" />
     <ClInclude Include="MockHandle.h" />
+    <ClInclude Include="MockTracer.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -12,6 +12,9 @@
     <ClCompile Include="MockHandle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SafetyTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -23,6 +26,9 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{6fe5f494-f6ec-4c0c-a4dc-8f59b5844000}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Mocks">
+      <UniqueIdentifier>{c6bffe42-e2f3-44b5-989d-97b496962f38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExceptionsTest.h">
@@ -32,7 +38,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MockHandle.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="MockException.h">
+      <Filter>Header Files\Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="MockTracer.h">
+      <Filter>Header Files\Mocks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

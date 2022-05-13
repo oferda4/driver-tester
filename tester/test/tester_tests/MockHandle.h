@@ -4,16 +4,8 @@
 #include <optional>
 
 #include "tester/Handle.h"
-
-class MockException final : public Exception {
-public:
-    MockException(std::wstring msg);
-};
-
-struct MockTracer {
-    static void exception(const Exception& exc) {}
-    static void info(const std::wstring& msg) {}
-};
+#include "MockException.h"
+#include "MockTracer.h"
 
 struct MockHandleTraits {
     MockHandleTraits() = default;
