@@ -10,7 +10,3 @@ std::optional<NiceMock<MockHandleTraits>> MockHandleTraits::currMock{};
 bool MockHandleTraits::close(HandleType handle) {
     return currMock->mockClose(handle);
 }
-
-MockException::MockException(wstring msg) : Exception(std::move(msg), 0) {
-    // Intentionally left blank
-}

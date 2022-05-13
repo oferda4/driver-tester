@@ -49,7 +49,7 @@
   <ItemGroup>
     <ClInclude Include="ExceptionsTest.h" />
     <ClInclude Include="HandleTest.h" />
-    <ClInclude Include="MockException.h" />
+    <ClInclude Include="FakeException.h" />
     <ClInclude Include="MockHandle.h" />
     <ClInclude Include="MockTracer.h" />
   </ItemGroup>

@@ -4,7 +4,7 @@
 #include <optional>
 
 #include "tester/Handle.h"
-#include "MockException.h"
+#include "FakeException.h"
 #include "MockTracer.h"
 
 struct MockHandleTraits {
@@ -14,7 +14,7 @@ struct MockHandleTraits {
     MOVEABLE(MockHandleTraits);
 
     using HandleType = uint32_t;
-    using ExceptionType = MockException;
+    using ExceptionType = FakeException;
 
     static constexpr HandleType INVALID_VALUE = 0;
     static bool close(HandleType handle);

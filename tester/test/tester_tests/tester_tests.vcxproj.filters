@@ -43,7 +43,7 @@
     <ClInclude Include="MockHandle.h">
       <Filter>Header Files\Mocks</Filter>
     </ClInclude>
-    <ClInclude Include="MockException.h">
+    <ClInclude Include="FakeException.h">
       <Filter>Header Files\Mocks</Filter>
     </ClInclude>
     <ClInclude Include="MockTracer.h">

@@ -28,7 +28,7 @@ TEST_F(HandleTest, ValidHandleCtor) {
 }
 
 TEST_F(HandleTest, InvalidHandleCtor) {
-    EXPECT_THROW((MockHandle(MockHandleTraits::INVALID_VALUE)), MockException);
+    EXPECT_THROW((MockHandle(MockHandleTraits::INVALID_VALUE)), FakeException);
 }
 
 TEST_F(HandleTest, Dtor) {
