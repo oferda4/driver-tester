@@ -15,8 +15,6 @@ static void assertMovedAndNewHandle(optional<MockHandle> movedHandle, optional<M
 constexpr MockHandleTraits::HandleType ARBITRARY_HANDLE_VALUE = 16;
 static_assert(ARBITRARY_HANDLE_VALUE != MockHandleTraits::INVALID_VALUE);
 
-std::optional<NiceMock<MockHandleTraits>> MockHandleTraits::currMock{};
-
 void HandleTest::SetUp() {
     MockHandleTraits::currMock.emplace();
 }
@@ -72,8 +70,4 @@ void assertMovedAndNewHandle(optional<MockHandle> movedHandle, optional<MockHand
 TEST_F(HandleTest, NotCopyable) {
     static_assert(!std::is_copy_constructible<MockHandle>::value);
     static_assert(!std::is_copy_assignable<MockHandle>::value);
-}
-
-bool MockHandleTraits::close(HandleType handle) {
-    return currMock->mockClose(handle);
 }

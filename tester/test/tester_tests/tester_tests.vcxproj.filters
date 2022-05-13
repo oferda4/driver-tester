@@ -9,11 +9,11 @@
     <ClCompile Include="HandleTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MockHandle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SafetyTest.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MockHandle.cpp">
+      <Filter>Source Files\Mocks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -28,6 +28,9 @@
     </Filter>
     <Filter Include="Header Files\Mocks">
       <UniqueIdentifier>{c6bffe42-e2f3-44b5-989d-97b496962f38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mocks">
+      <UniqueIdentifier>{ef9549c8-6722-4796-8d7d-95d269521c6d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
