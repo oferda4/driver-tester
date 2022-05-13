@@ -17,6 +17,14 @@ static_assert(ARBITRARY_HANDLE_VALUE != MockHandleTraits::INVALID_VALUE);
 
 std::optional<NiceMock<MockHandleTraits>> MockHandleTraits::currMock{};
 
+void HandleTest::SetUp() {
+    MockHandleTraits::currMock.emplace();
+}
+
+void HandleTest::TearDown() {
+    MockHandleTraits::currMock.reset();
+}
+
 TEST_F(HandleTest, ValidHandleCtor) {
     EXPECT_NO_THROW((MockHandle(ARBITRARY_HANDLE_VALUE)));
 }
@@ -64,14 +72,6 @@ void assertMovedAndNewHandle(optional<MockHandle> movedHandle, optional<MockHand
 TEST_F(HandleTest, NotCopyable) {
     static_assert(!std::is_copy_constructible<MockHandle>::value);
     static_assert(!std::is_copy_assignable<MockHandle>::value);
-}
-
-void HandleTest::SetUp() {
-    MockHandleTraits::currMock.emplace();
-}
-
-void HandleTest::TearDown() {
-    MockHandleTraits::currMock.reset();
 }
 
 bool MockHandleTraits::close(HandleType handle) {
