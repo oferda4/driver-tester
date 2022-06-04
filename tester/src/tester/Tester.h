@@ -1,21 +1,22 @@
 #pragma once
 
+#include <memory>
+
 #include "Defs.h"
-#include "Driver.h"
+#include "ClientCommunicator.h"
+#include "Tracer.h"
 
-template <typename T>
-concept Tester = requires(T& t) {
-    { t.runAllTests() } -> std::same_as<void>;
-};
-
-template <ServiceAPI API = WinServiceAPI, ExceptionTracer Tracer = StdOutTracer>
-class WinTester {
+template <ClientCommunicator ClientCommunicatorType, Tracer TracerType>
+class Tester {
 public:
-    WinTester(const std::wstring& name, const std::wstring& pePath);
+    Tester(std::unique_ptr<ClientCommunicatorType> communicator);
+
+    void runAllTests();
 
 private:
-    DriverInstallationGuard<API, Tracer> m_installationGuard;
-    DriverRunningGuard<API, Tracer> m_runningGuard;
+    void runAllTestsInFixture(const FixtureInfo& fixture);
+
+    std::unique_ptr<ClientCommunicatorType> m_communicator;
 };
 
 #include "Tester.inl"

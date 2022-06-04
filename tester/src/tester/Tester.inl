@@ -2,9 +2,23 @@
 
 #include "Tester.h"
 
-template <ServiceAPI API, ExceptionTracer Tracer>
-WinTester<API, Tracer>::WinTester(const std::wstring& name, const std::wstring& pePath) : 
-    m_installationGuard(name, pePath),
-    m_runningGuard(m_installationGuard) {
+template <ClientCommunicator ClientCommunicatorType, Tracer TracerType>
+Tester<ClientCommunicatorType, TracerType>::Tester(std::unique_ptr<ClientCommunicatorType> communicator) : 
+    m_communicator(std::move(communicator))  {
     // Left blank intentionally
+}
+
+template <ClientCommunicator ClientCommunicatorType, Tracer TracerType>
+void Tester<ClientCommunicatorType, TracerType>::runAllTests() {
+    for (const auto& fixture : m_communicator->getFixtures()) {
+        TracerType::info(fixture.name);
+        runAllTestsInFixture(fixture);
+    }
+}
+
+template <ClientCommunicator ClientCommunicatorType, Tracer TracerType>
+void Tester<ClientCommunicatorType, TracerType>::runAllTestsInFixture(const FixtureInfo& fixture) {
+    for (const auto& test : m_communicator->getTests()) {
+        auto result = m_communicator->runTest(test.id);
+    }
 }
