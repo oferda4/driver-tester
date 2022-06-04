@@ -7,4 +7,5 @@
 class FakeException final : public Exception {
 public:
     FakeException(std::wstring msg) : Exception(std::move(msg), 0){};
+    FakeException() : Exception(L"", 0){};
 };
