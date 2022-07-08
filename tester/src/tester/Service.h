@@ -6,8 +6,6 @@
 #include "Exceptions.h"
 
 struct ServiceHandleTraits {
-    MOVEABLE(ServiceHandleTraits);
-
     using HandleType = SC_HANDLE;
     using ExceptionType = WinAPIException<>;
     
