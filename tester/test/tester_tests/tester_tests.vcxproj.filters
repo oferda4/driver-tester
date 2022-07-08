@@ -15,6 +15,9 @@
     <ClCompile Include="MockHandle.cpp">
       <Filter>Source Files\Mocks</Filter>
     </ClCompile>
+    <ClCompile Include="TesterTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -48,6 +51,9 @@
     </ClInclude>
     <ClInclude Include="MockTracer.h">
       <Filter>Header Files\Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="TesterTest.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
