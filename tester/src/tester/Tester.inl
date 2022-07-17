@@ -18,7 +18,7 @@ void Tester<ClientCommunicatorType, TracerType>::runAllTests() {
 
 template <ClientCommunicator ClientCommunicatorType, Tracer TracerType>
 void Tester<ClientCommunicatorType, TracerType>::runAllTestsInFixture(const FixtureInfo& fixture) {
-    for (const auto& test : m_communicator->getTests()) {
+    for (const auto& test : m_communicator->getTests(fixture.id)) {
         auto result = m_communicator->runTest(test.id);
         // TracerType::info(m_converter.from_bytes(test.name) + std::wstring(L": ") + );
     }
