@@ -27,6 +27,9 @@ TEST(TestTest, RunAllTests) {
                 getTests(testing::AllOf(
                     testing::Ge(ARBITRARY_FIXTURES_INDEX_START), testing::Lt(ARBITRARY_FIXTURES_INDEX_START + ARBITRARY_NUMBER_OF_FIXTURES))))
         .WillRepeatedly(testing::Return(getFixturesTestsList()));
+    EXPECT_CALL(*comm, runTest(testing::AllOf(
+                           testing::Ge(ARBITRARY_TESTS_INDEX_START), testing::Lt(ARBITRARY_TESTS_INDEX_START + ARBITRARY_NUMBER_OF_TESTS))))
+        .WillRepeatedly(testing::Return(TestResult{}));
 
     ASSERT_NO_THROW((Tester<MockClientCommunicator, MockTracer>(std::move(comm)).runAllTests()));
 }
