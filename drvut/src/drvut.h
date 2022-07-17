@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ntddk.h>
+#include "Defs.h"
 
 #if DBG
 #define TRACE(_x_)            \
