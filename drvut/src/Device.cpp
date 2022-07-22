@@ -5,31 +5,16 @@
 namespace drvut {
 namespace internal {
 
-Device::Device(PDEVICE_OBJECT initializedObj) : m_obj(initializedObj), m_isValid(true) {
+Device::Device(PDEVICE_OBJECT initializedObj) : m_obj(initializedObj) {
     // Left blank intentionally
 }
 
-Device::~Device() {
-    if (m_isValid) {
-        IoDeleteDevice(m_obj);
-    }
-
-}
-
-Device::Device(Device&& other) : 
-    m_obj(std::exchange(other.m_obj, nullptr)),
-    m_isValid(std::exchange(other.m_isValid, false)) {
+Device::Device(PDRIVER_OBJECT driver, PCUNICODE_STRING name) : m_obj(nullptr), m_driver(driver), m_name(name) {
     // Left blank intentionally
 }
 
-Device& Device::operator=(Device&& other) noexcept {
-    m_obj = std::exchange(other.m_obj, nullptr);
-    m_isValid = std::exchange(other.m_isValid, false);
-    return *this;
-}
-
-NTSTATUS Device::init(PDRIVER_OBJECT driverObject, const UNICODE_STRING& name) {
-    const NTSTATUS status = IoCreateDevice(driverObject, 0, const_cast<PUNICODE_STRING>(&name), FILE_DEVICE_UNKNOWN, FILE_DEVICE_SECURE_OPEN, FALSE, &m_obj);
+NTSTATUS Device::initialize() {
+    const NTSTATUS status = IoCreateDevice(m_driver, 0, const_cast<PUNICODE_STRING>(m_name), FILE_DEVICE_UNKNOWN, FILE_DEVICE_SECURE_OPEN, FALSE, &m_obj);
     if (!status) {
         return status;
     }
@@ -37,9 +22,9 @@ NTSTATUS Device::init(PDRIVER_OBJECT driverObject, const UNICODE_STRING& name) {
     return STATUS_SUCCESS;
 }
 
-void Device::leak() {
-    m_obj = nullptr;
-    m_isValid = false;
+NTSTATUS Device::destroy() {
+    IoDeleteDevice(m_obj);
+    return STATUS_SUCCESS;
 }
 
 }

@@ -42,5 +42,16 @@
     <ClInclude Include="Traits.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Concepts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

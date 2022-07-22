@@ -223,11 +223,16 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="drvut.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="Traits.h" />
     <ClInclude Include="Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

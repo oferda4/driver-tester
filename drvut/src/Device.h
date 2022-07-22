@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Defs.h"
+#include "Resource.h"
 
 namespace drvut {
 namespace internal {
@@ -8,18 +9,20 @@ namespace internal {
 class Device final {
 public:
     Device(PDEVICE_OBJECT initializedObj);
-    Device() = default;
-    ~Device();
-    Device(Device&& other);
-    Device& operator=(Device&& other) noexcept;
+    Device(PDRIVER_OBJECT driver, PCUNICODE_STRING name);
+    MOVEABLE(Device);
+    NOCOPY(Device);
 
-    NTSTATUS init(PDRIVER_OBJECT driverObject, const UNICODE_STRING& name);
-    void leak();
+    NTSTATUS initialize();
+    NTSTATUS destroy();
 
 private:
-    bool m_isValid = false;
-    PDEVICE_OBJECT m_obj = nullptr;
+    PDEVICE_OBJECT m_obj;
+    PDRIVER_OBJECT m_driver;
+    PCUNICODE_STRING m_name;
 };
+
+using DeviceGuard = ResourceGuard<Device>;
 
 }
 }

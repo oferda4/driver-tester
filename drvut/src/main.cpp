@@ -12,13 +12,13 @@ static void unloadDriver(PDRIVER_OBJECT DriverObject);
 
 EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath) {
     NTSTATUS status;
-    Device device;
-
+    DeviceGuard device(Device(DriverObject, &NT_DEVICE_NAME));
+    
     UNREFERENCED_PARAMETER(RegistryPath);
 
     TRACE("Driver Entry\n");
 
-    status = device.init(DriverObject, NT_DEVICE_NAME);
+    status = device.init();
     if (!NT_SUCCESS(status)) {
         TRACE("Couldn't create the device object\n");
         return status;
@@ -46,7 +46,7 @@ void unloadDriver(PDRIVER_OBJECT DriverObject) {
     TRACE("Unload Driver\n");
     IoDeleteSymbolicLink(const_cast<PUNICODE_STRING>(&DOS_DEVICE_NAME));
     if (deviceObject) {
-        Device device(deviceObject);
+        DeviceGuard device(Device(deviceObject), true);
     }
 }
 
