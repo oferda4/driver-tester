@@ -11,10 +11,10 @@ static constexpr UNICODE_STRING DOS_DEVICE_NAME = RTL_CONSTANT_STRING(L"\\DosDev
 static void unloadDriver(PDRIVER_OBJECT DriverObject);
 
 EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath) {
+    UNREFERENCED_PARAMETER(RegistryPath);
+
     DeviceGuard device(Device(DriverObject, &NT_DEVICE_NAME));
     SymbolicLinkGuard symbolicLink(SymbolicLink(&DOS_DEVICE_NAME, &NT_DEVICE_NAME));
-
-    UNREFERENCED_PARAMETER(RegistryPath);
 
     TRACE("Driver Entry\n");
     DriverObject->DriverUnload = unloadDriver;
@@ -28,8 +28,6 @@ EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING Regis
 }
 
 void unloadDriver(PDRIVER_OBJECT DriverObject) {
-    PAGED_CODE();
-
     PDEVICE_OBJECT deviceObject = DriverObject->DeviceObject;
     if (!deviceObject) {
         return;
