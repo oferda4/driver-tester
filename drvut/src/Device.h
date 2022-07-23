@@ -2,6 +2,7 @@
 
 #include "Defs.h"
 #include "Resource.h"
+#include "SymbolicLink.h"
 
 namespace drvut {
 namespace internal {

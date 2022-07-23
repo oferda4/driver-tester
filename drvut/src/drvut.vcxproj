@@ -221,6 +221,7 @@
   <ItemGroup>
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SymbolicLink.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Concepts.h" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Device.h" />
     <ClInclude Include="drvut.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SymbolicLink.h" />
     <ClInclude Include="Traits.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>

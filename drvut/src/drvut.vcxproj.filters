@@ -25,6 +25,9 @@
     <ClCompile Include="Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SymbolicLink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drvut.h">
@@ -46,6 +49,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Concepts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SymbolicLink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
