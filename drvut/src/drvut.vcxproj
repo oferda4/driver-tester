@@ -17,22 +17,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|ARM">
-      <Configuration>Debug</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|ARM">
-      <Configuration>Release</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|ARM64">
-      <Configuration>Debug</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|ARM64">
-      <Configuration>Release</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F2806D28-B8AB-4ACC-B268-CD35A611F79B}</ProjectGuid>
@@ -148,6 +132,7 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\drvut\src\;$(SolutionDir)..\Common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -161,6 +146,7 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\drvut\src\;$(SolutionDir)..\Common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -174,6 +160,7 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\drvut\src\;$(SolutionDir)..\Common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -187,6 +174,7 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\drvut\src\;$(SolutionDir)..\Common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -224,6 +212,7 @@
     <ClCompile Include="SymbolicLink.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\common\Ioctls.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Device.h" />
