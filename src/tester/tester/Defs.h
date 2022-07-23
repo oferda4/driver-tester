@@ -14,8 +14,3 @@
 #define NOMOVE(className)                    \
     className(className&&) noexcept = delete; \
     className& operator=(className&&) noexcept = delete
-
-#ifndef CL_CODE
-#define CTL_CODE(DeviceType, Function, Method, Access) ( \
-    ((DeviceType) << 16) | ((Access) << 14) | ((Function) << 2) | (Method))
-#endif
