@@ -27,7 +27,6 @@ EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING Regis
     DriverObject->DriverUnload = unloadDriver;
 
     status = IoCreateSymbolicLink(const_cast<PUNICODE_STRING>(&DOS_DEVICE_NAME), const_cast<PUNICODE_STRING>(&NT_DEVICE_NAME));
-
     if (!NT_SUCCESS(status)) {
         TRACE("Couldn't create symbolic link\n");
         return status;

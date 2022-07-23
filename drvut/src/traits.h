@@ -79,5 +79,14 @@ template <class T>
 struct is_nothrow_move_constructible : is_nothrow_constructible<T, typename add_rvalue_reference<T>::type> {};
 }
 
+template <class T>
+struct remove_reference { typedef T type; };
+template <class T>
+struct remove_reference<T&> { typedef T type; };
+template <class T>
+struct remove_reference<T&&> { typedef T type; };
+template< class T >
+using remove_reference_t = typename remove_reference<T>::type;
+
 }
 }
