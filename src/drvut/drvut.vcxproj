@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Device.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="SymbolicLink.cpp" />
   </ItemGroup>
   <ItemGroup>
