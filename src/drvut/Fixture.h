@@ -3,17 +3,16 @@
 #include <vector>
 #include <string>
 
-#include "Test.h"
-
 namespace drvut {
 namespace internal {
 
-class FixturesManager {
+class FixturesManager final {
 public:
     static FixturesManager& getInstance();
     static void destroy();
 
 private:
+    FixturesManager() = default;
     static void initialize();
 
     static FixturesManager* sm_manager;
