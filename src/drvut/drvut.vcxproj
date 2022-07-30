@@ -82,21 +82,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Device.cpp" />
+    <ClCompile Include="Fixture.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="SymbolicLink.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\common\Ioctls.h" />
+    <ClInclude Include="..\common\Ioctls.h" />
+    <ClInclude Include="..\common\Messages.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="drvut.h" />
+    <ClInclude Include="Fixture.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SymbolicLink.h" />
     <ClInclude Include="Traits.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Fixture.inl" />
+    <None Include="List.inl" />
     <None Include="Resource.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

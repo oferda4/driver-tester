@@ -28,6 +28,12 @@
     <ClCompile Include="SymbolicLink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Fixture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drvut.h">
@@ -54,12 +60,27 @@
     <ClInclude Include="SymbolicLink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\Ioctls.h">
+    <ClInclude Include="..\common\Ioctls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fixture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\Messages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Fixture.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="List.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
