@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ntddk.h>
+#include <stdint.h>
 #include "Utility.h"
 
 #define NOCOPY(className)                 \
