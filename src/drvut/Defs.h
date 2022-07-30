@@ -18,3 +18,7 @@
     if (!NT_SUCCESS(status)) {      \
         return status;              \
     }
+
+void* operator new(size_t size);
+void* operator new(size_t, void* p);
+void operator delete(void* p);

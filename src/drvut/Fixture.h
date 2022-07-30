@@ -5,53 +5,21 @@
 
 #include "Test.h"
 
-namespace drvtest {
-    namespace ut {
+namespace drvut {
+namespace internal {
 
-        enum class RunTestResultType {
-            SUCCESS,
-            FAILED,
-            END
-        };
+class FixturesManager {
+public:
+    static FixturesManager& getInstance();
+    static void destroy();
 
-        struct RunTestResult {
-            std::string name;
-            RunTestResultType type;
-        };
+private:
+    static void initialize();
 
-        class Fixture {
-        public:
-            virtual ~Fixture() = default;
+    static FixturesManager* sm_manager;
+};
 
-            virtual void setup() = 0;
-            virtual void teardown() = 0;
-        };
-
-        class FixtureHandler {
-        public:
-            virtual ~FixtureHandler() = default;
-
-            virtual RunTestResult runNextTest() = 0;
-        };
-
-        template <typename FixtureType>
-        class FixtureHandlerImpl final : public FixtureHandler {
-        public:
-            FixtureHandlerImpl();
-
-            static void add(Test test);
-            RunTestResult runNextTest() override;
-
-        private:
-            bool didFinish();
-            Test& advance();
-            static void runTest(Test& test);
-
-            static std::vector<Test> sm_tests;
-            uint32_t m_index;
-        };
-
-    }
+}
 }
 
 #include "Fixture.inl"

@@ -1,6 +1,7 @@
 #include "drvut.h"
 
 #include "Device.h"
+#include "Fixture.h"
 
 namespace drvut {
 namespace internal {
@@ -34,6 +35,7 @@ void unloadDriver(PDRIVER_OBJECT DriverObject) {
     }
 
     TRACE("Unload Driver\n");
+    FixturesManager::destroy();
     DeviceGuard device(Device(deviceObject), true);
     SymbolicLinkGuard symbolicLink(SymbolicLink(&DOS_DEVICE_NAME), true);
 }
