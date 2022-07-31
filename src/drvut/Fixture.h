@@ -8,7 +8,7 @@ namespace internal {
 
 class Fixture {
 public:
-    ~Fixture() = default;
+    virtual ~Fixture() = default;
 };
 
 class FixturesManager final {
