@@ -96,6 +96,7 @@
     <ClInclude Include="drvut.h" />
     <ClInclude Include="Fixture.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="Memory.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SymbolicLink.h" />
     <ClInclude Include="Traits.h" />
@@ -104,6 +105,7 @@
   <ItemGroup>
     <None Include="Fixture.inl" />
     <None Include="List.inl" />
+    <None Include="Memory.inl" />
     <None Include="Resource.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
