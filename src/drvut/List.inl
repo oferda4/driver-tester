@@ -22,7 +22,7 @@ List<T>::~List() {
 
 template<typename T>
 Node<T>::Node(T value) : value(std::move(value)) {
-    // Lfet blank intentionally
+    // Left blank intentionally
 }
 
 template<typename T>

@@ -1,7 +1,6 @@
 #pragma once
 
-#include <ntddk.h>
-#include <stdint.h>
+#include <ntifs.h>
 #include "Utility.h"
 
 #define NOCOPY(className)                 \
@@ -21,4 +20,4 @@
 
 void* __cdecl operator new(size_t size);
 void* __cdecl operator new(size_t, void* p);
-void __cdecl operator delete(void* p);
+void __cdecl operator delete(void* p, size_t);

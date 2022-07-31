@@ -2,14 +2,14 @@
 
 static constexpr ULONG TEST_DRIVER_POOL_TAG = 'tset';
 
-void* operator new(size_t size) {
+void* __cdecl operator new(size_t size) {
     return ExAllocatePool2(PagedPool, size, TEST_DRIVER_POOL_TAG);
 }
 
-void* operator new(size_t, void* p) {
+void* __cdecl operator new(size_t, void* p) {
     return p;
 }
 
-void operator delete(void* p) {
+void __cdecl operator delete(void* p, size_t) {
     ExFreePoolWithTag(p, TEST_DRIVER_POOL_TAG);
 }
