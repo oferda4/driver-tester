@@ -49,7 +49,7 @@ void cleanup(const wstring& pePath) {
 }
 
 void run(const wstring& pePath) {
-    WinTester tester(std::wstring(DRIVER_SERVICE_NAME), pePath);
+    // WinTester tester(std::wstring(DRIVER_SERVICE_NAME), pePath);
 }
 
 wstring getAbsolutePath(const wstring& name) {
