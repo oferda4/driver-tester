@@ -47,7 +47,11 @@ void cleanup(const wstring& pePath) {
 }
 
 void run(const wstring& pePath) {
-    // WinTester tester(std::wstring(DRIVER_SERVICE_NAME), pePath);
+    StdOutTracer::info(L"Setting up driver");
+    SCManager manager;
+    StdOutTracer::info(L"Installing driver");
+    DriverInstallationGuard<StdOutTracer> installationGuard(manager, DRIVER_SERVICE_NAME, pePath);
+    DriverRunningGuard<StdOutTracer> runningGuard(installationGuard.get());
 }
 
 wstring getAbsolutePath(const wstring& name) {
