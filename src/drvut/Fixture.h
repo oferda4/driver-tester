@@ -9,6 +9,9 @@ namespace internal {
 class Fixture {
 public:
     virtual ~Fixture() = default;
+
+    virtual void setup() = 0;
+    virtual void teardown() = 0;
 };
 
 class FixturesManager final {
