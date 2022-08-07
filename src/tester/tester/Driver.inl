@@ -3,31 +3,34 @@
 #include "Driver.h"
 #include "Safety.h"
 
-template <ServiceControlAPI API, ExceptionTracer Tracer>
-DriverInstallationGuard<API, Tracer>::DriverInstallationGuard(const std::wstring& name, const std::wstring& pePath) : 
-    m_handle(API::create(name, pePath)) {
-    // Left blank
+template <ExceptionTracer Tracer>
+DriverInstallationGuard<Tracer>::DriverInstallationGuard(SCManager& manager, const std::wstring& name, const std::wstring& pePath) : 
+    m_service(std::make_unique<Service>(manager.create(name, pePath))) {
+    // Left blank intentionally
 }
 
-template <ServiceControlAPI API, ExceptionTracer Tracer>
-DriverInstallationGuard<API, Tracer>::~DriverInstallationGuard() {
-    if (m_handle.has_value()) {
-        Safety::tryExecute<Tracer>([&]() { API::remove(*m_handle); });
+template <ExceptionTracer Tracer>
+DriverInstallationGuard<Tracer>::~DriverInstallationGuard() {
+    if (m_service) {
+        Safety::tryExecute<Tracer>([&]() { m_service->remove(); });
     }
 }
 
-template <ServiceControlAPI API, ExceptionTracer Tracer>
-DriverInstallationGuard<API, Tracer>::operator typename API::HandleType&() {
-    return m_handle.value();
+template <ExceptionTracer Tracer>
+Service& DriverInstallationGuard<Tracer>::get() {
+    if (!m_service) {
+        throw std::exception("Invalid state");
+    }
+    return *m_service;
 }
 
-template <ServiceControlAPI API, ExceptionTracer Tracer>
-DriverRunningGuard<API, Tracer>::DriverRunningGuard(typename API::HandleType& driverServiceHandle) : 
-        m_driverServiceHandle(driverServiceHandle) {
-    API::start(m_driverServiceHandle);
+template <ExceptionTracer Tracer>
+DriverRunningGuard<Tracer>::DriverRunningGuard(Service& driverService) : 
+        m_driverService(driverService) {
+    m_driverService.start();
 }
 
-template <ServiceControlAPI API, ExceptionTracer Tracer>
-DriverRunningGuard<API, Tracer>::~DriverRunningGuard() {
-    Safety::tryExecute<Tracer>([&]() { API::stop(m_driverServiceHandle); });
+template <ExceptionTracer Tracer>
+DriverRunningGuard<Tracer>::~DriverRunningGuard() {
+    Safety::tryExecute<Tracer>([&]() { m_driverService.stop(); });
 }

@@ -37,15 +37,13 @@ void traceUsage() {
 }
 
 void cleanup(const wstring& pePath) {
-    /*
-    traceInfo(L"Cleaning up driver");
+    StdOutTracer::info(L"Cleaning up driver");
     SCManager manager;
     auto driverService = manager.open(DRIVER_SERVICE_NAME);
-    traceInfo(L"Stopping driver");
-    tryExecute([&]() { driverService.stop(); });
-    traceInfo(L"Deleting driver");
+    StdOutTracer::info(L"Stopping driver");
+    Safety::tryExecute<StdOutTracer>([&]() { driverService.stop(); });
+    StdOutTracer::info(L"Deleting driver");
     driverService.remove();
-    */
 }
 
 void run(const wstring& pePath) {

@@ -10,30 +10,30 @@
  * Then running it by starting the service.
  */
 
-template <ServiceControlAPI API, ExceptionTracer Tracer>
+template <ExceptionTracer Tracer>
 class DriverInstallationGuard final {
 public:
-    DriverInstallationGuard(const std::wstring& name, const std::wstring& pePath);
+    DriverInstallationGuard(SCManager& manager, const std::wstring& name, const std::wstring& pePath);
     ~DriverInstallationGuard();
     NOCOPY(DriverInstallationGuard);
     MOVEABLE(DriverInstallationGuard);
 
-    operator typename API::HandleType&();
+    Service& get();
 
 private:
-    std::optional<typename API::HandleType> m_handle;
+    std::unique_ptr<Service> m_service;
 };
 
-template <ServiceControlAPI API, ExceptionTracer Tracer>
+template <ExceptionTracer Tracer>
 class DriverRunningGuard final {
 public:
-    DriverRunningGuard(typename API::HandleType& driverServiceHandle);
+    DriverRunningGuard(Service& driverService);
     ~DriverRunningGuard();
     NOCOPY(DriverRunningGuard);
     NOMOVE(DriverRunningGuard);
 
 private:
-    typename API::HandleType& m_driverServiceHandle;
+    Service& m_driverService;
 };
 
 #include "Driver.inl"

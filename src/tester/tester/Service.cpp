@@ -1,56 +1,55 @@
 #include "Service.h"
 
-void WinServiceAPI::start(HandleType& handle) {
-    if (!StartService(handle, 0, nullptr)) {
+bool ServiceHandleTraits::close(HandleType handle) {
+    return CloseServiceHandle(handle);
+}
+
+Service::Service(ServiceHandle handle) : m_handle(std::move(handle)) {
+    // Left blank intentionally
+}
+
+void Service::start() {
+    if (!StartService(m_handle, 0, nullptr)) {
         throw WinAPIException(L"Failed starting service");
     }
 }
 
-void WinServiceAPI::stop(HandleType& handle) {
+void Service::stop() {
     SERVICE_STATUS serviceStatus;
-    if (!ControlService(handle, SERVICE_CONTROL_STOP, &serviceStatus)) {
+    if (!ControlService(m_handle, SERVICE_CONTROL_STOP, &serviceStatus)) {
         throw WinAPIException(L"Failed stopping service");
     }
 }
 
-void WinServiceAPI::remove(HandleType& handle) {
-    if (!DeleteService(handle)) {
+void Service::remove() {
+    if (!DeleteService(m_handle)) {
         throw WinAPIException(L"Failed deleting service");
     }
-}
-
-WinServiceAPI::HandleType WinServiceAPI::create(const std::wstring& name, const std::wstring& pePath) {
-    return SCManager().create(name, pePath);
-}
-
-WinServiceAPI::HandleType WinServiceAPI::open(const std::wstring& name) {
-    return SCManager().open(name);
-}
-
-bool ServiceHandleTraits::close(HandleType handle) {
-    return CloseServiceHandle(handle);
 }
 
 SCManager::SCManager() : m_handle(OpenSCManager(nullptr, nullptr, SC_MANAGER_ALL_ACCESS)) {
     // Left blank intentionally
 }
 
-ServiceHandle SCManager::create(const std::wstring& name, const std::wstring& pePath) {
-    return CreateService(m_handle,
-                         name.c_str(),
-                         name.c_str(),
-                         SERVICE_ALL_ACCESS,
-                         SERVICE_KERNEL_DRIVER,
-                         SERVICE_DEMAND_START,
-                         SERVICE_ERROR_NORMAL,
-                         pePath.c_str(),
-                         nullptr,
-                         nullptr,
-                         nullptr,
-                         nullptr,
-                         nullptr);
+Service SCManager::create(const std::wstring& name, const std::wstring& pePath) {
+    return Service(
+                ServiceHandle(CreateService(m_handle,
+                              name.c_str(),
+                              name.c_str(),
+                              SERVICE_ALL_ACCESS,
+                              SERVICE_KERNEL_DRIVER,
+                              SERVICE_DEMAND_START,
+                              SERVICE_ERROR_NORMAL,
+                              pePath.c_str(),
+                              nullptr,
+                              nullptr,
+                              nullptr,
+                              nullptr,
+                              nullptr)
+                )
+            );
 }
 
-ServiceHandle SCManager::open(const std::wstring& name) {
-    return OpenService(m_handle, name.c_str(), SERVICE_ALL_ACCESS);
+Service SCManager::open(const std::wstring& name) {
+    return Service(ServiceHandle(OpenService(m_handle, name.c_str(), SERVICE_ALL_ACCESS)));
 }

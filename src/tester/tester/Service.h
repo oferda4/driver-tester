@@ -15,42 +15,28 @@ struct ServiceHandleTraits {
 
 using ServiceHandle = Handle<ServiceHandleTraits>;
 
-template <typename T>
-concept ServiceManagerAPI = requires(T, const std::wstring& name, const std::wstring& pePath) {
-    { T::create(name, pePath) } -> std::same_as<typename T::HandleType>;
-    { T::open(name) } -> std::same_as<typename T::HandleType>;
-};
+class Service final {
+public:
+    explicit Service(ServiceHandle handle);
+    NOCOPY(Service);
+    MOVEABLE(Service);
 
-template <typename T>
-concept ServiceControlAPI = requires(T, typename T::HandleType& handle) {
-    { T::start(handle) } -> std::same_as<void>;
-    { T::stop(handle) } -> std::same_as<void>;
-    { T::remove(handle) } -> std::same_as<void>;
-};
+    void start();
+    void stop();
+    void remove();
 
-template <typename API>
-concept ServiceAPI = ServiceManagerAPI<API> && ServiceControlAPI<API>;
-
-struct WinServiceAPI {
-    using HandleType = ServiceHandle;
-
-    static void start(HandleType& handle);
-    static void stop(HandleType& handle);
-    static void remove(HandleType& handle);
-    static HandleType create(const std::wstring& name, const std::wstring& pePath);
-    static HandleType open(const std::wstring& name);
+private:
+    ServiceHandle m_handle;
 };
 
 class SCManager final {
 public:
-    using HandleType = ServiceHandle;
-
-    SCManager();
+    explicit SCManager();
     NOCOPY(SCManager);
     MOVEABLE(SCManager);
 
-    HandleType create(const std::wstring& name, const std::wstring& pePath);
-    HandleType open(const std::wstring& name);
+    Service create(const std::wstring& name, const std::wstring& pePath);
+    Service open(const std::wstring& name);
 
 private:
     ServiceHandle m_handle;
