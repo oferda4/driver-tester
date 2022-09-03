@@ -2,6 +2,9 @@
 
 #include "List.h"
 #include "Memory.h"
+#include "Test.h"
+#include "Messages.h"
+#include "Array.h"
 
 namespace drvut {
 namespace internal {
@@ -12,6 +15,15 @@ public:
 
     virtual void setup() {}
     virtual void teardown() {}
+
+protected:
+    virtual PVOID* getContext();
+};
+
+struct FixtureData {
+    FixtureInfo info{};
+    std::unique_ptr<Fixture> fixture;
+    List<std::unique_ptr<Test>> tests;
 };
 
 class FixturesManager final {
@@ -19,13 +31,15 @@ public:
     static FixturesManager& getInstance();
     static void destroy();
 
+    Array<FixtureInfo> getFixturesInfo();
+    
 private:
     FixturesManager() = default;
     static void initialize();
 
     static FixturesManager* sm_manager;
 
-    List<std::unique_ptr<Fixture>> m_fixtures;
+    List<std::unique_ptr<FixtureData>> m_fixturesData;
 };
 
 }
