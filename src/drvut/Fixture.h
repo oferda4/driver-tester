@@ -10,8 +10,8 @@ class Fixture {
 public:
     virtual ~Fixture() = default;
 
-    virtual void setup() = 0;
-    virtual void teardown() = 0;
+    virtual void setup() {}
+    virtual void teardown() {}
 };
 
 class FixturesManager final {
