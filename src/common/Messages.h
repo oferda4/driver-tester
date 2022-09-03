@@ -18,5 +18,5 @@ struct TestInfo {
 };
 
 struct TestResult {
-    uint32_t status;
+    unsigned long status;
 };
