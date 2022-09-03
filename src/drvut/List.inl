@@ -25,6 +25,11 @@ Node<T>::Node(T value) : value(std::move(value)) {
     // Left blank intentionally
 }
 
+template <typename T>
+Node<T>* List<T>::head() {
+    return m_head;
+}
+
 template<typename T>
 void List<T>::insert(T obj) {
     auto newNode = new T(std::move(obj));
@@ -34,6 +39,15 @@ void List<T>::insert(T obj) {
         auto last = findLast(m_head);
         last.next = newNode;
     }
+}
+
+template<typename T>
+size_t List<T>::size() {
+    size_t count = 0;
+    for (auto* node = head(); node; node = node->next) {
+        count++;
+    }
+    return count;
 }
 
 template <typename T>
