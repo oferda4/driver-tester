@@ -14,6 +14,18 @@ void* __cdecl operator new(size_t, void* p) {
     return p;
 }
 
-void __cdecl operator delete(void* p, size_t) {
+void* __cdecl operator new[](size_t size) {
+    return operator new(size);
+}
+
+void __cdecl operator delete(void* p) {
     ExFreePoolWithTag(p, TEST_DRIVER_POOL_TAG);
+}
+
+void __cdecl operator delete(void* p, size_t) {
+    operator delete(p);
+}
+
+void __cdecl operator delete[](void* p) {
+    operator delete(p);
 }
