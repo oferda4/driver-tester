@@ -41,5 +41,8 @@
     <ClInclude Include="MockRequestsHandler.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="MockConnection.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

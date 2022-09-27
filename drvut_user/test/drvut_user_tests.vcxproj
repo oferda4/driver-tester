@@ -45,6 +45,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MockConnection.h" />
     <ClInclude Include="MockProtocol.h" />
     <ClInclude Include="MockRequestsHandler.h" />
   </ItemGroup>

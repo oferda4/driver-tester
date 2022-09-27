@@ -39,12 +39,18 @@
     <ClInclude Include="Messages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Stream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Communicator.inl">
       <Filter>Source Files</Filter>
     </None>
     <None Include="RequestsRouter.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Stream.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Connection.h"
+#include "Stream.h"
 #include "RequestsRouter.h"
 
-template <Connection ConnectionType, RequestsRouter RouterType>
+template <Stream StreamType, RequestsRouter RouterType>
 class Communicator {
 public:
-    Communicator(ConnectionType connection, RouterType router);
+    Communicator(StreamType stream, RouterType router);
 
     void run();
 
 private:
-    ConnectionType m_connection;
+    StreamType m_stream;
     RouterType m_router;
 };
 

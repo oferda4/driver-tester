@@ -27,10 +27,12 @@
     <ClInclude Include="Protocol.h" />
     <ClInclude Include="RequestsHandler.h" />
     <ClInclude Include="RequestsRouter.h" />
+    <ClInclude Include="Stream.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Communicator.inl" />
     <None Include="RequestsRouter.inl" />
+    <None Include="Stream.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib.cpp" />
