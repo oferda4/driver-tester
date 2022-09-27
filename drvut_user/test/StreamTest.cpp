@@ -46,6 +46,8 @@ TEST(StreamTest, recv) {
     ASSERT_NO_THROW((void)stream.recv());
 }
 
+// TODO: test connection termination in the middle of send / recv
+
 namespace {
 Buffer getFakeBuffer(size_t size) {
     return Buffer(size, 0);
