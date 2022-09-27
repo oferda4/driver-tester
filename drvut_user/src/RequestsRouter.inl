@@ -16,7 +16,7 @@ Buffer RequestsRouterImpl<RequestsHandlerType, ProtocolType>::route(const Buffer
         return m_protocol.parseListFixturesOutput(
             m_handler.listFixtures(
                 m_protocol.parseListFixturesInput(data)
-            );
+            )
         );
     }
 

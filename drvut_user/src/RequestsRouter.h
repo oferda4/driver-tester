@@ -17,7 +17,7 @@ public:
 
 private:
     RequestsHandlerType m_handler;
-    Protocol m_protocol;
+    ProtocolType m_protocol;
 };
 
 #include "RequestsRouter.inl"
