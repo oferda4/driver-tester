@@ -22,7 +22,7 @@ TEST(BufferTest, toNumberBadSize) {
 namespace {
 template <std::integral T>
 void testNumberConversion() {
-    const T arbitraryNum = 11223344;
+    const T arbitraryNum = static_cast<T>(11223344);
     Buffer buffer = BufferUtils::fromNumber(arbitraryNum);
     T resultNum = BufferUtils::toNumber<T>(buffer);
     ASSERT_EQ(arbitraryNum, resultNum);
