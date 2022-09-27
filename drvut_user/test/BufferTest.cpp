@@ -19,6 +19,26 @@ TEST(BufferTest, toNumberBadSize) {
                  InvalidBufferSize);
 }
 
+TEST(BufferTest, equals) {
+    Buffer buffer({ 1, 2, 3 });
+    Buffer equalBuffer({ 1, 2, 3 });
+    Buffer nonEqualBuffer({ 1, 2, 5 });
+    Buffer nonEqualWithDifferentSize({ 1, 2 });
+
+    EXPECT_TRUE(BufferUtils::equal(buffer, equalBuffer));
+    EXPECT_FALSE(BufferUtils::equal(buffer, nonEqualBuffer));
+    EXPECT_FALSE(BufferUtils::equal(buffer, nonEqualWithDifferentSize));
+    EXPECT_TRUE(BufferUtils::equal(Buffer{}, Buffer{}));
+}
+
+TEST(BufferTest, append) {
+    Buffer part1({ 1, 2, 3 });
+    Buffer part2({ 4, 5, 6 });
+    Buffer full({ 1, 2, 3, 4, 5, 6 });
+    ASSERT_NO_THROW(BufferUtils::append(part1, part2));
+    ASSERT_TRUE(BufferUtils::equal(part1, full));
+}
+
 namespace {
 template <std::integral T>
 void testNumberConversion() {

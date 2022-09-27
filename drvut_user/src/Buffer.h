@@ -16,6 +16,9 @@ public:
     static NumType toNumber(const Buffer& buffer);
     template <std::integral NumType>
     static Buffer fromNumber(NumType num);
+
+    static void append(Buffer& dest, const Buffer& src);
+    static bool equal(const Buffer& buff1, const Buffer& buff2);
 };
 
 #include "Buffer.inl"
