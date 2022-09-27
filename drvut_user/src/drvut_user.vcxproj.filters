@@ -53,6 +53,9 @@
     <None Include="Stream.inl">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="Buffer.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib.cpp">

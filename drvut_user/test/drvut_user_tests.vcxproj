@@ -33,6 +33,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClCompile Include="BufferTest.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="RequestsRouterTest.cpp" />
     <ClCompile Include="StreamTest.cpp" />
