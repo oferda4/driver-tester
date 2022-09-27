@@ -58,7 +58,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib.cpp">
+    <ClCompile Include="Buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

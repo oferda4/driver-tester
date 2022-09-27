@@ -36,7 +36,7 @@
     <None Include="Stream.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib.cpp" />
+    <ClCompile Include="Buffer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

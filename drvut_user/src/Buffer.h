@@ -3,10 +3,7 @@
 #include "Defs.h"
 
 struct InvalidBufferSize : std::exception {
-    InvalidBufferSize(size_t size) 
-        : std::exception("invalid buffer size", size) {
-        // left blank intentionally
-    }
+    InvalidBufferSize(size_t size);
 };
 
 using Buffer = std::vector<byte>;
