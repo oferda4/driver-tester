@@ -21,8 +21,9 @@ TEST(StreamTest, send) {
     MoveableMockConnection connection;
     
     EXPECT_CALL(connection.getMock(), send(_))
-        .WillRepeatedly(Return(arbitraryChunkSize))
-        .Times(arbitraryBufferSize / arbitraryChunkSize);
+        .Times(arbitraryBufferSize / arbitraryChunkSize + 1)
+        .WillOnce(Return(sizeof(StreamImpl<MoveableMockConnection>::SizeType)))
+        .WillRepeatedly(Return(arbitraryChunkSize));
 
     StreamImpl stream(std::move(connection));
     ASSERT_NO_THROW(stream.send(getFakeBuffer(arbitraryBufferSize)));
@@ -37,8 +38,9 @@ TEST(StreamTest, recv) {
     MoveableMockConnection connection;
 
     EXPECT_CALL(connection.getMock(), recv(_))
-        .WillRepeatedly(Return(getFakeBuffer(arbitraryChunkSize)))
-        .Times(arbitraryBufferSize / arbitraryChunkSize);
+        .Times(arbitraryBufferSize / arbitraryChunkSize + 1)
+        .WillOnce(Return(BufferUtils::fromNumber(static_cast<StreamImpl<MoveableMockConnection>::SizeType>(arbitraryBufferSize))))
+        .WillRepeatedly(Return(getFakeBuffer(arbitraryChunkSize)));
 
     StreamImpl stream(std::move(connection));
     ASSERT_NO_THROW((void)stream.recv());

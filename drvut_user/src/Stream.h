@@ -5,6 +5,10 @@
 #include "Buffer.h"
 #include "Connection.h"
 
+struct ConnectionTerminatedInTheMiddle : std::exception {
+    ConnectionTerminatedInTheMiddle();
+};
+
 template<typename T>
 concept Stream = requires(T& stream, const Buffer& data) {
     { stream.recv() } -> std::same_as<Buffer>;
@@ -14,12 +18,17 @@ concept Stream = requires(T& stream, const Buffer& data) {
 template<Connection ConnectionType>
 class StreamImpl final {
 public:
+    using SizeType = uint32_t;
+
     StreamImpl(ConnectionType connection);
 
     Buffer recv();
     void send(const Buffer& data);
 
 private:
+    Buffer recvAll(SizeType size);
+    void sendAll(const Buffer& buffer);
+
     ConnectionType m_connection;
 };
 
