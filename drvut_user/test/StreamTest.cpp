@@ -13,8 +13,8 @@ Buffer getFakeBuffer(size_t size);
 }
 
 TEST(StreamTest, send) {
-    const size_t arbitraryBufferSize = 4096;
-    const size_t arbitraryChunkSize = 1024;
+    const uint32_t arbitraryBufferSize = 4096;
+    const uint32_t arbitraryChunkSize = 1024;
     static_assert(arbitraryBufferSize > arbitraryChunkSize);
     static_assert(arbitraryBufferSize % arbitraryChunkSize == 0);
 
@@ -22,7 +22,7 @@ TEST(StreamTest, send) {
     
     EXPECT_CALL(connection.getMock(), send(_))
         .Times(arbitraryBufferSize / arbitraryChunkSize + 1)
-        .WillOnce(Return(sizeof(StreamImpl<MoveableMockConnection>::SizeType)))
+        .WillOnce(Return(static_cast<uint32_t>(sizeof(StreamImpl<MoveableMockConnection>::SizeType))))
         .WillRepeatedly(Return(arbitraryChunkSize));
 
     StreamImpl stream(std::move(connection));
