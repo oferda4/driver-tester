@@ -15,9 +15,15 @@ Buffer RequestsRouterImpl<RequestsHandlerType, ProtocolType>::route(const Buffer
     case RequestType::LIST_FIXTURES:
         return m_protocol.parseListFixturesOutput(
             m_handler.listFixtures(
-                m_protocol.parseListFixturesInput(data)
-            )
-        );
+                m_protocol.parseListFixturesInput(data)));
+    case RequestType::LIST_TESTS:
+        return m_protocol.parseListTestsOutput(
+            m_handler.listTests(
+                m_protocol.parseListTestsInput(data)));
+    case RequestType::RUN_TEST:
+        return m_protocol.parseRunTestOutput(
+            m_handler.runTest(
+                m_protocol.parseRunTestInput(data)));
     }
 
     throw std::exception("invalid request");
