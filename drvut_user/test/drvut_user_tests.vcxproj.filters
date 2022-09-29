@@ -42,7 +42,7 @@
     <ClCompile Include="CastUtilsTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CommunicatorTest.cpp">
+    <ClCompile Include="CommunicationTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,6 +54,9 @@
       <Filter>Mocks</Filter>
     </ClInclude>
     <ClInclude Include="MockConnection.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="MockServer.h">
       <Filter>Mocks</Filter>
     </ClInclude>
   </ItemGroup>

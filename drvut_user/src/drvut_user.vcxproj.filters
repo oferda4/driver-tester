@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Communicator.h">
+    <ClInclude Include="Communication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RequestsHandler.h">
@@ -50,7 +50,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Communicator.inl">
+    <None Include="Communication.inl">
       <Filter>Source Files</Filter>
     </None>
     <None Include="RequestsRouter.inl">
