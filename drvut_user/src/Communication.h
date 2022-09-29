@@ -39,7 +39,7 @@ private:
 };
 
 template <CommunicationSetup CommunicationSetupType>
-using CommunicationSetupStreamType = std::invoke_result_t<decltype(std::declval<CommunicationSetupType&>().run)>;
+using CommunicationSetupStreamType = decltype(std::declval<CommunicationSetupType>().run());
 
 template <CommunicationSetup CommunicationSetupType, 
           CommunicationLogic<CommunicationSetupStreamType<CommunicationSetupType>> CommunicationLogicType>
