@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Stream.h"
+#include "CastUtils.h"
 
 template <Connection ConnectionType>
 StreamImpl<ConnectionType>::StreamImpl(ConnectionType connection) 
@@ -16,8 +17,7 @@ Buffer StreamImpl<ConnectionType>::recv() {
 
 template <Connection ConnectionType>
 void StreamImpl<ConnectionType>::send(const Buffer& data) {
-    // TODO: check size is ok
-    sendAll(BufferUtils::fromNumber(static_cast<SizeType>(data.size())));
+    sendAll(BufferUtils::fromNumber(CastUtils::cast<SizeType>(data.size())));
     sendAll(data);
 }
 

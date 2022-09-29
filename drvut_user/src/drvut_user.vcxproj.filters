@@ -42,6 +42,9 @@
     <ClInclude Include="Stream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CastUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Communicator.inl">
@@ -54,6 +57,9 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="Buffer.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="CastUtils.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
