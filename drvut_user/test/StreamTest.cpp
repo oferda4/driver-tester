@@ -10,37 +10,30 @@ using testing::Return;
 
 namespace {
 Buffer getFakeBuffer(size_t size);
+
+constexpr uint32_t ARBITRARY_BUFFER_SIZE = 4096;
+constexpr uint32_t ARBITRARY_CHUNK_SIZE = 1024;
+static_assert(ARBITRARY_BUFFER_SIZE > ARBITRARY_CHUNK_SIZE);
+static_assert(ARBITRARY_BUFFER_SIZE % ARBITRARY_CHUNK_SIZE == 0);
 }
 
 TEST(StreamTest, send) {
-    const uint32_t arbitraryBufferSize = 4096;
-    const uint32_t arbitraryChunkSize = 1024;
-    static_assert(arbitraryBufferSize > arbitraryChunkSize);
-    static_assert(arbitraryBufferSize % arbitraryChunkSize == 0);
-
     MoveableMockConnection connection;
-    
     EXPECT_CALL(connection.getMock(), send(_))
-        .Times(arbitraryBufferSize / arbitraryChunkSize + 1)
+        .Times(ARBITRARY_BUFFER_SIZE / ARBITRARY_CHUNK_SIZE + 1)
         .WillOnce(Return(static_cast<uint32_t>(sizeof(StreamImpl<MoveableMockConnection>::SizeType))))
-        .WillRepeatedly(Return(arbitraryChunkSize));
+        .WillRepeatedly(Return(ARBITRARY_CHUNK_SIZE));
 
     StreamImpl stream(std::move(connection));
-    ASSERT_NO_THROW(stream.send(getFakeBuffer(arbitraryBufferSize)));
+    ASSERT_NO_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)));
 }
 
 TEST(StreamTest, recv) {
-    const size_t arbitraryBufferSize = 4096;
-    const size_t arbitraryChunkSize = 1024;
-    static_assert(arbitraryBufferSize > arbitraryChunkSize);
-    static_assert(arbitraryBufferSize % arbitraryChunkSize == 0);
-
     MoveableMockConnection connection;
-
     EXPECT_CALL(connection.getMock(), recv(_))
-        .Times(arbitraryBufferSize / arbitraryChunkSize + 1)
-        .WillOnce(Return(BufferUtils::fromNumber(static_cast<StreamImpl<MoveableMockConnection>::SizeType>(arbitraryBufferSize))))
-        .WillRepeatedly(Return(getFakeBuffer(arbitraryChunkSize)));
+        .Times(ARBITRARY_BUFFER_SIZE / ARBITRARY_CHUNK_SIZE + 1)
+        .WillOnce(Return(BufferUtils::fromNumber(static_cast<StreamImpl<MoveableMockConnection>::SizeType>(ARBITRARY_BUFFER_SIZE))))
+        .WillRepeatedly(Return(getFakeBuffer(ARBITRARY_CHUNK_SIZE)));
 
     StreamImpl stream(std::move(connection));
     ASSERT_NO_THROW((void)stream.recv());
