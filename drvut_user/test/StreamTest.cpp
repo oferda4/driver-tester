@@ -19,7 +19,7 @@ static_assert(ARBITRARY_BUFFER_SIZE % ARBITRARY_CHUNK_SIZE == 0);
 constexpr uint32_t SIZE_BUFFER_SIZE = static_cast<uint32_t>(sizeof(StreamImpl<MoveableMockConnection>::SizeType));
 }
 
-TEST(StreamTest, send) {
+TEST(StreamTest, Send) {
     MoveableMockConnection connection;
     EXPECT_CALL(connection.getMock(), send(_))
         .Times(ARBITRARY_BUFFER_SIZE / ARBITRARY_CHUNK_SIZE + 1)
@@ -30,7 +30,7 @@ TEST(StreamTest, send) {
     ASSERT_NO_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)));
 }
 
-TEST(StreamTest, recv) {
+TEST(StreamTest, Recv) {
     MoveableMockConnection connection;
     EXPECT_CALL(connection.getMock(), recv(_))
         .Times(ARBITRARY_BUFFER_SIZE / ARBITRARY_CHUNK_SIZE + 1)
@@ -41,7 +41,7 @@ TEST(StreamTest, recv) {
     ASSERT_NO_THROW((void)stream.recv());
 }
 
-TEST(StreamTest, sendInterruptedWhileSendingSize) {
+TEST(StreamTest, SendInterruptedWhileSendingSize) {
     MoveableMockConnection connection;
     EXPECT_CALL(connection.getMock(), send(_))
         .Times(2)
@@ -52,7 +52,7 @@ TEST(StreamTest, sendInterruptedWhileSendingSize) {
     ASSERT_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)), ConnectionTerminatedInTheMiddle);
 }
 
-TEST(StreamTest, sendInterruptedWhileSendingData) {
+TEST(StreamTest, SendInterruptedWhileSendingData) {
     MoveableMockConnection connection;
     EXPECT_CALL(connection.getMock(), send(_))
         .Times(3)
@@ -64,7 +64,7 @@ TEST(StreamTest, sendInterruptedWhileSendingData) {
     ASSERT_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)), ConnectionTerminatedInTheMiddle);
 }
 
-TEST(StreamTest, recvInterruptedInTheMiddleOfReceivingSize) {
+TEST(StreamTest, RecvInterruptedInTheMiddleOfReceivingSize) {
     MoveableMockConnection connection;
     EXPECT_CALL(connection.getMock(), recv(_))
         .Times(2)
@@ -75,7 +75,7 @@ TEST(StreamTest, recvInterruptedInTheMiddleOfReceivingSize) {
     ASSERT_THROW((void)stream.recv(), ConnectionTerminatedInTheMiddle);
 }
 
-TEST(StreamTest, recvInterruptedInTheMiddleOfReceivingData) {
+TEST(StreamTest, RecvInterruptedInTheMiddleOfReceivingData) {
     MoveableMockConnection connection;
     EXPECT_CALL(connection.getMock(), recv(_))
         .Times(3)

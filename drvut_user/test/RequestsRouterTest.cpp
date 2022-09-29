@@ -8,7 +8,7 @@
 using testing::_;
 using testing::Return;
 
-TEST(RequestsRouterTest, routingListFixtures) {
+TEST(RequestsRouterTest, RoutingListFixtures) {
     MoveableMockRequestsHandler handler;
     MoveableMockProtocol protocol; 
     Buffer fakeBuffer;
@@ -35,7 +35,7 @@ TEST(RequestsRouterTest, routingListFixtures) {
     ASSERT_NO_THROW((void)router.route(fakeBuffer));
 }
 
-TEST(RequestsRouterTest, routingListTests) {
+TEST(RequestsRouterTest, RoutingListTests) {
     MoveableMockRequestsHandler handler;
     MoveableMockProtocol protocol;
     Buffer fakeBuffer;
@@ -58,7 +58,7 @@ TEST(RequestsRouterTest, routingListTests) {
     ASSERT_NO_THROW((void)router.route(fakeBuffer));
 }
 
-TEST(RequestsRouterTest, routingRunTest) {
+TEST(RequestsRouterTest, RoutingRunTest) {
     MoveableMockRequestsHandler handler;
     MoveableMockProtocol protocol;
     Buffer fakeBuffer;

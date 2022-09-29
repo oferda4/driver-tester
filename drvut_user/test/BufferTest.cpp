@@ -7,19 +7,19 @@ template<std::integral T>
 void testNumberConversion();
 }
 
-TEST(BufferTest, numberConversion) {
+TEST(BufferTest, NumberConversion) {
     ASSERT_NO_THROW(testNumberConversion<uint16_t>());
     ASSERT_NO_THROW(testNumberConversion<int32_t>());
     ASSERT_NO_THROW(testNumberConversion<uint64_t>());
 }
 
-TEST(BufferTest, toNumberBadSize) {
+TEST(BufferTest, ToNumberBadSize) {
     using ArbitraryNumType = uint32_t;
     ASSERT_THROW(BufferUtils::toNumber<ArbitraryNumType>(Buffer(sizeof(ArbitraryNumType) - 1, 0)), 
                  InvalidBufferSize);
 }
 
-TEST(BufferTest, equals) {
+TEST(BufferTest, Equals) {
     Buffer buffer({ 1, 2, 3 });
     Buffer equalBuffer({ 1, 2, 3 });
     Buffer nonEqualBuffer({ 1, 2, 5 });
@@ -31,7 +31,7 @@ TEST(BufferTest, equals) {
     EXPECT_TRUE(BufferUtils::equal(Buffer{}, Buffer{}));
 }
 
-TEST(BufferTest, append) {
+TEST(BufferTest, Append) {
     Buffer part1({ 1, 2, 3 });
     Buffer part2({ 4, 5, 6 });
     Buffer full({ 1, 2, 3, 4, 5, 6 });
