@@ -20,7 +20,7 @@ class StreamImpl final {
 public:
     using SizeType = uint32_t;
 
-    StreamImpl(ConnectionType connection);
+    explicit StreamImpl(ConnectionType connection);
 
     Buffer recv();
     void send(const Buffer& data);

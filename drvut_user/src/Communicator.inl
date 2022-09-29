@@ -2,18 +2,24 @@
 
 #include "Communicator.h"
 
-template <Stream StreamType, RequestsRouter RouterType>
-Communicator<StreamType, RouterType>::Communicator(StreamType stream, RouterType rotuer)
-    : m_stream(std::move(stream)), m_router(std::move(router)) {
+template <Server ServerType, RequestsRouter RouterType>
+Communicator<ServerType, RouterType>::Communicator(ServerType server, RouterType rotuer)
+    : m_server(std::move(server)), m_router(std::move(router)) {
     // Left blank intentionally
 }
 
-template <Stream StreamType, RequestsRouter RouterType>
-void Communicator<StreamType, RouterType>::run() {
-    Buffer data = m_connection.recv();
+template <Server ServerType, RequestsRouter RouterType>
+void Communicator<ServerType, RouterType>::run() {
+    auto stream = getStream();
+    Buffer data = stream.recv();
     while (!data.empty()) {
         Buffer response = m_router.route(data);
         m_stream.send(response);
         data = m_stream.recv();
     }
+}
+
+template <Server ServerType, RequestsRouter RouterType>
+StreamImpl<typename ServerType::ConnectionType> Communicator<ServerType, RouterType>::getStream() {
+    return { m_server.waitForConnection() };
 }

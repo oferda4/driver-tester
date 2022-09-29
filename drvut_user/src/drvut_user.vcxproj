@@ -28,6 +28,7 @@
     <ClInclude Include="Protocol.h" />
     <ClInclude Include="RequestsHandler.h" />
     <ClInclude Include="RequestsRouter.h" />
+    <ClInclude Include="Server.h" />
     <ClInclude Include="Stream.h" />
   </ItemGroup>
   <ItemGroup>
