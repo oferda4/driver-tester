@@ -59,5 +59,11 @@
     <ClInclude Include="MockServer.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="MockCommunication.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="MockStream.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -49,10 +49,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MockCommunication.h" />
     <ClInclude Include="MockConnection.h" />
     <ClInclude Include="MockProtocol.h" />
     <ClInclude Include="MockRequestsHandler.h" />
     <ClInclude Include="MockServer.h" />
+    <ClInclude Include="MockStream.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

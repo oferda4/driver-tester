@@ -2,9 +2,16 @@
 
 #include "Communication.h"
 
-#include "MockServer.h"
+#include "MockCommunication.h"
 
-TEST(CommunicatorTest, FullRun) {
-    MoveableMockServer server;
-    EXPECT_CALL(server.getMock(), waitForConnection());
+using testing::_;
+
+TEST(CommunicatorTest, Sanity) {
+    MoveableMockCommunicationSetup setup;
+    EXPECT_CALL(setup.getMock(), run()).Times(1);
+    MoveableMockCommunicationLogic logic;
+    EXPECT_CALL(logic.getMock(), run(_)).Times(1);
+
+    Communication<decltype(setup), decltype(logic)> communication(std::move(setup), std::move(logic));
+    ASSERT_NO_THROW(communication.run());
 }
