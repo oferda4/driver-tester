@@ -52,6 +52,18 @@ TEST(StreamTest, sendInterruptedWhileSendingSize) {
     ASSERT_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)), ConnectionTerminatedInTheMiddle);
 }
 
+TEST(StreamTest, sendInterruptedWhileSendingData) {
+    MoveableMockConnection connection;
+    EXPECT_CALL(connection.getMock(), send(_))
+        .Times(3)
+        .WillOnce(Return(SIZE_BUFFER_SIZE))
+        .WillOnce(Return(ARBITRARY_CHUNK_SIZE))
+        .WillOnce(Return(0));
+
+    StreamImpl stream(std::move(connection));
+    ASSERT_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)), ConnectionTerminatedInTheMiddle);
+}
+
 namespace {
 Buffer getFakeBuffer(size_t size) {
     return Buffer(size, 0);
