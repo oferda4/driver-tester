@@ -13,14 +13,14 @@ StreamImpl<typename ServerType::ConnectionType> CommunicationSetupImpl<ServerTyp
     return StreamImpl<typename ServerType::ConnectionType>(m_server.waitForConnection());
 }
 
-template <RequestsRouter RouterType, Stream StreamType>
-CommunicationLogicImpl<RouterType, StreamType>::CommunicationLogicImpl(RouterType router) 
+template <Stream StreamType, RequestsRouter RouterType>
+CommunicationLogicImpl<StreamType, RouterType>::CommunicationLogicImpl(RouterType router) 
     : m_router(std::move(router)) {
     // left blank intentionally
 }
 
-template <RequestsRouter RouterType, Stream StreamType>
-void CommunicationLogicImpl<RouterType, StreamType>::run(StreamType& stream) {
+template <Stream StreamType, RequestsRouter RouterType>
+void CommunicationLogicImpl<StreamType, RouterType>::run(StreamType& stream) {
     Buffer data = stream.recv();
     while (!data.empty()) {
         Buffer response = m_router.route(data);

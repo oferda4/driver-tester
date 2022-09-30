@@ -23,11 +23,11 @@ private:
 
 template <typename T, typename StreamType>
 concept CommunicationLogic = requires(T& logic, StreamType& stream) {
-    // TODO: stronger StreamType constrains
+    Stream<StreamType>;
     { logic.run(stream) } -> std::same_as<void>;
 };
 
-template <RequestsRouter RouterType, Stream StreamType>
+template <Stream StreamType, RequestsRouter RouterType>
 class CommunicationLogicImpl final {
 public:
     explicit CommunicationLogicImpl(RouterType router);

@@ -4,8 +4,10 @@
 
 #include "MockCommunication.h"
 #include "MockServer.h"
+#include "MockRequestsRouter.h"
 
 using testing::_;
+using testing::Return;
 
 TEST(CommunicationTest, Sanity) {
     MoveableMockCommunicationSetup setup;
@@ -23,4 +25,21 @@ TEST(CommunicationTest, Setup) {
 
     CommunicationSetupImpl<MoveableMockServer> setup(std::move(server));
     ASSERT_NO_THROW(setup.run());
+}
+
+TEST(CommunicationTest, Logic) {
+    MoveableMockStream stream;
+    EXPECT_CALL(stream.getMock(), recv())
+        .Times(2)
+        .WillOnce(Return(Buffer(1, 0)))
+        .WillOnce(Return(Buffer()));
+    EXPECT_CALL(stream.getMock(), send(_))
+        .Times(1);
+
+    MoveableMockRequestsRouter router;
+    EXPECT_CALL(router.getMock(), route(_))
+        .Times(1);
+
+    CommunicationLogicImpl<MoveableMockStream, MoveableMockRequestsRouter> logic(std::move(router));
+    ASSERT_NO_THROW(logic.run(stream));
 }

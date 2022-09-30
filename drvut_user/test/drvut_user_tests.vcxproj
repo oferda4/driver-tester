@@ -53,6 +53,7 @@
     <ClInclude Include="MockConnection.h" />
     <ClInclude Include="MockProtocol.h" />
     <ClInclude Include="MockRequestsHandler.h" />
+    <ClInclude Include="MockRequestsRouter.h" />
     <ClInclude Include="MockServer.h" />
     <ClInclude Include="MockStream.h" />
   </ItemGroup>
