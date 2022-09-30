@@ -4,7 +4,7 @@ message ListFixturesRequest {
     // left blank intentionally
 }
 
-message ListFixturesRespons {
+message ListFixturesResponse {
     message FixtureInfo {
         uint32 id = 1;
         string name = 2;
@@ -13,7 +13,7 @@ message ListFixturesRespons {
 }
 
 message ListTestsRequest {
-    uint32 fixtureId = 1;
+    uint32 fixture_id = 1;
 }
 
 message ListTestsResponse {
@@ -25,10 +25,26 @@ message ListTestsResponse {
 }
 
 message RunTestRequest {
-    uint32 fixtureId = 1;
+    uint32 fixture_id = 1;
     uint32 testId = 2;
 }
 
 message RunTestResponse {
     uint64 status = 1;
+}
+
+message Request {
+    oneof requests {
+        ListFixturesRequest list_fixtures = 1;
+        ListTestsRequest list_tests = 2;
+        RunTestRequest run_test = 3;
+    }
+}
+
+message Response {
+    oneof responses {
+        ListFixturesResponse list_fixtures = 1;
+        ListTestsResponse list_tests = 2;
+        RunTestResponse run_test = 3;
+    }
 }
