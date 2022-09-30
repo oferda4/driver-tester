@@ -25,6 +25,7 @@
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Messages.h" />
+    <ClInclude Include="messages.pb.h" />
     <ClInclude Include="Protocol.h" />
     <ClInclude Include="RequestsHandler.h" />
     <ClInclude Include="RequestsRouter.h" />
@@ -32,6 +33,7 @@
     <ClInclude Include="Stream.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\common\messages.proto" />
     <None Include="Buffer.inl" />
     <None Include="CastUtils.inl" />
     <None Include="Communication.inl" />
@@ -40,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="messages.pb.cc" />
     <ClCompile Include="Stream.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -119,6 +122,9 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\messages.proto</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -137,6 +143,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\messages.proto</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -151,6 +160,9 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\messages.proto</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -169,6 +181,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\messages.proto</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+message ListFixturesRequest {
+    // left blank intentionally
+}
+
+message ListFixturesRespons {
+    message FixtureInfo {
+        uint32 id = 1;
+        string name = 2;
+    }
+    repeated FixtureInfo fixtures = 1;
+}
+
+message ListTestsRequest {
+    uint32 fixtureId = 1;
+}
+
+message ListTestsResponse {
+    message TestInfo {
+        uint32 id = 1;
+        string name = 2;
+    }
+    repeated TestInfo tests = 1;
+}
+
+message RunTestRequest {
+    uint32 fixtureId = 1;
+    uint32 testId = 2;
+}
+
+message RunTestResponse {
+    uint64 status = 1;
+}
