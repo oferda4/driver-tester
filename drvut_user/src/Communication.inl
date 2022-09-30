@@ -10,7 +10,7 @@ CommunicationSetupImpl<ServerType>::CommunicationSetupImpl(ServerType server)
 
 template <Server ServerType>
 StreamImpl<typename ServerType::ConnectionType> CommunicationSetupImpl<ServerType>::run() {
-    return { m_server.waitForConnection() };
+    return StreamImpl<typename ServerType::ConnectionType>(m_server.waitForConnection());
 }
 
 template <RequestsRouter RouterType, Stream StreamType>

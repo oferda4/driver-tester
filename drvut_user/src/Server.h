@@ -6,7 +6,7 @@
 
 template <typename T>
 concept Server = requires(T& server) {
-    // TODO: improve these constrains
-    { T::ConnectionType } -> Connection;
-    { server.waitForConnection() } -> Connection;
+    { T::ConnectionType };
+    Connection<typename T::ConnectionType>;
+    { server.waitForConnection() } -> std::same_as<typename T::ConnectionType>;
 };
