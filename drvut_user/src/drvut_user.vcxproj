@@ -27,6 +27,7 @@
     <ClInclude Include="Messages.h" />
     <ClInclude Include="messages.pb.h" />
     <ClInclude Include="Parser.h" />
+    <ClInclude Include="ProtobufParser.h" />
     <ClInclude Include="RequestsHandler.h" />
     <ClInclude Include="RequestsRouter.h" />
     <ClInclude Include="Server.h" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="messages.pb.cc" />
+    <ClCompile Include="ProtobufParser.cpp" />
     <ClCompile Include="Stream.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

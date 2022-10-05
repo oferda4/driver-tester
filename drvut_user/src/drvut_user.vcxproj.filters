@@ -54,6 +54,9 @@
     <ClInclude Include="messages.pb.h">
       <Filter>Protobuf</Filter>
     </ClInclude>
+    <ClInclude Include="ProtobufParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Communication.inl">
@@ -84,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="messages.pb.cc">
       <Filter>Protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtobufParser.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
