@@ -3,80 +3,75 @@
 #include "RequestsRouter.h"
 
 #include "MockRequestsHandler.h"
-#include "MockProtocol.h"
+#include "MockParser.h"
 
 using testing::_;
 using testing::Return;
 
 TEST(RequestsRouterTest, RoutingListFixtures) {
     MoveableMockRequestsHandler handler;
-    MoveableMockProtocol protocol; 
+    MoveableMockParser parser; 
     Buffer fakeBuffer;
 
-    EXPECT_CALL(protocol.getMock(), parse(_))
+    EXPECT_CALL(parser.getMock(), parseRequest(_))
         .WillOnce(
-            Return(Request(RequestType::LIST_FIXTURES, fakeBuffer))
+            Return(ParsedRequest{ .type = RequestType::LIST_FIXTURES, 
+                                  .input = { .listFixturesInput = {} } })
         );
-    EXPECT_CALL(protocol.getMock(), parseListFixturesOutput(_))
+    EXPECT_CALL(parser.getMock(), parseListFixturesOutput(_))
         .WillOnce(
             Return(fakeBuffer)
         );
-    EXPECT_CALL(protocol.getMock(), parseListFixturesInput(_))
-        .WillOnce(
-            Return(ListFixturesInput())
-        );
-
+    
     EXPECT_CALL(handler.getMock(), listFixtures(_))
         .WillOnce(
             Return(ListFixturesOutput())
         );
 
-    RequestsRouterImpl router(std::move(handler), std::move(protocol));
+    RequestsRouterImpl router(std::move(handler), std::move(parser));
     ASSERT_NO_THROW((void)router.route(fakeBuffer));
 }
 
 TEST(RequestsRouterTest, RoutingListTests) {
     MoveableMockRequestsHandler handler;
-    MoveableMockProtocol protocol;
+    MoveableMockParser parser;
     Buffer fakeBuffer;
 
-    EXPECT_CALL(protocol.getMock(), parse(_))
+    EXPECT_CALL(parser.getMock(), parseRequest(_))
         .WillOnce(
-            Return(Request(RequestType::LIST_TESTS, fakeBuffer)));
-    EXPECT_CALL(protocol.getMock(), parseListTestsOutput(_))
+            Return(ParsedRequest { .type = RequestType::LIST_TESTS, 
+                                   .input = { .listTestsInput =  {} } })
+        );
+    EXPECT_CALL(parser.getMock(), parseListTestsOutput(_))
         .WillOnce(
             Return(fakeBuffer));
-    EXPECT_CALL(protocol.getMock(), parseListTestsInput(_))
-        .WillOnce(
-            Return(ListTestsInput()));
 
     EXPECT_CALL(handler.getMock(), listTests(_))
         .WillOnce(
             Return(ListTestsOutput()));
 
-    RequestsRouterImpl router(std::move(handler), std::move(protocol));
+    RequestsRouterImpl router(std::move(handler), std::move(parser));
     ASSERT_NO_THROW((void)router.route(fakeBuffer));
 }
 
 TEST(RequestsRouterTest, RoutingRunTest) {
     MoveableMockRequestsHandler handler;
-    MoveableMockProtocol protocol;
+    MoveableMockParser parser;
     Buffer fakeBuffer;
 
-    EXPECT_CALL(protocol.getMock(), parse(_))
+    EXPECT_CALL(parser.getMock(), parseRequest(_))
         .WillOnce(
-            Return(Request(RequestType::RUN_TEST, fakeBuffer)));
-    EXPECT_CALL(protocol.getMock(), parseRunTestOutput(_))
+            Return(ParsedRequest { .type = RequestType::RUN_TEST, 
+                                   .input = { .runTestInput = {} } })
+        );
+    EXPECT_CALL(parser.getMock(), parseRunTestOutput(_))
         .WillOnce(
             Return(fakeBuffer));
-    EXPECT_CALL(protocol.getMock(), parseRunTestInput(_))
-        .WillOnce(
-            Return(RunTestInput()));
 
     EXPECT_CALL(handler.getMock(), runTest(_))
         .WillOnce(
             Return(RunTestOutput()));
 
-    RequestsRouterImpl router(std::move(handler), std::move(protocol));
+    RequestsRouterImpl router(std::move(handler), std::move(parser));
     ASSERT_NO_THROW((void)router.route(fakeBuffer));
 }

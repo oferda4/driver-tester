@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Protocol.h"
+#include "Parser.h"
 #include "RequestsHandler.h"
 
 template<typename T>
@@ -8,16 +8,16 @@ concept RequestsRouter = requires(T& t, const Buffer& data) {
     { t.route(data) } -> std::same_as<Buffer>;
 };
 
-template <RequestsHandler RequestsHandlerType, Protocol ProtocolType>
+template <RequestsHandler RequestsHandlerType, Parser ParserType>
 class RequestsRouterImpl {
 public:
-    RequestsRouterImpl(RequestsHandlerType handler, ProtocolType protocol);
+    RequestsRouterImpl(RequestsHandlerType handler, ParserType parser);
 
     Buffer route(const Buffer& data);
 
 private:
+    ParserType m_parser;
     RequestsHandlerType m_handler;
-    ProtocolType m_protocol;
 };
 
 #include "RequestsRouter.inl"

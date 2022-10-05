@@ -26,7 +26,7 @@
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Messages.h" />
     <ClInclude Include="messages.pb.h" />
-    <ClInclude Include="Protocol.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="RequestsHandler.h" />
     <ClInclude Include="RequestsRouter.h" />
     <ClInclude Include="Server.h" />

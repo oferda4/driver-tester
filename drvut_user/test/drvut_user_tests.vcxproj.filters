@@ -47,7 +47,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MockProtocol.h">
+    <ClInclude Include="MockParser.h">
       <Filter>Mocks</Filter>
     </ClInclude>
     <ClInclude Include="MockRequestsHandler.h">
