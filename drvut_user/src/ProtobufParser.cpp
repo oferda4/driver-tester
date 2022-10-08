@@ -2,18 +2,11 @@
 
 #include "messages.pb.h"
 
-#include "CastUtils.h"
-
-using google::protobuf::Message;
-
-namespace {
-Buffer serializeToBuffer(const Message& msg);
-Request deserializeRequest(const Buffer& buffer);
-}
+#include "ProtobufUtils.h"
 
 ParsedRequest ProtobufParser::parseRequest(const Buffer& data) {
     ParsedRequest result{};
-    const Request request = deserializeRequest(data);
+    const Request request = ProtobufUtils::deserialize<Request>(data);
     
     if (request.has_list_fixtures()) {
         result.type = RequestType::LIST_FIXTURES;
@@ -37,7 +30,7 @@ Buffer ProtobufParser::parseListFixturesOutput(const ListFixturesOutput& output)
         info->set_id(fixture.id);
         *info->mutable_name() = fixture.name;
     }
-    return serializeToBuffer(response);
+    return ProtobufUtils::serialize(response);
 }
 
 Buffer ProtobufParser::parseListTestsOutput(const ListTestsOutput& output) {
@@ -47,31 +40,11 @@ Buffer ProtobufParser::parseListTestsOutput(const ListTestsOutput& output) {
         info->set_id(test.id);
         *info->mutable_name() = test.name;
     }
-    return serializeToBuffer(response);
+    return ProtobufUtils::serialize(response);
 }
 
 Buffer ProtobufParser::parseRunTestOutput(const RunTestOutput& output) {
     RunTestResponse response;
     response.set_status(output.result.status);
-    return serializeToBuffer(response);
-}
-
-namespace {
-Buffer serializeToBuffer(const Message& msg) {
-    Buffer result(msg.ByteSizeLong());
-    if (!result.empty()) {
-        if (!msg.SerializeToArray(result.data(), CastUtils::cast<int>(result.size()))) {
-            throw FailedSerializingMessage();
-        }
-    }
-    return result;
-}
-
-Request deserializeRequest(const Buffer& buffer) {
-    Request request;
-    if (!request.ParseFromArray(buffer.data(), CastUtils::cast<int>(buffer.size()))) {
-        throw FailedParsingMessage();
-    }
-    return request;
-}
+    return ProtobufUtils::serialize(response);
 }

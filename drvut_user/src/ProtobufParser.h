@@ -2,14 +2,6 @@
 
 #include "Parser.h"
 
-struct FailedSerializingMessage : std::exception {
-    // left blank intentionally
-};
-
-struct FailedParsingMessage : std::exception {
-    // left blank intentionally
-};
-
 class ProtobufParser final {
 public:
     ParsedRequest parseRequest(const Buffer& data);

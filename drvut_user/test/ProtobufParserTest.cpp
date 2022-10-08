@@ -2,7 +2,7 @@
 
 #include "ProtobufParser.h"
 
-#include "messages.pb.h"
+#include "ProtobufUtils.h"
 
 TEST(TestProtobufParser, BadRequest) {
     ASSERT_THROW(ProtobufParser().parseRequest(Buffer(1, 0)), FailedParsingMessage);

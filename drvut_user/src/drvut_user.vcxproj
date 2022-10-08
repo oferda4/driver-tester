@@ -28,6 +28,7 @@
     <ClInclude Include="messages.pb.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ProtobufParser.h" />
+    <ClInclude Include="ProtobufUtils.h" />
     <ClInclude Include="RequestsHandler.h" />
     <ClInclude Include="RequestsRouter.h" />
     <ClInclude Include="Server.h" />
@@ -38,6 +39,7 @@
     <None Include="Buffer.inl" />
     <None Include="CastUtils.inl" />
     <None Include="Communication.inl" />
+    <None Include="ProtobufUtils.inl" />
     <None Include="RequestsRouter.inl" />
     <None Include="Stream.inl" />
   </ItemGroup>
@@ -45,6 +47,7 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="messages.pb.cc" />
     <ClCompile Include="ProtobufParser.cpp" />
+    <ClCompile Include="ProtobufUtils.cpp" />
     <ClCompile Include="Stream.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

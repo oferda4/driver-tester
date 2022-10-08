@@ -57,6 +57,9 @@
     <ClInclude Include="ProtobufParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ProtobufUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Communication.inl">
@@ -77,6 +80,9 @@
     <None Include="..\..\common\messages.proto">
       <Filter>Protobuf</Filter>
     </None>
+    <None Include="ProtobufUtils.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp">
@@ -89,6 +95,9 @@
       <Filter>Protobuf</Filter>
     </ClCompile>
     <ClCompile Include="ProtobufParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtobufUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
