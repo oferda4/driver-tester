@@ -48,6 +48,9 @@
     <ClCompile Include="ProtobufParserTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HandleTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MockParser.h">
@@ -69,6 +72,9 @@
       <Filter>Mocks</Filter>
     </ClInclude>
     <ClInclude Include="MockRequestsRouter.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="MockHandle.h">
       <Filter>Mocks</Filter>
     </ClInclude>
   </ItemGroup>

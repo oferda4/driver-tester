@@ -36,6 +36,7 @@
     <ClCompile Include="BufferTest.cpp" />
     <ClCompile Include="CastUtilsTest.cpp" />
     <ClCompile Include="CommunicationTest.cpp" />
+    <ClCompile Include="HandleTest.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ProtobufParserTest.cpp" />
     <ClCompile Include="RequestsRouterTest.cpp" />
@@ -52,6 +53,7 @@
   <ItemGroup>
     <ClInclude Include="MockCommunication.h" />
     <ClInclude Include="MockConnection.h" />
+    <ClInclude Include="MockHandle.h" />
     <ClInclude Include="MockParser.h" />
     <ClInclude Include="MockRequestsHandler.h" />
     <ClInclude Include="MockRequestsRouter.h" />

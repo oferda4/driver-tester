@@ -60,6 +60,9 @@
     <ClInclude Include="ProtobufUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Handle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Communication.inl">
@@ -81,6 +84,9 @@
       <Filter>Protobuf</Filter>
     </None>
     <None Include="ProtobufUtils.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Handle.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
