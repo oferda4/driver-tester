@@ -148,11 +148,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="WsaGuard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\drvut_user\src\drvut_user.vcxproj">
       <Project>{db05b525-7ab1-4c7b-8182-09aa8cbcaf92}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WinExceptions.h" />
+    <ClInclude Include="WsaGuard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
