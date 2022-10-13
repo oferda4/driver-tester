@@ -101,8 +101,8 @@ sockaddr_in impl::createSocketAddress(const std::string& ip, uint16_t port) {
 }
 
 long impl::getIpAddrees(const std::string& ip) {
-    const long address = inet_addr(ip.c_str());
-    if (address == INADDR_NONE) {
+    unsigned long address = 0;
+    if (inet_pton(AF_INET, ip.c_str(), &address) != 1) {
         throw BadIpAddress();
     }
     return address;

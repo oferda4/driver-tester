@@ -1,12 +1,12 @@
 #pragma once
 
-#define _WINSOCK_DEPRECATED_NO_WARNINGS
-
 // note: include order is important
 #include <WinSock2.h>
+#include <WS2tcpip.h>
 #include <Windows.h>
 
 #pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "onecore.lib")
 
 #include <vector>
 #include <concepts>
