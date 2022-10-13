@@ -11,32 +11,32 @@ struct BadIpAddress : std::exception {
 
 template <typename T>
 concept PosixSocketTraits = requires(T& traits, 
-                                     typename T::HandleType socket,
-                                     int af,
-                                     int type,
-                                     int protocol) {
+                                     SOCKET socket) {
     { T::ExceptionType };
     std::derived_from<typename T::ExceptionType, std::exception>;
-    { traits.create(socket, af, type, protocol) } -> std::same_as<typename T::HandleType>;
     { traits.close(socket) } -> std::same_as<int>;
 };
 
 template <typename T>
 concept PosixTcpServerTraits = requires(T& traits,
-                                        typename T::HandleType socket,
+                                        SOCKET socket,
+                                        int af,
+                                        int type,
+                                        int protocol,
                                         const sockaddr_in& addr, 
                                         int namelen,
                                         int backlog,
                                         sockaddr& outAddr,
                                         int& outAddrLen) {
+    { traits.create(af, type, protocol) } -> std::same_as<SOCKET>;
     { traits.bind(socket, addr, namelen) } -> std::same_as<int>;
     { traits.listen(socket, backlog) } -> std::same_as<int>;
-    { traits.accept(socket, outAddr, outAddrLen) } -> std::same_as<typename T::HandleType>;
+    { traits.accept(socket, &outAddr, &outAddrLen) } -> std::same_as<typename T::HandleType>;
 };
 
 template <typename T>
 concept PosixTcpConnectionTraits = requires(T& traits, 
-                                            typename T::HandleType socket,
+                                            SOCKET socket,
                                             char *buf, 
                                             int len, 
                                             int flags) {
@@ -46,15 +46,16 @@ concept PosixTcpConnectionTraits = requires(T& traits,
 
 template <PosixSocketTraits TcpSocketTraits>
 class SocketHandleTraits final {
-    using Type = TcpSocketTraits::HandleType;
-    void close(Type socket);
+public:
+    using Type = SOCKET;
+    void close(SOCKET socket);
 
 private:
     TcpSocketTraits m_traits;
 };
 
 template <PosixSocketTraits TcpSocketTraits>
-using SocketGuard = HandleGuard<PosixSocketTraits<HandleType, TcpSocketType>>;
+using SocketGuard = HandleGuard<SocketHandleTraits<TcpSocketTraits>>;
 
 template <typename Traits>
     requires(PosixSocketTraits<Traits> && PosixTcpConnectionTraits<Traits>) 
@@ -68,15 +69,15 @@ public:
     uint32_t send(const Buffer& data);
 
 private:
-    SocketGuard<SocketHandleTraits<Traits>> m_socket;
     Traits m_traits;
+    SocketGuard<Traits> m_socket;
 };
 
 template <typename Traits>
     requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits> && PosixTcpConnectionTraits<Traits>) 
 class TcpSocketServer final {
 public:
-    using ConnectionType<Traits> = TcpSocketConnection;
+    using ConnectionType = TcpSocketConnection<Traits>;
 
     template <typename = std::enable_if_t<std::is_default_constructible_v<Traits>>>
     explicit TcpSocketServer(const std::string& ip, uint16_t port);
@@ -85,7 +86,7 @@ public:
     TcpSocketConnection<Traits> waitForConnection();
 
 private:
-    SocketGuard<SocketHandleTraits<Traits>> m_socket;
+    SocketGuard<Traits> m_socket;
     Traits m_traits;
     sockaddr_in m_address;
 };

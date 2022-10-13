@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6756b429-35da-4812-a396-1b3ae8ddf684}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -41,6 +41,7 @@
     <ClCompile Include="ProtobufParserTest.cpp" />
     <ClCompile Include="RequestsRouterTest.cpp" />
     <ClCompile Include="StreamTest.cpp" />
+    <ClCompile Include="TcpSocketTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -59,6 +60,7 @@
     <ClInclude Include="MockRequestsRouter.h" />
     <ClInclude Include="MockServer.h" />
     <ClInclude Include="MockStream.h" />
+    <ClCompile Include="MockTcpSocket.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

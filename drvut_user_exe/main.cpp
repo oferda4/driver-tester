@@ -4,8 +4,6 @@
 
 #include "WsaGuard.h"
 
-#pragma comment(lib, "ws2_32.lib")
-
 namespace {
 void trace(const std::string& msg);
 void traceUsages();

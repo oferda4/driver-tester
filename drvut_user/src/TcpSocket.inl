@@ -2,6 +2,8 @@
 
 #include "TcpSocket.h"
 
+#include "CastUtils.h"
+
 namespace impl {
 template <PosixSocketTraits Traits>
 SocketGuard<SocketHandleTraits<Traits>> createTcpSocket(Traits& traits);
@@ -10,7 +12,7 @@ inline long getIpAddrees(const std::string& ip);
 }
 
 template<PosixSocketTraits TcpSocketTraits>
-void SocketHandleTraits<TcpSocketTraits>::close(Type socket) {
+void SocketHandleTraits<TcpSocketTraits>::close(SOCKET socket) {
     m_traits.close(socket);
 }
 
@@ -33,7 +35,7 @@ template <typename Traits>
     requires(PosixSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>)
 Buffer TcpSocketConnection<Traits>::recv(uint32_t size) {
     Buffer data(size);
-    const int result = m_trais.recv(*m_socket, data.data(), data.size(), 0);
+    const int result = m_traits.recv(*m_socket, reinterpret_cast<char*>(data.data()), CastUtils::cast<int>(data.size()), 0);
     if (result == SOCKET_ERROR) {
         throw typename Traits::ExceptionType();
     }
@@ -44,8 +46,7 @@ Buffer TcpSocketConnection<Traits>::recv(uint32_t size) {
 template <typename Traits>
     requires(PosixSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>)
 uint32_t TcpSocketConnection<Traits>::send(const Buffer& data) {
-    Buffer data(size);
-    const int result = m_trais.send(*m_socket, data.data(), data.size(), 0);
+    const int result = m_traits.send(*m_socket, data.data(), data.size(), 0);
     if (result == SOCKET_ERROR) {
         throw typename Traits::ExceptionType();
     }
@@ -53,7 +54,7 @@ uint32_t TcpSocketConnection<Traits>::send(const Buffer& data) {
 }
 
 template <typename Traits>
-    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits>) 
+    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits> && PosixTcpConnectionTraits<Traits>)
 template <typename>
 TcpSocketServer<Traits>::TcpSocketServer(const std::string& ip, uint16_t port) 
     : TcpSocketServer(Traits(), ip, port) {
@@ -61,7 +62,7 @@ TcpSocketServer<Traits>::TcpSocketServer(const std::string& ip, uint16_t port)
 }
 
 template <typename Traits>
-    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits>) 
+    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits> && PosixTcpConnectionTraits<Traits>) 
 TcpSocketServer<Traits>::TcpSocketServer(Traits traits, const std::string& ip, uint16_t port) 
     : m_socket(impl::createTcpSocket(traits)), 
       m_traits(std::move(traits)),
@@ -73,11 +74,11 @@ TcpSocketServer<Traits>::TcpSocketServer(Traits traits, const std::string& ip, u
 }
 
 template <typename Traits>
-    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits>) 
+    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits> && PosixTcpConnectionTraits<Traits>) 
 TcpSocketConnection<Traits> TcpSocketServer<Traits>::waitForConnection() {
-    const typename Traits::HandleType connectionSocket = m_traits.accept(*m_socket, nullptr, nullptr);
-    if (connectinoSocket == INVALID_SOCKET) {
-        typename throw Traits::ExceptionType();
+    const SOCKET connectionSocket = m_traits.accept(*m_socket, nullptr, nullptr);
+    if (connectionSocket == INVALID_SOCKET) {
+        throw typename Traits::ExceptionType();
     }
     return { connectionSocket };
 }

@@ -51,6 +51,12 @@
     <ClCompile Include="HandleTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MockTcpSocket.h">
+      <Filter>Mocks</Filter>
+    </ClCompile>
+    <ClCompile Include="TcpSocketTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MockParser.h">
