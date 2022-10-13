@@ -17,7 +17,7 @@ concept PosixSocketTraits = requires(T& traits,
                                      int protocol) {
     { T::ExceptionType };
     std::derived_from<typename T::ExceptionType, std::exception>;
-    { traits.create(socket, af, type, protocol) } -> std::same_as<T>;
+    { traits.create(socket, af, type, protocol) } -> std::same_as<typename T::HandleType>;
     { traits.close(socket) } -> std::same_as<int>;
 };
 
