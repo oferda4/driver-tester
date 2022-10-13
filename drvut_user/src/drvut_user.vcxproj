@@ -34,6 +34,7 @@
     <ClInclude Include="RequestsRouter.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="Stream.h" />
+    <ClInclude Include="TcpSocket.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\common\messages.proto" />
@@ -44,6 +45,7 @@
     <None Include="ProtobufUtils.inl" />
     <None Include="RequestsRouter.inl" />
     <None Include="Stream.inl" />
+    <None Include="TcpSocket.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
