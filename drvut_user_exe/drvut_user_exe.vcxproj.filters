@@ -21,12 +21,24 @@
     <ClCompile Include="WsaGuard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WsaSocketHandle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WsaTcpConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WsaGuard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WinExceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WsaTcpConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WsaSocketHandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
