@@ -5,12 +5,16 @@
 #include "Handle.h"
 #include "Buffer.h"
 
+struct BadIpAddress : std::exception {
+    // left blank intentionally
+};
+
 template <typename T>
-concept PosixTcpSocketTraits = requires(T& traits, 
-                                        typename T::HandleType socket,
-                                        int af,
-                                        int type,
-                                        int protocol) {
+concept PosixSocketTraits = requires(T& traits, 
+                                     typename T::HandleType socket,
+                                     int af,
+                                     int type,
+                                     int protocol) {
     { T::ExceptionType };
     std::derived_from<typename T::ExceptionType, std::exception>;
     { traits.create(socket, af, type, protocol) } -> std::same_as<T>;
@@ -20,7 +24,7 @@ concept PosixTcpSocketTraits = requires(T& traits,
 template <typename T>
 concept PosixTcpServerTraits = requires(T& traits,
                                         typename T::HandleType socket,
-                                        const sockaddr& addr, 
+                                        const sockaddr_in& addr, 
                                         int namelen,
                                         int backlog,
                                         sockaddr& outAddr,
@@ -40,8 +44,8 @@ concept PosixTcpConnectionTraits = requires(T& traits,
     { traits.send(socket, buf, len, flags) } -> std::same_as<int>;
 };
 
-template <PosixTcpSocketTraits TcpSocketTraits>
-class SocketTraits final {
+template <PosixSocketTraits TcpSocketTraits>
+class SocketHandleTraits final {
     using Type = TcpSocketTraits::HandleType;
     void close(Type socket);
 
@@ -49,23 +53,41 @@ private:
     TcpSocketTraits m_traits;
 };
 
-template <PosixTcpSocketTraits TcpSocketTraits>
+template <PosixSocketTraits TcpSocketTraits>
 using SocketGuard = HandleGuard<PosixSocketTraits<HandleType, TcpSocketType>>;
 
 template <typename Traits>
-    requires(PosixTcpSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>) 
-class SocketConnection final {
+    requires(PosixSocketTraits<Traits> && PosixTcpConnectionTraits<Traits>) 
+class TcpSocketConnection final {
 public:
     template <typename = std::enable_if_t<std::is_default_constructible_v<Traits>>>
-    SocketConnection(SocketGuard<Traits> socket);
-    SocketConnection(Traits traits, SocketGuard<Traits> socket);
+    explicit TcpSocketConnection(SocketGuard<Traits> socket);
+    TcpSocketConnection(Traits traits, SocketGuard<Traits> socket);
 
     Buffer recv(uint32_t size);
     uint32_t send(const Buffer& data);
 
 private:
-    SocketGuard<TcpSocketTraits> m_socket;
-    Traits traits;
+    SocketGuard<SocketHandleTraits<Traits>> m_socket;
+    Traits m_traits;
+};
+
+template <typename Traits>
+    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits> && PosixTcpConnectionTraits<Traits>) 
+class TcpSocketServer final {
+public:
+    using ConnectionType<Traits> = TcpSocketConnection;
+
+    template <typename = std::enable_if_t<std::is_default_constructible_v<Traits>>>
+    explicit TcpSocketServer(const std::string& ip, uint16_t port);
+    TcpSocketServer(Traits traits, const std::string& ip, uint16_t port);
+
+    TcpSocketConnection<Traits> waitForConnection();
+
+private:
+    SocketGuard<SocketHandleTraits<Traits>> m_socket;
+    Traits m_traits;
+    sockaddr_in m_address;
 };
 
 #include "TcpSocket.inl"
