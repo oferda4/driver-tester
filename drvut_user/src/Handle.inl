@@ -9,6 +9,13 @@ HandleGuard<HandleTraitsType>::HandleGuard(HandleTraitsType traits, HandleTraits
 }
 
 template <HandleTraits HandleTraitsType>
+template <typename>
+HandleGuard<HandleTraitsType>::HandleGuard(HandleTraitsType::Type handle) 
+    : HandleGuard(HandleTraitsType(), handle) {
+    // left blank intentionally
+}
+
+template <HandleTraits HandleTraitsType>
 HandleGuard<HandleTraitsType>::~HandleGuard() {
     if (m_isValid) {
         m_traits.close(m_handle);

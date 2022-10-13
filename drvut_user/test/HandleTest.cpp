@@ -20,14 +20,14 @@ TEST(HandleGuardTest, GuardOnDtor) {
 
 TEST(HandleGuardTest, GetInnerValue) {
     const MoveableMockHandleTraits::Type arbitraryHandleValue = 1010;
-    HandleGuard<MoveableMockHandleTraits> guard(MoveableMockHandleTraits(), arbitraryHandleValue);
+    HandleGuard<MoveableMockHandleTraits> guard(arbitraryHandleValue);
 
     assertGuardInnerValue(guard, arbitraryHandleValue);
 }
 
 TEST(HandleGuardTest, MoveCtor) {
     const MoveableMockHandleTraits::Type arbitraryHandleValue = 8;
-    HandleGuard<MoveableMockHandleTraits> movedGuard(MoveableMockHandleTraits(), arbitraryHandleValue);
+    HandleGuard<MoveableMockHandleTraits> movedGuard(arbitraryHandleValue);
     HandleGuard<MoveableMockHandleTraits> guard(std::move(movedGuard));
 
     assertGuardInnerValue(guard, arbitraryHandleValue);
@@ -38,8 +38,8 @@ TEST(HandleGuardTest, MoveAssignment) {
     const MoveableMockHandleTraits::Type arbitraryDifferentHandleValue = 101;
     static_assert(arbitraryHandleValue != arbitraryDifferentHandleValue);
 
-    HandleGuard<MoveableMockHandleTraits> movedGuard(MoveableMockHandleTraits(), arbitraryHandleValue);
-    HandleGuard<MoveableMockHandleTraits> guard(MoveableMockHandleTraits(), arbitraryDifferentHandleValue);
+    HandleGuard<MoveableMockHandleTraits> movedGuard(arbitraryHandleValue);
+    HandleGuard<MoveableMockHandleTraits> guard(arbitraryDifferentHandleValue);
     guard = std::move(movedGuard);
 
     assertGuardInnerValue(guard, arbitraryHandleValue);
@@ -58,7 +58,7 @@ TEST(HandleGuardTest, InvalidateAfterMoveAssignment) {
     MoveableMockHandleTraits traits;
     EXPECT_CALL(traits.getMock(), close(_)).Times(1);
     HandleGuard<MoveableMockHandleTraits> movedGuard(std::move(traits), NOT_INTERESTING_HANDLE_VALUE);
-    HandleGuard<MoveableMockHandleTraits> ignored(MoveableMockHandleTraits(), NOT_INTERESTING_HANDLE_VALUE);
+    HandleGuard<MoveableMockHandleTraits> ignored(NOT_INTERESTING_HANDLE_VALUE);
     ignored = std::move(movedGuard);
 
     assertInvalidWhenGettingInnerValue(movedGuard);

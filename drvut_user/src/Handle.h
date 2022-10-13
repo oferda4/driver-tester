@@ -17,6 +17,8 @@ template <HandleTraits HandleTraitsType>
 class HandleGuard {
 public:
     HandleGuard(HandleTraitsType traits, HandleTraitsType::Type handle);
+    template <typename = std::enable_if_t<std::is_default_constructible_v<HandleTraitsType>>>
+    HandleGuard(HandleTraitsType::Type handle);
     ~HandleGuard();
 
     NO_COPY(HandleGuard);
