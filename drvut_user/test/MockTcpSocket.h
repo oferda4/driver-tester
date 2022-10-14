@@ -8,13 +8,15 @@ struct FakeExceptionForMockPosixSocket : std::exception {
     // left blank intentionally
 };
 
-class MockPosixTcpSocketAllTraits {
+class FakePosixSocketTraits {
 public:
     using ExceptionType = FakeExceptionForMockPosixSocket;
-    
-    MOCK_METHOD(SOCKET, create, (int, int, int));
-    MOCK_METHOD(int, close, (SOCKET));
+    int close(SOCKET) { return 0; }
+};
 
+class MockPosixTcpSocketAllTraits {
+public:
+    MOCK_METHOD(SOCKET, create, (int, int, int));
     MOCK_METHOD(int, bind, (SOCKET, sockaddr_in, int));
     MOCK_METHOD(int, listen, (SOCKET, int));
     MOCK_METHOD(SOCKET, accept, (SOCKET, sockaddr*, int*));
@@ -25,17 +27,17 @@ public:
 
 class MoveableMockPosixTcpSocketAllTraits {
 public:
-    using ExceptionType = MockPosixTcpSocketAllTraits::ExceptionType;
+    using ExceptionType = FakePosixSocketTraits::ExceptionType;
 
     MoveableMockPosixTcpSocketAllTraits()
-        : m_mock(std::make_unique<testing::NiceMock<MockPosixTcpSocketAllTraits>>()) {}
+        : m_mock(std::make_unique<testing::StrictMock<MockPosixTcpSocketAllTraits>>()) {}
 
     SOCKET create(int af, int type, int protocol) {
         return m_mock->create(af,type, protocol);
     }
 
     int close(SOCKET socket) {
-        return m_mock->close(socket);
+        return m_fake.close(socket);
     }
 
     int bind(SOCKET socket, sockaddr_in addr, int namelen) {
@@ -58,10 +60,11 @@ public:
         return m_mock->send(socket, buf, len, flags);
     }
 
-    testing::NiceMock<MockPosixTcpSocketAllTraits>& getMock() {
+    testing::StrictMock<MockPosixTcpSocketAllTraits>& getMock() {
         return *m_mock;
     }
 
 private:
-    std::unique_ptr<testing::NiceMock<MockPosixTcpSocketAllTraits>> m_mock;
+    std::unique_ptr<testing::StrictMock<MockPosixTcpSocketAllTraits>> m_mock;
+    FakePosixSocketTraits m_fake;
 };

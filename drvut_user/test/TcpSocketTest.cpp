@@ -19,8 +19,9 @@ TEST(TcpSocketConenctionTest, RecvSanity) {
     const Buffer fakeBuffer = getFakeBuffer();
     const SOCKET arbitrarySocket = 15;
     MoveableMockPosixTcpSocketAllTraits traits;
-    ON_CALL(traits.getMock(), recv(arbitrarySocket, _, CastUtils::cast<int>(fakeBuffer.size()), 0))
-        .WillByDefault([&fakeBuffer](SOCKET, char* buf, int, int) {
+    EXPECT_CALL(traits.getMock(), recv(arbitrarySocket, _, CastUtils::cast<int>(fakeBuffer.size()), 0))
+        .Times(1)
+        .WillOnce([&fakeBuffer](SOCKET, char* buf, int, int) {
             memcpy(buf, fakeBuffer.data(), fakeBuffer.size());
             return CastUtils::cast<int>(fakeBuffer.size());
         });
@@ -37,8 +38,9 @@ TEST(TcpSocketConenctionTest, RecvPartial) {
     const size_t arbitraryPartialSize = fakeBuffer.size() / 3;
     const SOCKET arbitrarySocket = 27;
     MoveableMockPosixTcpSocketAllTraits traits;
-    ON_CALL(traits.getMock(), recv(arbitrarySocket, _, CastUtils::cast<int>(fakeBuffer.size()), 0))
-        .WillByDefault([&fakeBuffer, &arbitraryPartialSize](SOCKET, char* buf, int, int) {
+    EXPECT_CALL(traits.getMock(), recv(arbitrarySocket, _, CastUtils::cast<int>(fakeBuffer.size()), 0))
+        .Times(1)
+        .WillOnce([&fakeBuffer, &arbitraryPartialSize](SOCKET, char* buf, int, int) {
             memcpy(buf, fakeBuffer.data(), arbitraryPartialSize);
             return CastUtils::cast<int>(arbitraryPartialSize);
         });
