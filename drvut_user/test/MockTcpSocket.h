@@ -54,7 +54,7 @@ public:
         return m_mock->recv(socket, buf, len, flags);
     }
 
-    int send(SOCKET socket, char* buf, int len, int flags) {
+    int send(SOCKET socket, const char* buf, int len, int flags) {
         return m_mock->send(socket, buf, len, flags);
     }
 

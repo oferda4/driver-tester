@@ -37,11 +37,12 @@ concept PosixTcpServerTraits = requires(T& traits,
 template <typename T>
 concept PosixTcpConnectionTraits = requires(T& traits, 
                                             SOCKET socket,
-                                            char *buf, 
+                                            char *buf,
+                                            const char *bufToSend,
                                             int len, 
                                             int flags) {
     { traits.recv(socket, buf, len, flags) } -> std::same_as<int>;
-    { traits.send(socket, buf, len, flags) } -> std::same_as<int>;
+    { traits.send(socket, bufToSend, len, flags) } -> std::same_as<int>;
 };
 
 template <PosixSocketTraits TcpSocketTraits>

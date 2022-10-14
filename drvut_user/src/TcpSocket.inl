@@ -46,7 +46,7 @@ Buffer TcpSocketConnection<Traits>::recv(size_t size) {
 template <typename Traits>
     requires(PosixSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>)
 size_t TcpSocketConnection<Traits>::send(const Buffer& data) {
-    const int result = m_traits.send(*m_socket, data.data(), data.size(), 0);
+    const int result = m_traits.send(*m_socket, reinterpret_cast<const char*>(data.data()), CastUtils::cast<int>(data.size()), 0);
     if (result == SOCKET_ERROR) {
         throw typename Traits::ExceptionType();
     }

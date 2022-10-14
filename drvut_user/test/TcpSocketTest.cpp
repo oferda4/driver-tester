@@ -64,6 +64,50 @@ TEST(TcpSocketConenctionTest, RecvFails) {
                  MoveableMockPosixTcpSocketAllTraits::ExceptionType);
 }
 
+TEST(TcpSocketConenctionTest, SendSanity) {
+    const Buffer fakeBuffer = getFakeBuffer();
+    const SOCKET arbitrarySocket = 300;
+    MoveableMockPosixTcpSocketAllTraits traits;
+    EXPECT_CALL(traits.getMock(), send(arbitrarySocket, _, CastUtils::cast<int>(fakeBuffer.size()), 0))
+        .Times(1)
+        .WillOnce(Return(CastUtils::cast<int>(fakeBuffer.size())));
+
+    TcpSocketConnection<MoveableMockPosixTcpSocketAllTraits> connection(
+        std::move(traits),
+        SocketGuard<MoveableMockPosixTcpSocketAllTraits>(arbitrarySocket));
+    const auto result = connection.send(fakeBuffer);
+    ASSERT_EQ(result, fakeBuffer.size());
+}
+
+TEST(TcpSocketConenctionTest, SendPartial) {
+    const Buffer fakeBuffer = getFakeBuffer();
+    const int arbitraryPartialSize = CastUtils::cast<int>(fakeBuffer.size() / 5);
+    const SOCKET arbitrarySocket = 3;
+    MoveableMockPosixTcpSocketAllTraits traits;
+    EXPECT_CALL(traits.getMock(), send(arbitrarySocket, _, CastUtils::cast<int>(fakeBuffer.size()), 0))
+        .Times(1)
+        .WillOnce(Return(arbitraryPartialSize));
+
+    TcpSocketConnection<MoveableMockPosixTcpSocketAllTraits> connection(
+        std::move(traits),
+        SocketGuard<MoveableMockPosixTcpSocketAllTraits>(arbitrarySocket));
+    const auto result = connection.send(fakeBuffer);
+    ASSERT_EQ(result, arbitraryPartialSize);
+}
+
+TEST(TcpSocketConenctionTest, SendFails) {
+    MoveableMockPosixTcpSocketAllTraits traits;
+    EXPECT_CALL(traits.getMock(), send(_, _, _, _))
+        .Times(1)
+        .WillOnce(Return(SOCKET_ERROR));
+
+    TcpSocketConnection<MoveableMockPosixTcpSocketAllTraits> connection(
+        std::move(traits),
+        SocketGuard<MoveableMockPosixTcpSocketAllTraits>(UNINTERESTING_SOCKET_HANDLE));
+    EXPECT_THROW(connection.send(getFakeBuffer()),
+        MoveableMockPosixTcpSocketAllTraits::ExceptionType);
+}
+
 namespace {
 Buffer getFakeBuffer() {
     Buffer buffer(ARBITRARY_BUFFER_SIZE);
