@@ -38,7 +38,7 @@ template <Connection ConnectionType>
 void StreamImpl<ConnectionType>::sendAll(const Buffer& buffer) {
     SizeType bytesSent = 0;
     while (bytesSent < buffer.size()) {
-        const uint32_t currSent = m_connection.send(Buffer(buffer.begin() + bytesSent, buffer.end()));
+        const auto currSent = m_connection.send(Buffer(buffer.begin() + bytesSent, buffer.end()));
         if (!currSent) {
             throw ConnectionTerminatedInTheMiddle();
         }

@@ -33,7 +33,7 @@ TcpSocketConnection<Traits>::TcpSocketConnection(Traits traits, SocketGuard<Trai
 
 template <typename Traits>
     requires(PosixSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>)
-Buffer TcpSocketConnection<Traits>::recv(uint32_t size) {
+Buffer TcpSocketConnection<Traits>::recv(size_t size) {
     Buffer data(size);
     const int result = m_traits.recv(*m_socket, reinterpret_cast<char*>(data.data()), CastUtils::cast<int>(data.size()), 0);
     if (result == SOCKET_ERROR) {
@@ -45,7 +45,7 @@ Buffer TcpSocketConnection<Traits>::recv(uint32_t size) {
 
 template <typename Traits>
     requires(PosixSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>)
-uint32_t TcpSocketConnection<Traits>::send(const Buffer& data) {
+size_t TcpSocketConnection<Traits>::send(const Buffer& data) {
     const int result = m_traits.send(*m_socket, data.data(), data.size(), 0);
     if (result == SOCKET_ERROR) {
         throw typename Traits::ExceptionType();

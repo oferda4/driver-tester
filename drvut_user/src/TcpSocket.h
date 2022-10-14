@@ -65,8 +65,8 @@ public:
     explicit TcpSocketConnection(SocketGuard<Traits> socket);
     TcpSocketConnection(Traits traits, SocketGuard<Traits> socket);
 
-    Buffer recv(uint32_t size);
-    uint32_t send(const Buffer& data);
+    Buffer recv(size_t size);
+    size_t send(const Buffer& data);
 
 private:
     Traits m_traits;
