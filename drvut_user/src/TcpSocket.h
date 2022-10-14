@@ -23,15 +23,15 @@ concept PosixTcpServerTraits = requires(T& traits,
                                         int af,
                                         int type,
                                         int protocol,
-                                        const sockaddr_in& addr, 
+                                        const sockaddr_in* addr, 
                                         int namelen,
                                         int backlog,
-                                        sockaddr& outAddr,
-                                        int& outAddrLen) {
+                                        sockaddr* outAddr,
+                                        int* outAddrLen) {
     { traits.create(af, type, protocol) } -> std::same_as<SOCKET>;
     { traits.bind(socket, addr, namelen) } -> std::same_as<int>;
     { traits.listen(socket, backlog) } -> std::same_as<int>;
-    { traits.accept(socket, &outAddr, &outAddrLen) } -> std::same_as<typename T::HandleType>;
+    { traits.accept(socket, outAddr, outAddrLen) } -> std::same_as<SOCKET>;
 };
 
 template <typename T>
@@ -87,9 +87,9 @@ public:
     TcpSocketConnection<Traits> waitForConnection();
 
 private:
+    sockaddr_in m_address;
     SocketGuard<Traits> m_socket;
     Traits m_traits;
-    sockaddr_in m_address;
 };
 
 #include "TcpSocket.inl"

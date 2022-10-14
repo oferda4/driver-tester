@@ -17,7 +17,7 @@ public:
 class MockPosixTcpSocketAllTraits {
 public:
     MOCK_METHOD(SOCKET, create, (int, int, int));
-    MOCK_METHOD(int, bind, (SOCKET, sockaddr_in, int));
+    MOCK_METHOD(int, bind, (SOCKET, const sockaddr_in*, int));
     MOCK_METHOD(int, listen, (SOCKET, int));
     MOCK_METHOD(SOCKET, accept, (SOCKET, sockaddr*, int*));
 
@@ -40,7 +40,7 @@ public:
         return m_fake.close(socket);
     }
 
-    int bind(SOCKET socket, sockaddr_in addr, int namelen) {
+    int bind(SOCKET socket, const sockaddr_in* addr, int namelen) {
         return m_mock->bind(socket, addr, namelen);
     }
 

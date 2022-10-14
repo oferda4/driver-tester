@@ -5,8 +5,8 @@
 #include "CastUtils.h"
 
 namespace impl {
-template <PosixSocketTraits Traits>
-SocketGuard<SocketHandleTraits<Traits>> createTcpSocket(Traits& traits);
+template <typename Traits>
+SocketGuard<Traits> createTcpSocket(Traits& traits);
 inline sockaddr_in createSocketAddress(const std::string& ip, uint16_t port);
 inline long getIpAddrees(const std::string& ip);
 }
@@ -64,9 +64,9 @@ TcpSocketServer<Traits>::TcpSocketServer(const std::string& ip, uint16_t port)
 template <typename Traits>
     requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits> && PosixTcpConnectionTraits<Traits>) 
 TcpSocketServer<Traits>::TcpSocketServer(Traits traits, const std::string& ip, uint16_t port) 
-    : m_socket(impl::createTcpSocket(traits)), 
-      m_traits(std::move(traits)),
-      m_address(impl::createSocketAddress(ip, port)) {
+    : m_address(impl::createSocketAddress(ip, port)), 
+      m_socket(impl::createTcpSocket(traits)), 
+      m_traits(std::move(traits)) {
     if (m_traits.bind(*m_socket, &m_address, sizeof(m_address)) == SOCKET_ERROR ||
         m_traits.listen(*m_socket, 1) == SOCKET_ERROR) {
         throw typename Traits::ExceptionType();
@@ -83,9 +83,9 @@ TcpSocketConnection<Traits> TcpSocketServer<Traits>::waitForConnection() {
     return { connectionSocket };
 }
 
-template <PosixSocketTraits Traits>
-SocketGuard<SocketHandleTraits<Traits>> impl::createTcpSocket(Traits& traits) {
-    typename Traits::HandleType socket = traits.create(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+template <typename Traits>
+SocketGuard<Traits> impl::createTcpSocket(Traits& traits) {
+    const auto socket = traits.create(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (socket == INVALID_SOCKET) {
         throw typename Traits::ExceptionType();
     }
