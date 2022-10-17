@@ -153,8 +153,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="WsaGuard.cpp" />
-    <ClCompile Include="WsaSocketHandle.cpp" />
-    <ClCompile Include="WsaTcpConnection.cpp" />
+    <ClCompile Include="WsaTcpSocket.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\drvut_user\src\drvut_user.vcxproj">
@@ -164,8 +163,7 @@
   <ItemGroup>
     <ClInclude Include="WinExceptions.h" />
     <ClInclude Include="WsaGuard.h" />
-    <ClInclude Include="WsaSocketHandle.h" />
-    <ClInclude Include="WsaTcpConnection.h" />
+    <ClInclude Include="WsaTcpSocket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
