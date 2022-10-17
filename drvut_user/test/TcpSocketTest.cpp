@@ -10,7 +10,7 @@ using testing::Return;
 namespace{
 constexpr SOCKET UNINTERESTING_SOCKET_HANDLE = 1;
 constexpr SOCKET ARBITRARY_SOCKET_HANDLE = 46;
-    constexpr uint32_t UNINTERESTING_SIZE = 1024;
+constexpr uint32_t UNINTERESTING_SIZE = 1024;
 constexpr size_t ARBITRARY_BUFFER_SIZE = 2048;
 const std::string ARBITRARY_IP_ADDRESS = "1.2.3.4";
 const uint16_t ARBITRARY_PORT = 101;
