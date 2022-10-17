@@ -5,89 +5,89 @@
 #include "CastUtils.h"
 
 namespace impl {
-template <typename Traits>
-SocketGuard<Traits> createTcpSocket(Traits& traits);
+template <typename Api>
+SocketGuard<Api> createTcpSocket(Api& api);
 inline sockaddr_in createSocketAddress(const std::string& ip, uint16_t port);
 inline long getIpAddrees(const std::string& ip);
 }
 
-template<PosixSocketTraits TcpSocketTraits>
-void SocketHandleTraits<TcpSocketTraits>::close(SOCKET socket) {
-    m_traits.close(socket);
+template<PosixSocketApi TcpSocketApi>
+void SocketHandleTraits<TcpSocketApi>::close(SOCKET socket) {
+    m_api.close(socket);
 }
 
-template <typename Traits>
-    requires(PosixSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>)
+template <typename Api>
+    requires(PosixSocketApi<Api>&& PosixTcpConnectionApi<Api>)
 template <typename>
-TcpSocketConnection<Traits>::TcpSocketConnection(SocketGuard<Traits> socket) 
-    : TcpSocketConnection(Traits(), std::move(socket)) {
+TcpSocketConnection<Api>::TcpSocketConnection(SocketGuard<Api> socket) 
+    : TcpSocketConnection(Api(), std::move(socket)) {
     // left blank intentionally
 }
 
-template <typename Traits>
-    requires(PosixSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>)
-TcpSocketConnection<Traits>::TcpSocketConnection(Traits traits, SocketGuard<Traits> socket) 
-    : m_traits(std::move(traits)), m_socket(std::move(socket)) {
+template <typename Api>
+    requires(PosixSocketApi<Api>&& PosixTcpConnectionApi<Api>)
+TcpSocketConnection<Api>::TcpSocketConnection(Api api, SocketGuard<Api> socket) 
+    : m_api(std::move(api)), m_socket(std::move(socket)) {
     // left blank intentionally
 }
 
-template <typename Traits>
-    requires(PosixSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>)
-Buffer TcpSocketConnection<Traits>::recv(size_t size) {
+template <typename Api>
+    requires(PosixSocketApi<Api>&& PosixTcpConnectionApi<Api>)
+Buffer TcpSocketConnection<Api>::recv(size_t size) {
     Buffer data(size);
-    const int result = m_traits.recv(*m_socket, reinterpret_cast<char*>(data.data()), CastUtils::cast<int>(data.size()), 0);
+    const int result = m_api.recv(*m_socket, reinterpret_cast<char*>(data.data()), CastUtils::cast<int>(data.size()), 0);
     if (result == SOCKET_ERROR) {
-        throw typename Traits::ExceptionType();
+        throw typename Api::ExceptionType();
     }
     data.resize(result);
     return data;
 }
 
-template <typename Traits>
-    requires(PosixSocketTraits<Traits>&& PosixTcpConnectionTraits<Traits>)
-size_t TcpSocketConnection<Traits>::send(const Buffer& data) {
-    const int result = m_traits.send(*m_socket, reinterpret_cast<const char*>(data.data()), CastUtils::cast<int>(data.size()), 0);
+template <typename Api>
+    requires(PosixSocketApi<Api>&& PosixTcpConnectionApi<Api>)
+size_t TcpSocketConnection<Api>::send(const Buffer& data) {
+    const int result = m_api.send(*m_socket, reinterpret_cast<const char*>(data.data()), CastUtils::cast<int>(data.size()), 0);
     if (result == SOCKET_ERROR) {
-        throw typename Traits::ExceptionType();
+        throw typename Api::ExceptionType();
     }
     return result;
 }
 
-template <typename Traits>
-    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits> && PosixTcpConnectionTraits<Traits>)
+template <typename Api>
+    requires(PosixSocketApi<Api> && PosixTcpServerApi<Api> && PosixTcpConnectionApi<Api>)
 template <typename>
-TcpSocketServer<Traits>::TcpSocketServer(const std::string& ip, uint16_t port) 
-    : TcpSocketServer(Traits(), ip, port) {
+TcpSocketServer<Api>::TcpSocketServer(const std::string& ip, uint16_t port) 
+    : TcpSocketServer(Api(), ip, port) {
     // left blank intentionally
 }
 
-template <typename Traits>
-    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits> && PosixTcpConnectionTraits<Traits>) 
-TcpSocketServer<Traits>::TcpSocketServer(Traits traits, const std::string& ip, uint16_t port) 
+template <typename Api>
+    requires(PosixSocketApi<Api> && PosixTcpServerApi<Api> && PosixTcpConnectionApi<Api>) 
+TcpSocketServer<Api>::TcpSocketServer(Api api, const std::string& ip, uint16_t port) 
     : m_address(impl::createSocketAddress(ip, port)), 
-      m_socket(impl::createTcpSocket(traits)), 
-      m_traits(std::move(traits)) {
-    if (m_traits.bind(*m_socket, &m_address, sizeof(m_address)) == SOCKET_ERROR ||
-        m_traits.listen(*m_socket, 1) == SOCKET_ERROR) {
-        throw typename Traits::ExceptionType();
+      m_socket(impl::createTcpSocket(api)), 
+      m_api(std::move(api)) {
+    if (m_api.bind(*m_socket, reinterpret_cast<sockaddr*>(&m_address), sizeof(m_address)) == SOCKET_ERROR ||
+        m_api.listen(*m_socket, 1) == SOCKET_ERROR) {
+        throw typename Api::ExceptionType();
     }
 }
 
-template <typename Traits>
-    requires(PosixSocketTraits<Traits> && PosixTcpServerTraits<Traits> && PosixTcpConnectionTraits<Traits>) 
-TcpSocketConnection<Traits> TcpSocketServer<Traits>::waitForConnection() {
-    const SOCKET connectionSocket = m_traits.accept(*m_socket, nullptr, nullptr);
+template <typename Api>
+    requires(PosixSocketApi<Api> && PosixTcpServerApi<Api> && PosixTcpConnectionApi<Api>) 
+TcpSocketConnection<Api> TcpSocketServer<Api>::waitForConnection() {
+    const SOCKET connectionSocket = m_api.accept(*m_socket, nullptr, nullptr);
     if (connectionSocket == INVALID_SOCKET) {
-        throw typename Traits::ExceptionType();
+        throw typename Api::ExceptionType();
     }
     return { connectionSocket };
 }
 
-template <typename Traits>
-SocketGuard<Traits> impl::createTcpSocket(Traits& traits) {
-    const auto socket = traits.create(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+template <typename Api>
+SocketGuard<Api> impl::createTcpSocket(Api& api) {
+    const auto socket = api.create(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (socket == INVALID_SOCKET) {
-        throw typename Traits::ExceptionType();
+        throw typename Api::ExceptionType();
     }
     return { socket };
 }

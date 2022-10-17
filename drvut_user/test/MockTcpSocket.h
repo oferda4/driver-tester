@@ -8,16 +8,16 @@ struct FakeExceptionForMockPosixSocket : std::exception {
     // left blank intentionally
 };
 
-class FakePosixSocketTraits {
+class FakePosixSocketApi {
 public:
     using ExceptionType = FakeExceptionForMockPosixSocket;
     int close(SOCKET) { return 0; }
 };
 
-class MockPosixTcpSocketAllTraits {
+class MockPosixTcpSocketAllApi {
 public:
     MOCK_METHOD(SOCKET, create, (int, int, int));
-    MOCK_METHOD(int, bind, (SOCKET, const sockaddr_in*, int));
+    MOCK_METHOD(int, bind, (SOCKET, const sockaddr*, int));
     MOCK_METHOD(int, listen, (SOCKET, int));
     MOCK_METHOD(SOCKET, accept, (SOCKET, sockaddr*, int*));
 
@@ -25,12 +25,12 @@ public:
     MOCK_METHOD(int, send, (SOCKET, const char*, int, int));
 };
 
-class MoveableMockPosixTcpSocketAllTraits {
+class MoveableMockPosixTcpSocketAllApi {
 public:
-    using ExceptionType = FakePosixSocketTraits::ExceptionType;
+    using ExceptionType = FakePosixSocketApi::ExceptionType;
 
-    MoveableMockPosixTcpSocketAllTraits()
-        : m_mock(std::make_unique<testing::StrictMock<MockPosixTcpSocketAllTraits>>()) {}
+    MoveableMockPosixTcpSocketAllApi()
+        : m_mock(std::make_unique<testing::StrictMock<MockPosixTcpSocketAllApi>>()) {}
 
     SOCKET create(int af, int type, int protocol) {
         return m_mock->create(af,type, protocol);
@@ -40,7 +40,7 @@ public:
         return m_fake.close(socket);
     }
 
-    int bind(SOCKET socket, const sockaddr_in* addr, int namelen) {
+    int bind(SOCKET socket, const sockaddr* addr, int namelen) {
         return m_mock->bind(socket, addr, namelen);
     }
 
@@ -60,11 +60,11 @@ public:
         return m_mock->send(socket, buf, len, flags);
     }
 
-    testing::StrictMock<MockPosixTcpSocketAllTraits>& getMock() {
+    testing::StrictMock<MockPosixTcpSocketAllApi>& getMock() {
         return *m_mock;
     }
 
 private:
-    std::unique_ptr<testing::StrictMock<MockPosixTcpSocketAllTraits>> m_mock;
-    FakePosixSocketTraits m_fake;
+    std::unique_ptr<testing::StrictMock<MockPosixTcpSocketAllApi>> m_mock;
+    FakePosixSocketApi m_fake;
 };
