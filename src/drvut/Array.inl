@@ -7,7 +7,7 @@ namespace drvut {
 namespace internal {
 
 template<typename T>
-Array<T>::Array(size_t count) : m_data(new T[count]), m_count(count) {
+Array<T>::Array(size_t size) : m_data(new T[size]), m_size(size) {
     // Left blank intentionally
 }
 
@@ -17,16 +17,23 @@ Array<T>::~Array() {
 }
 
 template <typename T>
-size_t Array<T>::count() {
-    return m_count;
+size_t Array<T>::size() const {
+    return m_size;
 }
 
 template <typename T>
 T& Array<T>::at(size_t index) {
-    if (index >= m_count) {
+    return const_cast<T&>(static_cast<const Array<T>*>(this)->at(index));
+}
+
+template <typename T>
+const T& Array<T>::at(size_t index) const {
+    if (index >= m_size) {
         ExRaiseStatus(STATUS_ACCESS_VIOLATION);
     }
     return m_data[index];
+
+    return const_cast<Array<T>*>(this)->at(index);
 }
 
 }
