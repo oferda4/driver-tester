@@ -51,6 +51,23 @@ size_t List<T>::size() {
 }
 
 template <typename T>
+template <typename Key, Comparator<T, Key> Func>
+T* List<T>::find(const T& key, Func func) {
+    return const_cast<T*>(static_cast<const List<T>*>(this)->find(key, func));
+}
+
+template <typename T>
+template <typename Key, Comparator<T, Key> Func>
+const T* List<T>::find(const T& key, Func func) const {
+    for (auto* node = head(); node; node = node->next) {
+        if (func(node->value, key)) {
+            return &node->value;
+        }
+    }
+    return nullptr;
+}
+
+template <typename T>
 Node<T> detail::findLast(Node<T>& node) {
     Node<T>& curr = node;
     while (curr.next()) {
