@@ -15,6 +15,11 @@ public:
     NOCOPY(unique_ptr);
     ~unique_ptr();
 
+    T* operator->();
+    const T* operator->() const;
+    T& operator*();
+    const T& operator*() const;
+
 private:
     T* m_ptr;
 };
