@@ -21,3 +21,5 @@
 void* __cdecl operator new(size_t size);
 void* __cdecl operator new(size_t, void* p);
 void __cdecl operator delete(void* p, size_t);
+
+using uint32_t = unsigned int;
