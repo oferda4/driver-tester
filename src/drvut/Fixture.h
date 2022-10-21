@@ -28,10 +28,11 @@ struct FixtureData {
 
 class FixturesManager final {
 public:
-    static FixturesManager& getInstance();
+    static FixturesManager& instance();
     static void destroy();
 
-    Array<FixtureInfo> getFixturesInfo();
+    Array<FixtureInfo> listFixtures();
+    Array<TestInfo> listTests(uint32_t fixtureId);
     
 private:
     FixturesManager() = default;
