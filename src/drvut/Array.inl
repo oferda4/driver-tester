@@ -32,8 +32,6 @@ const T& Array<T>::at(size_t index) const {
         ExRaiseStatus(STATUS_ACCESS_VIOLATION);
     }
     return m_data[index];
-
-    return const_cast<Array<T>*>(this)->at(index);
 }
 
 }

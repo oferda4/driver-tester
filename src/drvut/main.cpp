@@ -98,9 +98,9 @@ NTSTATUS performIoctl(PIRP irp) {
         break;
     case Ioctls::RUN_TEST:
         break;
-    default:
-        return STATUS_INVALID_DEVICE_REQUEST;
     }
+
+    return STATUS_INVALID_DEVICE_REQUEST;
 }
 
 NTSTATUS handleListFixturesIoctl(FixtureInfo* outFixtures, size_t outFixturesLength) {
@@ -112,11 +112,11 @@ NTSTATUS handleListFixturesIoctl(FixtureInfo* outFixtures, size_t outFixturesLen
 }
 
 NTSTATUS handleListTestsIoctl(PIRP irp) {
-
+    UNREFERENCED_PARAMETER(irp);
 }
 
 NTSTATUS handleRunTestIoctl(PIRP irp) {
-
+    UNREFERENCED_PARAMETER(irp);
 }
 
 }
