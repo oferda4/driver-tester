@@ -11,7 +11,8 @@ class unique_ptr final {
 public:
     unique_ptr(T* ptr);
     unique_ptr(unique_ptr<T>&& other);
-    unique_ptr<T>& operator=(unique_ptr<T>&& other);
+    unique_ptr& operator=(unique_ptr<T>&& other);
+
     NOCOPY(unique_ptr);
     ~unique_ptr();
 
@@ -19,6 +20,8 @@ public:
     const T* operator->() const;
     T& operator*();
     const T& operator*() const;
+
+    bool operator==(decltype(nullptr)) const;
 
 private:
     T* m_ptr;

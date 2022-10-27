@@ -23,7 +23,7 @@ protected:
 struct FixtureData {
     FixtureInfo info{};
     std::unique_ptr<Fixture> fixture;
-    List<std::unique_ptr<Test>> tests;
+    List<TestData> tests;
 };
 
 class FixturesManager final {

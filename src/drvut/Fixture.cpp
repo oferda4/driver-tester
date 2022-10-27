@@ -31,19 +31,18 @@ Array<FixtureInfo> FixturesManager::listFixtures() {
 }
 
 Array<TestInfo> FixturesManager::listTests(uint32_t fixtureId) {
-    auto findIdFunc = [](const std::unique_ptr<FixtureData>& f, uint32_t id) { return f->info.id == id; };
-    static_assert(Comparator<std::unique_ptr<FixtureData>, uint32_t, decltype(findIdFunc)>);
-    
-    const FixtureData* fixture = m_fixturesData.find<uint32_t, decltype(findIdFunc)>(fixtureId, findIdFunc);
+    const auto& fixture = *ListUtils::find(m_fixturesData, 
+                                           fixtureId, 
+                                           [](const std::unique_ptr<FixtureData>& f, uint32_t id) { return f->info.id == id; });
+    if (fixture == nullptr) {
+        return { 0 };
+    }
 
-    Array<TestInfo> info(m_fixturesData.size());
+    Array<TestInfo> info(fixture->tests.size());
     size_t index = 0;
-    auto* node = m_fixturesData.head();
+    const auto* node = fixture->tests.head();
     for (; node; node = node->next, index++) {
-        if (node->value->info.id == fixtureId) {
-
-        }
-        info.at(index) = node->value->info;
+        info.at(index) = node->value.info;
     }
     return info;
 }

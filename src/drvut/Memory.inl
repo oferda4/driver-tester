@@ -50,6 +50,11 @@ const T& unique_ptr<T>::operator*() const {
     return m_ptr;
 }
 
+template <typename T>
+bool unique_ptr<T>::operator==(decltype(nullptr)) const {
+    return m_ptr == nullptr;
+}
+
 }
 }
 }
