@@ -12,5 +12,10 @@ public:
     virtual TestResult run() = 0;
 };
 
+struct TestData {
+    TestInfo info{};
+    std::unique_ptr<Test> test;
+};
+
 }
 }
