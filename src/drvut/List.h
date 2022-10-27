@@ -15,8 +15,8 @@ struct Node {
     Node<T>* next = nullptr;
 };
 
-template <typename Func, typename T, typename Key>
-concept Comparator = requires(const T& obj, const Key& key, Func func) {
+template <typename T, typename Key, typename Func>
+concept Comparator = requires(const T& obj, Key key, Func func) {
     { func(obj, key) } -> std::same_as<bool>;
 };
 
@@ -26,17 +26,27 @@ public:
     List() = default;
     ~List();
 
+    using Type = T;
+
     Node<T>* head();
+    const Node<T>* head() const;
     void insert(T obj);
-    size_t size();
-    
-    template <typename Key, Comparator<T, Key> Func>
-    T* find(const T& key, Func func);
-    template <typename Key, Comparator<T, Key> Func>
-    const T* find(const T& key, Func func) const;
+    size_t size() const;
 
 private:
     Node<T>* m_head = nullptr;
+};
+
+class ListUtils {
+public:
+    ListUtils() = delete;
+
+    template <typename Key, typename ListType, typename Func>
+    //    requires(Comparator<typename ListType::Type, Key, Func>)
+    static typename ListType::Type* find(ListType& list, const typename Key& key, Func func);
+    template <typename Key, typename ListType, typename Func>
+    //    requires(Comparator<typename ListType::Type, Key, Func>)
+    static const typename ListType::Type* find(const ListType& list, const Key& key, Func func);
 };
 
 }

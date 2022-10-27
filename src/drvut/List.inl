@@ -30,6 +30,11 @@ Node<T>* List<T>::head() {
     return m_head;
 }
 
+template <typename T>
+const Node<T>* List<T>::head() const {
+    return m_head;
+}
+
 template<typename T>
 void List<T>::insert(T obj) {
     auto newNode = new T(std::move(obj));
@@ -42,7 +47,7 @@ void List<T>::insert(T obj) {
 }
 
 template<typename T>
-size_t List<T>::size() {
+size_t List<T>::size() const {
     size_t count = 0;
     for (auto* node = head(); node; node = node->next) {
         count++;
@@ -50,16 +55,16 @@ size_t List<T>::size() {
     return count;
 }
 
-template <typename T>
-template <typename Key, Comparator<T, Key> Func>
-T* List<T>::find(const T& key, Func func) {
-    return const_cast<T*>(static_cast<const List<T>*>(this)->find(key, func));
+template <typename Key, typename ListType, typename Func>
+//    requires(Comparator<typename ListType::Type, Key, Func>)
+typename ListType::Type* ListUtils::find(ListType& list, const typename Key& key, Func func) {
+    return const_cast<ListType::Type*>(ListUtils::find(static_cast<const ListType&>(list), key, func));
 }
 
-template <typename T>
-template <typename Key, Comparator<T, Key> Func>
-const T* List<T>::find(const T& key, Func func) const {
-    for (auto* node = head(); node; node = node->next) {
+template <typename Key, typename ListType, typename Func>
+//    requires(Comparator<typename ListType::Type, Key, Func>)
+const typename ListType::Type* ListUtils::find(const ListType& list, const typename Key& key, Func func) {
+    for (auto* node = list.head(); node; node = node->next) {
         if (func(node->value, key)) {
             return &node->value;
         }
