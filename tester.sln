@@ -11,11 +11,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut", "src\drvut\drvut.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_test_driver", "test\drvut_test_driver\drvut_test_driver.vcxproj", "{5EC224EA-681E-45AC-9BC5-B7DE6C30438E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_user", "drvut_user\src\drvut_user.vcxproj", "{DB05B525-7AB1-4C7B-8182-09AA8CBCAF92}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_user", "usermode\drvut_user\src\drvut_user.vcxproj", "{DB05B525-7AB1-4C7B-8182-09AA8CBCAF92}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_user_tests", "drvut_user\test\drvut_user_tests.vcxproj", "{6756B429-35DA-4812-A396-1B3AE8DDF684}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_user_tests", "usermode\drvut_user\test\drvut_user_tests.vcxproj", "{6756B429-35DA-4812-A396-1B3AE8DDF684}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_user_exe", "drvut_user_exe\drvut_user_exe.vcxproj", "{21C2F75D-8921-4D4B-B676-89ABBF57B1DC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_user_exe", "usermode\drvut_user_exe\drvut_user_exe.vcxproj", "{21C2F75D-8921-4D4B-B676-89ABBF57B1DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -37,7 +37,7 @@
     <ClInclude Include="TcpSocket.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\common\messages.proto" />
+    <None Include="$(SolutionDir)common\messages.proto" />
     <None Include="Buffer.inl" />
     <None Include="CastUtils.inl" />
     <None Include="Communication.inl" />
