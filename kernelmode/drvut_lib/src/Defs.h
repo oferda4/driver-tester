@@ -18,6 +18,15 @@
         return status;              \
     }
 
+#if DBG
+#define TRACE(_x_)            \
+    DbgPrint("TestDriver: "); \
+    DbgPrint(_x_);
+
+#else
+#define TRACE(_x_)
+#endif
+
 void* __cdecl operator new(size_t size);
 void* __cdecl operator new(size_t, void* p);
 void __cdecl operator delete(void* p, size_t);
