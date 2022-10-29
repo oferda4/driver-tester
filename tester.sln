@@ -19,6 +19,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_user_exe", "usermode\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_lib", "kernelmode\drvut_lib\src\drvut_lib.vcxproj", "{1CF337FE-DC7D-4F2C-B849-840257D145E0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_lib_for_tests", "kernelmode\drvut_lib\src\drvut_lib_for_tests.vcxproj", "{0C76B1B1-3832-4B66-98B5-53BA965B740D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_lib_tests", "kernelmode\drvut_lib\test\drvut_lib_tests.vcxproj", "{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -87,6 +91,22 @@ Global
 		{1CF337FE-DC7D-4F2C-B849-840257D145E0}.Release|x86.ActiveCfg = Release|x64
 		{1CF337FE-DC7D-4F2C-B849-840257D145E0}.Release|x86.Build.0 = Release|x64
 		{1CF337FE-DC7D-4F2C-B849-840257D145E0}.Release|x86.Deploy.0 = Release|x64
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D}.Debug|x64.ActiveCfg = Debug|x64
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D}.Debug|x64.Build.0 = Debug|x64
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D}.Debug|x86.ActiveCfg = Debug|Win32
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D}.Debug|x86.Build.0 = Debug|Win32
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D}.Release|x64.ActiveCfg = Release|x64
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D}.Release|x64.Build.0 = Release|x64
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D}.Release|x86.ActiveCfg = Release|Win32
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D}.Release|x86.Build.0 = Release|Win32
+		{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}.Debug|x64.ActiveCfg = Debug|x64
+		{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}.Debug|x64.Build.0 = Debug|x64
+		{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}.Debug|x86.ActiveCfg = Debug|Win32
+		{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}.Debug|x86.Build.0 = Debug|Win32
+		{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}.Release|x64.ActiveCfg = Release|x64
+		{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}.Release|x64.Build.0 = Release|x64
+		{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}.Release|x86.ActiveCfg = Release|Win32
+		{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +118,8 @@ Global
 		{6756B429-35DA-4812-A396-1B3AE8DDF684} = {43640761-E849-411F-8D76-8F5C25AAE1A0}
 		{21C2F75D-8921-4D4B-B676-89ABBF57B1DC} = {43640761-E849-411F-8D76-8F5C25AAE1A0}
 		{1CF337FE-DC7D-4F2C-B849-840257D145E0} = {B5B3965C-3893-4AE6-BC29-B9FB2A2E9C8E}
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D} = {B5B3965C-3893-4AE6-BC29-B9FB2A2E9C8E}
+		{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB} = {B5B3965C-3893-4AE6-BC29-B9FB2A2E9C8E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B2ED769D-0B14-497E-823E-33559F04361F}

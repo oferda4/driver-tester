@@ -1,6 +1,21 @@
 #pragma once
 
+#ifdef AMD64
 #include <ntifs.h>
+
+void* __cdecl operator new(size_t size);
+void* __cdecl operator new(size_t, void* p);
+void __cdecl operator delete(void* p, size_t);
+
+using uint32_t = unsigned int;
+
+#else
+#include <Windows.h>
+#include <exception>
+
+#define ExRaiseStatus(status) throw ::std::exception("exception raised",  status)
+#endif
+
 #include "Utility.h"
 
 #define NOCOPY(className)                 \
@@ -26,9 +41,3 @@
 #else
 #define TRACE(_x_)
 #endif
-
-void* __cdecl operator new(size_t size);
-void* __cdecl operator new(size_t, void* p);
-void __cdecl operator delete(void* p, size_t);
-
-using uint32_t = unsigned int;
