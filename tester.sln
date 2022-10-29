@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{43640761-E849-411F-8D76-8F5C25AAE1A0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User Mode", "User Mode", "{43640761-E849-411F-8D76-8F5C25AAE1A0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kernel", "Kernel", "{B5B3965C-3893-4AE6-BC29-B9FB2A2E9C8E}"
 EndProject
