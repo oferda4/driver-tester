@@ -81,7 +81,7 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\drvut\drvut.vcxproj">
+    <ProjectReference Include="$(SolutionDir)kernelmode\drvut\drvut.vcxproj">
       <Project>{f2806d28-b8ab-4acc-b268-cd35a611f79b}</Project>
     </ProjectReference>
   </ItemGroup>
