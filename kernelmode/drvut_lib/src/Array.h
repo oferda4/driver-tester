@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Defs.h"
+
 namespace drvut {
 namespace internal {
 
@@ -8,6 +10,9 @@ class Array final {
 public:
     Array(size_t size);
     ~Array();
+
+    NOCOPY(Array);
+    NOMOVE(Array);
 
     size_t size() const;
     T& at(size_t index);
