@@ -6,11 +6,6 @@
 
 using IdType = uint32_t;
 
-struct FixtureInfo {
-    IdType id;
-    std::string name;
-};
-
 struct TestInfo {
     IdType id;
     std::string name;
@@ -21,7 +16,7 @@ struct TestResult {
 };
 
 struct ListTestsInput {
-    IdType fixtureId;
+    // intentionally left blank
 };
 
 struct ListTestsOutput {
@@ -29,7 +24,6 @@ struct ListTestsOutput {
 };
 
 struct RunTestInput {
-    IdType fixtureId;
     IdType testId;
 };
 

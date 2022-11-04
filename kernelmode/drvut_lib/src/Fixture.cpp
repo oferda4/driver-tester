@@ -20,16 +20,6 @@ void FixturesManager::destroy() {
     delete sm_manager;
 }
 
-Array<FixtureInfo> FixturesManager::listFixtures() {
-    Array<FixtureInfo> info(m_fixturesData.size());
-    size_t index = 0;
-    auto* node = m_fixturesData.head();
-    for (; node; node = node->next, index++) {
-        info.at(index) = node->value->info;
-    }
-    return info;
-}
-
 Array<TestInfo> FixturesManager::listTests(uint32_t fixtureId) {
     const auto& fixture = *ListUtils::find(m_fixturesData, 
                                            fixtureId, 

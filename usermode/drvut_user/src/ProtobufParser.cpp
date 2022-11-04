@@ -8,13 +8,9 @@ ParsedRequest ProtobufParser::parseRequest(const Buffer& data) {
     ParsedRequest result{};
     const Request request = ProtobufUtils::deserialize<Request>(data);
     
-     if (request.has_list_tests()) {
-        result.type = RequestType::LIST_TESTS;
-        result.input.listTestsInput = { request.list_tests().fixture_id() };
-    } else if (request.has_run_test()) {
+    if (request.has_run_test()) {
         result.type = RequestType::RUN_TEST;
-        result.input.runTestInput = { .fixtureId = request.run_test().fixture_id(),
-                                      .testId = request.run_test().test_id() };
+        result.input.runTestInput = { .testId = request.run_test().test_id() };
     }
 
     return result;

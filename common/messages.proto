@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message ListTestsRequest {
-    uint32 fixture_id = 1;
+    // intentionally left blank
 }
 
 message ListTestsResponse {
@@ -13,8 +13,7 @@ message ListTestsResponse {
 }
 
 message RunTestRequest {
-    uint32 fixture_id = 1;
-    uint32 test_id = 2;
+    uint32 test_id = 1;
 }
 
 message RunTestResponse {

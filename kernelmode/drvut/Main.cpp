@@ -15,7 +15,6 @@ void unloadDriver(PDRIVER_OBJECT DriverObject);
 NTSTATUS doNothing(PDEVICE_OBJECT deviceObject, PIRP irp);
 NTSTATUS deviceControl(PDEVICE_OBJECT deviceObject, PIRP irp);
 NTSTATUS performIoctl(PIRP irp);
-NTSTATUS handleListFixturesIoctl(FixtureInfo* outFixtures, size_t outFixturesLength);
 NTSTATUS handleListTestsIoctl(PIRP irp);
 NTSTATUS handleRunTestIoctl(PIRP irp);
 }
@@ -89,11 +88,6 @@ NTSTATUS performIoctl(PIRP irp) {
     auto outBuffer = irp->AssociatedIrp.SystemBuffer;
 
     switch (irpSp->Parameters.DeviceIoControl.IoControlCode) {
-    case Ioctls::LIST_FIXTURES:
-        if (inBuffer || inBufferLength) {
-            return STATUS_INVALID_PARAMETER;
-        }
-        return handleListFixturesIoctl(static_cast<FixtureInfo*>(outBuffer), outBufferLength / sizeof(outBuffer));
     case Ioctls::LIST_TESTS:
         break;
     case Ioctls::RUN_TEST:
@@ -101,14 +95,6 @@ NTSTATUS performIoctl(PIRP irp) {
     }
 
     return STATUS_INVALID_DEVICE_REQUEST;
-}
-
-NTSTATUS handleListFixturesIoctl(FixtureInfo* outFixtures, size_t outFixturesLength) {
-    const auto fixtures = FixturesManager::instance().listFixtures();
-    for (uint32_t index = 0; index < min(fixtures.size(), outFixturesLength); index++) {
-        outFixtures[index] = fixtures.at(index);
-    }
-    return (outFixturesLength < fixtures.size()) ? STATUS_MORE_ENTRIES : STATUS_SUCCESS;
 }
 
 NTSTATUS handleListTestsIoctl(PIRP irp) {
