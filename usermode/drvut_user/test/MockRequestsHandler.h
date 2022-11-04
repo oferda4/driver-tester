@@ -6,7 +6,6 @@
 
 class MockRequestsHandler {
 public:
-    MOCK_METHOD(ListFixturesOutput, listFixtures, (const ListFixturesInput&));
     MOCK_METHOD(ListTestsOutput, listTests, (const ListTestsInput&));
     MOCK_METHOD(RunTestOutput, runTest, (const RunTestInput&));
 };
@@ -15,10 +14,6 @@ class MoveableMockRequestsHandler {
 public:
     MoveableMockRequestsHandler()
         : m_mock(std::make_unique<testing::StrictMock<MockRequestsHandler>>()) {}
-
-    ListFixturesOutput listFixtures(const ListFixturesInput& input) {
-        return m_mock->listFixtures(input);
-    }
 
     ListTestsOutput listTests(const ListTestsInput& input) {
         return m_mock->listTests(input);

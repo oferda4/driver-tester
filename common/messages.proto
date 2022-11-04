@@ -1,17 +1,5 @@
 syntax = "proto3";
 
-message ListFixturesRequest {
-    // left blank intentionally
-}
-
-message ListFixturesResponse {
-    message FixtureInfo {
-        uint32 id = 1;
-        string name = 2;
-    }
-    repeated FixtureInfo fixtures = 1;
-}
-
 message ListTestsRequest {
     uint32 fixture_id = 1;
 }
@@ -35,16 +23,14 @@ message RunTestResponse {
 
 message Request {
     oneof requests {
-        ListFixturesRequest list_fixtures = 1;
-        ListTestsRequest list_tests = 2;
-        RunTestRequest run_test = 3;
+        ListTestsRequest list_tests = 1;
+        RunTestRequest run_test = 2;
     }
 }
 
 message Response {
     oneof responses {
-        ListFixturesResponse list_fixtures = 1;
-        ListTestsResponse list_tests = 2;
-        RunTestResponse run_test = 3;
+        ListTestsResponse list_tests = 1;
+        RunTestResponse run_test = 2;
     }
 }

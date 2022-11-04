@@ -20,14 +20,6 @@ struct TestResult {
     uint64_t status;
 };
 
-struct ListFixturesInput {
-    // left blank intentionally
-};
-
-struct ListFixturesOutput {
-    std::vector<FixtureInfo> fixtures;
-};
-
 struct ListTestsInput {
     IdType fixtureId;
 };

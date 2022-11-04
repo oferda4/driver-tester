@@ -10,20 +10,11 @@ using google::protobuf::Message;
 
 namespace {
 ParsedRequest serializeAndParse(const Message& msg);
-void assertSameFixtureInfo(FixtureInfo info1, ListFixturesResponse_FixtureInfo info2);
 void assertSameTestInfo(TestInfo info1, ListTestsResponse_TestInfo info2);
 }
 
 TEST(TestProtobufParser, BadRequest) {
     ASSERT_THROW(ProtobufParser().parseRequest(Buffer(1, 0)), FailedParsingMessage);
-}
-
-TEST(TestProtobufParser, ListFixturesRequest) {
-    Request request;
-    auto* specificRequest = request.mutable_list_fixtures();
-    const auto parsedRequest = serializeAndParse(request);
-
-    ASSERT_EQ(parsedRequest.type, RequestType::LIST_FIXTURES);
 }
 
 TEST(TestProtobufParser, ListTestsRequest) {
@@ -49,23 +40,6 @@ TEST(TestProtobufParser, RunTestRequest) {
     ASSERT_EQ(parsedRequest.type, RequestType::RUN_TEST);
     ASSERT_EQ(parsedRequest.input.runTestInput.fixtureId, arbitraryFixtureId);
     ASSERT_EQ(parsedRequest.input.runTestInput.testId, arbitraryTestId);
-}
-
-TEST(TestProtobufParser, ListFixturesOutput) {
-    const std::vector<FixtureInfo> fixtures = { 
-        { 3, "some name" }, 
-        { 5, "another name" },
-        { 9, "nine" }
-    };
-    const ListFixturesOutput output = { fixtures };
-
-    const auto response = ProtobufUtils::deserialize<ListFixturesResponse>(
-        ProtobufParser().parseListFixturesOutput(output));
-
-    ASSERT_EQ(fixtures.size(), response.fixtures_size());
-    for (int i = 0; i < response.fixtures_size(); i++) {
-        assertSameFixtureInfo(fixtures[i], response.fixtures()[i]);
-    }
 }
 
 TEST(TestProtobufParser, ListTestsOutput) {
@@ -98,11 +72,6 @@ TEST(TestProtobufParser, RunTestOutput) {
 namespace {
 ParsedRequest serializeAndParse(const Message& msg) {
     return ProtobufParser().parseRequest(ProtobufUtils::serialize(msg));
-}
-
-void assertSameFixtureInfo(FixtureInfo info1, ListFixturesResponse_FixtureInfo info2) {
-    ASSERT_EQ(info1.id, info2.id());
-    ASSERT_EQ(info1.name, info2.name());
 }
 
 void assertSameTestInfo(TestInfo info1, ListTestsResponse_TestInfo info2) {

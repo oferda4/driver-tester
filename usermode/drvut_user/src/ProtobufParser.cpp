@@ -8,10 +8,7 @@ ParsedRequest ProtobufParser::parseRequest(const Buffer& data) {
     ParsedRequest result{};
     const Request request = ProtobufUtils::deserialize<Request>(data);
     
-    if (request.has_list_fixtures()) {
-        result.type = RequestType::LIST_FIXTURES;
-        result.input.listFixturesInput = {};
-    } else if (request.has_list_tests()) {
+     if (request.has_list_tests()) {
         result.type = RequestType::LIST_TESTS;
         result.input.listTestsInput = { request.list_tests().fixture_id() };
     } else if (request.has_run_test()) {
@@ -21,16 +18,6 @@ ParsedRequest ProtobufParser::parseRequest(const Buffer& data) {
     }
 
     return result;
-}
-
-Buffer ProtobufParser::parseListFixturesOutput(const ListFixturesOutput& output) {
-    ListFixturesResponse response;
-    for (auto& fixture : output.fixtures) {
-        auto* info = response.add_fixtures();
-        info->set_id(fixture.id);
-        *info->mutable_name() = fixture.name;
-    }
-    return ProtobufUtils::serialize(response);
 }
 
 Buffer ProtobufParser::parseListTestsOutput(const ListTestsOutput& output) {
