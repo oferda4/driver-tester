@@ -23,7 +23,6 @@
     <ClInclude Include="Array.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
-    <ClInclude Include="Fixture.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Traits.h" />
     <ClInclude Include="Utility.h" />
@@ -32,7 +31,7 @@
     <None Include="Array.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Fixture.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

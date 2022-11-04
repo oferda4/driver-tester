@@ -1,7 +1,7 @@
 #include "drvut.h"
 
 #include "Device.h"
-#include "Fixture.h"
+#include "Test.h"
 #include "Ioctls.h"
 
 namespace drvut {
@@ -50,7 +50,7 @@ void unloadDriver(PDRIVER_OBJECT DriverObject) {
     }
 
     TRACE("Unload Driver\n");
-    FixturesManager::destroy();
+    TestsManager::destroy();
     DeviceGuard device(Device(deviceObject), true);
     SymbolicLinkGuard symbolicLink(SymbolicLink(&DOS_DEVICE_NAME), true);
 }
@@ -84,8 +84,8 @@ NTSTATUS performIoctl(PIRP irp) {
         return STATUS_INVALID_PARAMETER;
     }
 
-    auto inBuffer = irp->AssociatedIrp.SystemBuffer;
-    auto outBuffer = irp->AssociatedIrp.SystemBuffer;
+    // auto inBuffer = irp->AssociatedIrp.SystemBuffer;
+    // auto outBuffer = irp->AssociatedIrp.SystemBuffer;
 
     switch (irpSp->Parameters.DeviceIoControl.IoControlCode) {
     case Ioctls::LIST_TESTS:

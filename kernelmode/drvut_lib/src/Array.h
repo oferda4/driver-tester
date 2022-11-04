@@ -12,7 +12,8 @@ public:
     ~Array();
 
     NOCOPY(Array);
-    NOMOVE(Array);
+    Array(Array&& other) noexcept;
+    Array& operator=(Array&& other) noexcept;
 
     size_t size() const;
     T& at(size_t index);

@@ -30,9 +30,6 @@
     <ClInclude Include="Array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Fixture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\common\Messages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -46,7 +43,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Fixture.cpp">
+    <ClCompile Include="Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

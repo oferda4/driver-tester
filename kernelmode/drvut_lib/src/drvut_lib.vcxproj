@@ -81,8 +81,8 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Fixture.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)src\common\Ioctls.h" />
@@ -90,7 +90,6 @@
     <ClInclude Include="Array.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
-    <ClInclude Include="Fixture.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Resource.h" />
@@ -100,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Array.inl" />
-    <None Include="Fixture.inl" />
     <None Include="List.inl" />
     <None Include="Memory.inl" />
     <None Include="Resource.inl" />

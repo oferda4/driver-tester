@@ -13,7 +13,25 @@ Array<T>::Array(size_t size) : m_data(new T[size]), m_size(size) {
 
 template <typename T>
 Array<T>::~Array() {
-    delete[] m_data;
+    if (m_data) {
+        delete[] m_data;
+    }
+}
+
+template <typename T>
+Array<T>::Array(Array&& other) noexcept 
+    : m_data(std::exchange(other.m_data, nullptr)),
+      m_size(std::exchange(other.m_size, 0)) {
+    // intentionally left blank
+}
+
+template <typename T>
+Array<T>& Array<T>::operator=(Array&& other) noexcept {
+    if (this != &other) {
+        m_data = std::exchange(other.m_data, nullptr);
+        m_size = std::exchange(other.m_size, 0);
+    }
+    return *this;
 }
 
 template <typename T>
