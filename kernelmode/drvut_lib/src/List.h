@@ -42,10 +42,10 @@ public:
     ListUtils() = delete;
 
     template <typename Key, typename ListType, typename Func>
-    //    requires(Comparator<typename ListType::Type, Key, Func>)
+        requires(Comparator<typename ListType::Type, Key, Func>)
     static typename ListType::Type* find(ListType& list, const typename Key& key, Func func);
     template <typename Key, typename ListType, typename Func>
-    //    requires(Comparator<typename ListType::Type, Key, Func>)
+        requires(Comparator<typename ListType::Type, Key, Func>)
     static const typename ListType::Type* find(const ListType& list, const Key& key, Func func);
 };
 

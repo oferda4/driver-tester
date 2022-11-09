@@ -56,13 +56,13 @@ size_t List<T>::size() const {
 }
 
 template <typename Key, typename ListType, typename Func>
-//    requires(Comparator<typename ListType::Type, Key, Func>)
+    requires(Comparator<typename ListType::Type, Key, Func>)
 typename ListType::Type* ListUtils::find(ListType& list, const typename Key& key, Func func) {
     return const_cast<ListType::Type*>(ListUtils::find(static_cast<const ListType&>(list), key, func));
 }
 
 template <typename Key, typename ListType, typename Func>
-//    requires(Comparator<typename ListType::Type, Key, Func>)
+    requires(Comparator<typename ListType::Type, Key, Func>)
 const typename ListType::Type* ListUtils::find(const ListType& list, const typename Key& key, Func func) {
     for (auto* node = list.head(); node; node = node->next) {
         if (func(node->value, key)) {
