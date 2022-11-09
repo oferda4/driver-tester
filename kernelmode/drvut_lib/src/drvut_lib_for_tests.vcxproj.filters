@@ -36,9 +36,15 @@
     <ClInclude Include="Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Array.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="List.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

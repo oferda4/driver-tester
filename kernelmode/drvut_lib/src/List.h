@@ -23,14 +23,17 @@ concept Comparator = requires(const T& obj, Key key, Func func) {
 template<typename T>
 class List final {
 public:
+    using Type = T;
+
     List() = default;
     ~List();
 
-    using Type = T;
+    NOCOPY(List);
+    NOMOVE(List);
 
     Node<T>* head();
     const Node<T>* head() const;
-    void insert(T obj);
+    void push_back(T obj);
     size_t size() const;
 
 private:

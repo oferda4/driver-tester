@@ -5,9 +5,9 @@
 namespace drvut {
 namespace internal {
 
-namespace detail {
+namespace impl {
 template<typename T>
-Node<T> findLast(Node<T>& node);
+Node<T>& findLast(Node<T>& node);
 }
 
 template <typename T>
@@ -36,13 +36,13 @@ const Node<T>* List<T>::head() const {
 }
 
 template<typename T>
-void List<T>::insert(T obj) {
-    auto newNode = new T(std::move(obj));
-    if (!m_head) {
-        m_head = newNode;
-    } else {
-        auto last = findLast(m_head);
+void List<T>::push_back(T obj) {
+    auto newNode = new Node<T>(std::move(obj));
+    if (m_head) {
+        auto& last = impl::findLast(*m_head);
         last.next = newNode;
+    } else {
+        m_head = newNode;
     }
 }
 
@@ -73,10 +73,10 @@ const typename ListType::Type* ListUtils::find(const ListType& list, const typen
 }
 
 template <typename T>
-Node<T> detail::findLast(Node<T>& node) {
+Node<T>& impl::findLast(Node<T>& node) {
     Node<T>& curr = node;
-    while (curr.next()) {
-        curr = *curr.next();
+    while (curr.next) {
+        curr = *curr.next;
     }
     return curr;
 }

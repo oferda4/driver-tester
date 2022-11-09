@@ -23,12 +23,14 @@
     <ClInclude Include="Array.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Traits.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Array.inl" />
+    <None Include="List.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Test.cpp" />
