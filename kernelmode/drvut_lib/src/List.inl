@@ -7,7 +7,7 @@ namespace internal {
 
 namespace impl {
 template<typename T>
-Node<T>& findLast(Node<T>& node);
+Node<T>* findLast(Node<T>* node);
 }
 
 template <typename T>
@@ -39,8 +39,8 @@ template<typename T>
 void List<T>::push_back(T obj) {
     auto newNode = new Node<T>(std::move(obj));
     if (m_head) {
-        auto& last = impl::findLast(*m_head);
-        last.next = newNode;
+        auto* last = impl::findLast(m_head);
+        last->next = newNode;
     } else {
         m_head = newNode;
     }
@@ -73,10 +73,10 @@ const typename ListType::Type* ListUtils::find(const ListType& list, const typen
 }
 
 template <typename T>
-Node<T>& impl::findLast(Node<T>& node) {
-    Node<T>& curr = node;
-    while (curr.next) {
-        curr = *curr.next;
+Node<T>* impl::findLast(Node<T>* node) {
+    Node<T>* curr = node;
+    while (curr->next) {
+        curr = curr->next;
     }
     return curr;
 }
