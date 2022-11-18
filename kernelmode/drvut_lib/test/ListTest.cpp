@@ -8,6 +8,20 @@ namespace drvut {
 namespace internal {
 
 namespace {
+struct LeakCounter {
+    LeakCounter() { leaked++; }
+    ~LeakCounter() { leaked--; }
+    NOCOPY(LeakCounter);
+    LeakCounter(LeakCounter&& other) noexcept { leaked++; }
+    LeakCounter& operator=(LeakCounter&& other) {
+        leaked++;
+        return *this;
+    }
+
+    static uint32_t leaked;
+};
+uint32_t LeakCounter::leaked = 0;
+
 void insertAndAssert(List<int>& list, ::std::list<int>& prototype, int value);
 }
 
@@ -20,6 +34,20 @@ TEST(ListTest, Functionality) {
     for (auto value : arbitraryValues) {
         insertAndAssert(list, prototype, value);
     }
+}
+
+TEST(ListTest, Dtor) {
+    constexpr uint32_t arbitraryNumberOfValues = 10;
+    static_assert(arbitraryNumberOfValues > 0);
+
+    {
+        List<LeakCounter> list;
+        for (uint32_t i = 0; i < arbitraryNumberOfValues; i++) {
+            list.push_back(LeakCounter());
+        }
+        ASSERT_EQ(LeakCounter::leaked, arbitraryNumberOfValues);
+    }
+    ASSERT_EQ(LeakCounter::leaked, 0);
 }
 
 namespace {
