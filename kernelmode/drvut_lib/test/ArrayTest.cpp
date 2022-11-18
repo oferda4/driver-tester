@@ -7,7 +7,7 @@ namespace internal {
 
 static uint32_t indexToArrayValue(uint32_t index);
 
-TEST(ArrayTest, Sanity) {
+TEST(ArrayTest, Functionality) {
     const size_t arbitrarySize = 10;
     Array<uint32_t> array(arbitrarySize);
     ASSERT_EQ(array.size(), arbitrarySize);
