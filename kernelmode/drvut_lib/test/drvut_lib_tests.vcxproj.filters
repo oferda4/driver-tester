@@ -36,7 +36,13 @@
     <ClCompile Include="ListTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MockResource.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

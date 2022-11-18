@@ -14,6 +14,9 @@ using uint32_t = unsigned int;
 #include <exception>
 
 #define ExRaiseStatus(status) throw ::std::exception("exception raised",  status)
+#define NTSTATUS    uint64_t
+#define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
+#define STATUS_INVALID_STATE_TRANSITION ((NTSTATUS)0xC000A003L)
 #endif
 
 #include "Utility.h"

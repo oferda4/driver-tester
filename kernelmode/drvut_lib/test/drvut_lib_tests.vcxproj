@@ -36,6 +36,7 @@
     <ClCompile Include="ArrayTest.cpp" />
     <ClCompile Include="ListTest.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ResourceTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -44,6 +45,9 @@
     <ProjectReference Include="..\src\drvut_lib_for_tests.vcxproj">
       <Project>{db05b525-7ab1-4c7b-8182-09aa8cbcaf92}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MockResource.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

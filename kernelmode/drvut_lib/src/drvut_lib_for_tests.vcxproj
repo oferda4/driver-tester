@@ -24,6 +24,7 @@
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Traits.h" />
     <ClInclude Include="Utility.h" />
@@ -31,6 +32,7 @@
   <ItemGroup>
     <None Include="Array.inl" />
     <None Include="List.inl" />
+    <None Include="Resource.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Test.cpp" />
