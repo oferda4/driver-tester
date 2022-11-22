@@ -2,7 +2,7 @@
 
 #include "Defs.h"
 
-class Ioctls {
+class Ioctl {
 public:
     struct ListTestsInput {
         // intentionally left blank

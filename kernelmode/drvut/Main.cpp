@@ -88,9 +88,9 @@ NTSTATUS performIoctl(PIRP irp) {
     // auto outBuffer = irp->AssociatedIrp.SystemBuffer;
 
     switch (irpSp->Parameters.DeviceIoControl.IoControlCode) {
-    case Ioctls::LIST_TESTS:
+    case Ioctl::LIST_TESTS:
         break;
-    case Ioctls::RUN_TEST:
+    case Ioctl::RUN_TEST:
         break;
     }
 
