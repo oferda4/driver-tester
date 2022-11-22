@@ -53,6 +53,9 @@
     <None Include="Resource.inl">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="Test.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Test.cpp">

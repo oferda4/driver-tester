@@ -33,6 +33,7 @@
     <None Include="Array.inl" />
     <None Include="List.inl" />
     <None Include="Resource.inl" />
+    <None Include="Test.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Test.cpp" />

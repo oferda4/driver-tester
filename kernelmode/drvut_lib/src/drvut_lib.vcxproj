@@ -85,7 +85,7 @@
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(SolutionDir)src\common\Ioctls.h" />
+    <ClInclude Include="..\..\..\src\common\Ioctl.h" />
     <ClInclude Include="$(SolutionDir)src\common\Messages.h" />
     <ClInclude Include="Array.h" />
     <ClInclude Include="Concepts.h" />
@@ -102,6 +102,7 @@
     <None Include="List.inl" />
     <None Include="Memory.inl" />
     <None Include="Resource.inl" />
+    <None Include="Test.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,8 +11,18 @@ namespace internal {
 class Test {
 public:
     virtual ~Test() = default;
-
     virtual TestResult run() = 0;
+};
+
+template<typename TestFunc>
+class RegularTest final : public Test {
+public:
+    // TODO: add trait to test the function is of the proper form
+    RegularTest(TestFunc testFunc);
+    TestResult run() override;
+
+private:
+    TestFunc m_testFunc;
 };
 
 struct TestData {
@@ -26,6 +36,7 @@ public:
     static void destroy();
 
     Array<TestInfo> list() const;
+    void add(std::unique_ptr<Test> test);
 
 private:
     TestsManager() = default;
@@ -38,3 +49,5 @@ private:
 
 }
 }
+
+#include "Test.inl"

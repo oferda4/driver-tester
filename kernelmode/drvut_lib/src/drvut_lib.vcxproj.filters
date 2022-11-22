@@ -54,7 +54,7 @@
     <ClInclude Include="Array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(SolutionDir)src\common\Ioctls.h">
+    <ClInclude Include="..\..\..\src\common\Ioctl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="$(SolutionDir)src\common\Messages.h">
@@ -72,6 +72,9 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="Array.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Test.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

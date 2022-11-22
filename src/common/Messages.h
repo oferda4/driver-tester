@@ -13,5 +13,5 @@ struct TestInfo {
 };
 
 struct TestResult {
-    unsigned long status;
+    unsigned long long status;
 };
