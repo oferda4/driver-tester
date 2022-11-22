@@ -18,6 +18,7 @@ TestsManager& TestsManager::instance() {
 
 void TestsManager::destroy() {
     delete sm_manager;
+    sm_manager = nullptr;
 }
 
 Array<TestInfo> TestsManager::list() const {

@@ -1,9 +1,12 @@
 #pragma once
 
-namespace drvut {
-namespace internal {
+namespace drvut::internal {
 
 namespace std {
+
+template<typename...>
+using void_t = void;
+
 template <class T, T v>
 struct integral_constant {
     static constexpr T value = v;
@@ -28,6 +31,13 @@ struct is_same<T, T> : std::true_type {};
 template <class T, class U>
 inline constexpr bool is_same_v = is_same<T, U>::value;
 
+template <bool B, class T = void>
+struct enable_if {};
+template <class T>
+struct enable_if<true, T> { typedef T type; };
+template <bool B, class T = void>
+using enable_if_t = typename enable_if<B, T>::type;
+
 template<bool B, class T, class F>
 struct conditional { using type = T; };
 template<class T, class F>
@@ -44,6 +54,17 @@ struct conjunction<B1, Bn...>
     : conditional_t<bool(B1::value), conjunction<Bn...>, B1> {};
 template <class... B>
 inline constexpr bool conjunction_v = conjunction<B...>::value;
+
+template <class...>
+struct disjunction : std::false_type {};
+template <class B1>
+struct disjunction<B1> : B1 {};
+template <class B1, class... Bn>
+struct disjunction<B1, Bn...>
+    : std::conditional_t<bool(B1::value), B1, disjunction<Bn...>> {};
+
+template <class... B>
+inline constexpr bool disjunction_v = disjunction<B...>::value;
 
 namespace detail {
 template <class T>
@@ -77,7 +98,6 @@ inline constexpr bool is_nothrow_assignable_v = is_nothrow_assignable<To, From>:
 
 template <class T>
 struct is_nothrow_move_constructible : is_nothrow_constructible<T, typename add_rvalue_reference<T>::type> {};
-}
 
 template <class T>
 struct remove_reference { typedef T type; };
@@ -87,6 +107,26 @@ template <class T>
 struct remove_reference<T&&> { typedef T type; };
 template< class T >
 using remove_reference_t = typename remove_reference<T>::type;
+
+namespace detail {
+template <typename Base>
+true_type is_base_of_test(volatile const Base*) noexcept;
+template <typename Base>
+false_type is_base_of_test(volatile const void*) noexcept;
+template <typename Base, typename Derived>
+using pre_is_base_of = decltype(is_base_of_test<Base>(declval<Derived*>()));
+template <typename Base, typename Derived, typename = void>
+struct pre_is_base_of2 : public true_type {};
+template <typename Base, typename Derived>
+struct pre_is_base_of2<Base, Derived, std::void_t<pre_is_base_of<Base, Derived>>> 
+    : public pre_is_base_of<Base, Derived> {};
+}
+
+template <typename Base, typename Derived>
+struct is_base_of
+    : public detail::pre_is_base_of2<Base, Derived> {};
+template <class Base, class Derived>
+inline constexpr bool is_base_of_v = is_base_of<Base, Derived>::value;
 
 }
 }

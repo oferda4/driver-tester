@@ -36,7 +36,8 @@ public:
     static void destroy();
 
     Array<TestInfo> list() const;
-    void add(std::unique_ptr<Test> test);
+    template <uint32_t nameSize>
+    void add(std::unique_ptr<Test> test, char const (&name)[nameSize]);
 
 private:
     TestsManager() = default;
@@ -45,6 +46,7 @@ private:
     static TestsManager* sm_manager;
 
     List<TestData> m_testsData;
+    uint32_t m_freeId = 0;
 };
 
 }

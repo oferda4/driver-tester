@@ -13,10 +13,17 @@ using uint32_t = unsigned int;
 #include <Windows.h>
 #include <exception>
 
+// Windows kernel specific definitions
 #define ExRaiseStatus(status) throw ::std::exception("exception raised",  status)
 #define NTSTATUS    uint64_t
 #define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
 #define STATUS_INVALID_STATE_TRANSITION ((NTSTATUS)0xC000A003L)
+
+// For gtest exception catching inside out namespace
+namespace drvut::internal::std {
+using exception = ::std::exception;
+}
+
 #endif
 
 #include "Utility.h"

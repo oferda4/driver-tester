@@ -7,10 +7,6 @@
 
 namespace drvut::internal {
 
-namespace std {
-using exception = ::std::exception;
-}
-
 TEST(ResourceTest, Functionality) {
     MoveableMockResource resource;
     EXPECT_CALL(resource.getMock(), initialize()).Times(1);
