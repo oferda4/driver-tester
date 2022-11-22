@@ -17,7 +17,7 @@ class ResourceGuard final {
 public:
     ResourceGuard(T resource, bool isValid = false);
     ~ResourceGuard();
-    ResourceGuard(ResourceGuard&& other);
+    ResourceGuard(ResourceGuard&& other) noexcept;
     ResourceGuard<T>& operator=(ResourceGuard&& other);
     NOCOPY(ResourceGuard);
 

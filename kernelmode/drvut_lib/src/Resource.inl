@@ -21,7 +21,7 @@ ResourceGuard<T>::~ResourceGuard() {
 }
 
 template <Resource T>
-ResourceGuard<T>::ResourceGuard(ResourceGuard&& other) :
+ResourceGuard<T>::ResourceGuard(ResourceGuard&& other) noexcept :
     m_resource(std::move(other.m_resource)),
     m_isValid(std::exchange(other.m_isValid, false)) {
     // Left blank intenrionally
