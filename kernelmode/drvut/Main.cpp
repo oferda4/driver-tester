@@ -2,7 +2,7 @@
 
 #include "Device.h"
 #include "Test.h"
-#include "Ioctls.h"
+#include "Ioctl.h"
 
 namespace drvut {
 namespace internal {
