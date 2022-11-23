@@ -21,8 +21,10 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\common\Messages.h" />
     <ClInclude Include="Array.h" />
+    <ClInclude Include="Buffer.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
+    <ClInclude Include="IoctlHandler.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Resource.h" />
@@ -38,6 +40,7 @@
     <None Include="Test.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="IoctlHandler.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

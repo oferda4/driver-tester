@@ -34,6 +34,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="ArrayTest.cpp" />
+    <ClCompile Include="IoctlHandlerTest.cpp" />
     <ClCompile Include="LeakCounter.cpp" />
     <ClCompile Include="ListTest.cpp" />
     <ClCompile Include="Main.cpp" />

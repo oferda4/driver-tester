@@ -7,6 +7,7 @@
 
 constexpr unsigned int MAX_NAME_SIZE = 20;
 
+#pragma pack(push, 1)
 struct TestInfo {
     unsigned int id;
     char name[MAX_NAME_SIZE];
@@ -15,3 +16,4 @@ struct TestInfo {
 struct TestResult {
     unsigned long long status;
 };
+#pragma pack(pop)

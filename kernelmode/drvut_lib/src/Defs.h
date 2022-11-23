@@ -17,7 +17,9 @@ using uint32_t = unsigned int;
 #define ExRaiseStatus(status) throw ::std::exception("exception raised",  status)
 #define NTSTATUS    uint64_t
 #define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
+#define STATUS_SUCCESS ((NTSTATUS)0x00000000L)
 #define STATUS_INVALID_STATE_TRANSITION ((NTSTATUS)0xC000A003L)
+#define STATUS_INVALID_PARAMETER_1 ((NTSTATUS)0xC00000EFL)
 
 // For gtest exception catching inside out namespace
 namespace drvut::internal::std {
