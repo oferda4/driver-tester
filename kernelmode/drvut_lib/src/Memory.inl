@@ -32,6 +32,11 @@ unique_ptr<T>::~unique_ptr() {
 }
 
 template <typename T>
+T* unique_ptr<T>::operator->() {
+    return m_ptr;
+}
+
+template <typename T>
 const T* unique_ptr<T>::operator->() const {
     return m_ptr;
 }

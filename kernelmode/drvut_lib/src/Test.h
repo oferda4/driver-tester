@@ -36,6 +36,7 @@ public:
     static void destroy();
 
     Array<TestInfo> list() const;
+    TestResult run(uint32_t id);
     template <uint32_t nameSize>
     void add(std::unique_ptr<Test> test, char const (&name)[nameSize]);
 
