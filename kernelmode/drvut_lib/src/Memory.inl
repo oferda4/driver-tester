@@ -19,7 +19,7 @@ unique_ptr<T>::unique_ptr(unique_ptr<T>&& other) noexcept : m_ptr(other.release(
 
 template <typename T>
 unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>&& other) {
-    if (this == other) {
+    if (this == &other) {
         return *this;
     }
     m_ptr = other.release();
@@ -59,6 +59,11 @@ bool unique_ptr<T>::operator==(decltype(nullptr)) const {
 template <typename T>
 T* unique_ptr<T>::release() {
     return std::exchange(m_ptr, nullptr);
+}
+
+template <typename T>
+T* unique_ptr<T>::get() {
+    return m_ptr;
 }
 
 }

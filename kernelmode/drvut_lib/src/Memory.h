@@ -28,6 +28,7 @@ public:
     bool operator==(decltype(nullptr)) const;
 
     T* release();
+    T* get();
 
 private:
     T* m_ptr;

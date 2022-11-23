@@ -16,9 +16,4 @@ LeakCounter::LeakCounter(LeakCounter&& other) noexcept {
     leaked++; 
 }
 
-LeakCounter& LeakCounter::operator=(LeakCounter && other) {
-    leaked++;
-    return *this;
-}
-
 }
