@@ -42,6 +42,9 @@
     <ClCompile Include="TestTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LeakCounter.cpp">
+      <Filter>Mocks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MockResource.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\common\Messages.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LeakCounter.h">
+      <Filter>Mocks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

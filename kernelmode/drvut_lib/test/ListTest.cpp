@@ -4,24 +4,12 @@
 
 #include "List.h"
 
+#include "LeakCounter.h"
+
 namespace drvut {
 namespace internal {
 
 namespace {
-struct LeakCounter {
-    LeakCounter() { leaked++; }
-    ~LeakCounter() { leaked--; }
-    NOCOPY(LeakCounter);
-    LeakCounter(LeakCounter&& other) noexcept { leaked++; }
-    LeakCounter& operator=(LeakCounter&& other) {
-        leaked++;
-        return *this;
-    }
-
-    static uint32_t leaked;
-};
-uint32_t LeakCounter::leaked = 0;
-
 void insertAndAssert(List<int>& list, ::std::list<int>& prototype, int value);
 const auto trivialCompare = [](uint32_t a, uint32_t b) { return a == b; };
 }

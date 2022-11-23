@@ -34,6 +34,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="ArrayTest.cpp" />
+    <ClCompile Include="LeakCounter.cpp" />
     <ClCompile Include="ListTest.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ResourceTest.cpp" />
@@ -49,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\common\Messages.h" />
+    <ClInclude Include="LeakCounter.h" />
     <ClInclude Include="MockResource.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
