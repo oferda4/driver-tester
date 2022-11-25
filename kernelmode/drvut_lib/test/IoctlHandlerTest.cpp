@@ -29,4 +29,14 @@ TEST(IoctlHandlerTest, ListTests_BadInput) {
         STATUS_INVALID_PARAMETER_3);
 }
 
+TEST(IoctlHandlerTest, ListTests_NotEnoughOutputToDetermineSize) {
+    TestsManager::destroy();
+    Ioctl::ListTestsInput input{};
+    ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
+                  Ioctl::LIST_TESTS,
+                  BufferView(&input, sizeof(input)),
+                  BufferView(nullptr, sizeof(Ioctl::ListTestsOutput::numberOfTests)-1)),
+        STATUS_INVALID_PARAMETER_4);
+}
+
 }

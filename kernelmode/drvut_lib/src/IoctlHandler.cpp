@@ -21,9 +21,23 @@ NTSTATUS IoctlHandler::handle(TestsManager& manager, uint32_t code, BufferView i
 
 namespace {
 NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView output) {
+    // we are currently not using the input. However we still want 
+    // to make sure the proper struct was passed for validation.
+    UNREFERENCED_PARAMETER(input);
     if (input.size != sizeof(Ioctl::ListTestsInput)) {
         return STATUS_INVALID_PARAMETER_3;
     }
+
+    auto* listTestsOutput = static_cast<Ioctl::ListTestsOutput*>(output.data);
+    const auto tests = manager.list();
+
+    if (output.size < sizeof(Ioctl::ListTestsOutput::numberOfTests)) {
+        // you must have at least enough size for the number of tests
+        return STATUS_INVALID_PARAMETER_4;
+    }
+    listTestsOutput->numberOfTests = tests.size();
+
+    const uint32_t testsThatFitsInOutput = (output.size - sizeof(Ioctl::ListTestsOutput::numberOfTests)) / sizeof(TestInfo);
 
     return STATUS_SUCCESS;
 }
