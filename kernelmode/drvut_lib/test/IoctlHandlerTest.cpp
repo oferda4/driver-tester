@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "IoctlHandler.h"
+#include "Ioctl.h"
 
 namespace drvut::internal {
 
@@ -11,7 +12,21 @@ TEST(IoctlHandlerTest, InvalidCode) {
                                    arbitraryInvalidCode, 
                                    BufferView(nullptr, 0), 
                                    BufferView(nullptr, 0)),
-              STATUS_INVALID_PARAMETER_1);
+              STATUS_INVALID_PARAMETER_2);
+}
+
+TEST(IoctlHandlerTest, ListTests_BadInput) {
+    TestsManager::destroy();
+    ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
+                  Ioctl::LIST_TESTS,
+                  BufferView(nullptr, sizeof(Ioctl::ListTestsInput) + 1),
+                  BufferView(nullptr, 0)),
+        STATUS_INVALID_PARAMETER_3);
+    ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
+                  Ioctl::LIST_TESTS,
+                  BufferView(nullptr, sizeof(Ioctl::ListTestsInput) - 1),
+                  BufferView(nullptr, 0)),
+        STATUS_INVALID_PARAMETER_3);
 }
 
 }
