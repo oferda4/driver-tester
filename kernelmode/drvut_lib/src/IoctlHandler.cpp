@@ -36,8 +36,17 @@ NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView out
         return STATUS_INVALID_PARAMETER_4;
     }
     listTestsOutput->numberOfTests = tests.size();
+     
+    const uint32_t testsThatFitsInOutput = min(tests.size(), 
+                                               (output.size - sizeof(Ioctl::ListTestsOutput::numberOfTests)) / sizeof(TestInfo));
+    TestInfo* testsOutput = &listTestsOutput->info[0];
+    for (uint32_t i = 0; i < testsThatFitsInOutput; i++) {
+        memcpy(testsOutput + i, &tests.at(i), sizeof(TestInfo));
+    }
 
-    const uint32_t testsThatFitsInOutput = (output.size - sizeof(Ioctl::ListTestsOutput::numberOfTests)) / sizeof(TestInfo);
+    if (testsThatFitsInOutput < tests.size()) {
+        return STATUS_BUFFER_TOO_SMALL;
+    }
 
     return STATUS_SUCCESS;
 }

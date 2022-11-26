@@ -11,9 +11,9 @@ public:
 
     struct ListTestsOutput {
         uint32_t numberOfTests;
-        TestInfo info[1];
+        TestInfo info[0];
     };
-
+    
     struct RunTestInput {
         uint32_t testId;
     };

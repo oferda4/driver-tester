@@ -23,6 +23,7 @@ using uint32_t = unsigned int;
 #define STATUS_INVALID_PARAMETER_2 ((NTSTATUS)0xC00000F0L)
 #define STATUS_INVALID_PARAMETER_3 ((NTSTATUS)0xC00000F1L)
 #define STATUS_INVALID_PARAMETER_4 ((NTSTATUS)0xC00000F2L)
+#define STATUS_BUFFER_TOO_SMALL ((NTSTATUS)0xC0000023L)
 
 // For gtest exception catching inside out namespace
 namespace drvut::internal::std {
