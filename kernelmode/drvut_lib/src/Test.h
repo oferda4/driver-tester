@@ -8,21 +8,37 @@
 namespace drvut {
 namespace internal {
 
+class TestFunc {
+public:
+    virtual ~TestFunc() = default;
+    virtual NTSTATUS operator()() = 0;
+};
+
+template <typename T>
+class TestFuncImpl final : public TestFunc {
+public:
+    // TODO: add trait to test the function is of the proper form
+    TestFuncImpl(T func);
+    NTSTATUS operator()() override;
+
+private:
+    T m_func;
+};
+
 class Test {
 public:
     virtual ~Test() = default;
     virtual TestResult run() = 0;
 };
 
-template<typename TestFunc>
 class RegularTest final : public Test {
 public:
-    // TODO: add trait to test the function is of the proper form
-    RegularTest(TestFunc testFunc);
+    template<typename T>
+    RegularTest(T func);
     TestResult run() override;
 
 private:
-    TestFunc m_testFunc;
+    std::unique_ptr<TestFunc> m_testFunc;
 };
 
 struct TestData {
@@ -51,6 +67,10 @@ private:
 };
 
 }
+
+template <uint32_t nameSize, typename T>
+void test(char const (&name)[nameSize], T testFunc);
+
 }
 
 #include "Test.inl"

@@ -8,6 +8,7 @@ void* __cdecl operator new(size_t, void* p);
 void __cdecl operator delete(void* p, size_t);
 
 using uint32_t = unsigned int;
+using uint64_t = unsigned long long;
 
 #else
 #include <Windows.h>

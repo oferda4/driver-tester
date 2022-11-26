@@ -11,7 +11,7 @@ public:
     };
 
     struct ListTestsOutput {
-        uint32_t numberOfTests;
+        uint64_t numberOfTests;
 #pragma warning(push)
 #pragma warning(disable: 4200)
         TestInfo info[0];

@@ -89,3 +89,17 @@ TEST(TestsManagerTest, RunNonExistingTest) {
 }
 
 }
+
+namespace drvut {
+
+TEST(TestSyntax, CreateRegularTest) {
+    internal::TestsManager::destroy();
+    const char arbitraryName[] = "Some Name";
+    bool didRun = false;
+
+    // test(arbitraryName, [&didRun]() {  }) {
+
+//    }
+}
+
+}

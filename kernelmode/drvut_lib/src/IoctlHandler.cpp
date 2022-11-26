@@ -37,7 +37,7 @@ NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView out
     }
     listTestsOutput->numberOfTests = tests.size();
      
-    const uint32_t testsThatFitsInOutput = min(tests.size(), 
+    const uint64_t testsThatFitsInOutput = min(tests.size(), 
                                                (output.size - sizeof(Ioctl::ListTestsOutput::numberOfTests)) / sizeof(TestInfo));
     TestInfo* testsOutput = &listTestsOutput->info[0];
     for (uint32_t i = 0; i < testsThatFitsInOutput; i++) {

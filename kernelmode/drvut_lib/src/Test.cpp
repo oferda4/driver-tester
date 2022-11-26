@@ -8,6 +8,10 @@ static constexpr auto POOL_TAG = 'tset';
 
 TestsManager* TestsManager::sm_manager = nullptr;
 
+TestResult RegularTest::run() {
+    return { (*m_testFunc)() };
+}
+
 TestsManager& TestsManager::instance() {
     if (!sm_manager) {
         initialize();
