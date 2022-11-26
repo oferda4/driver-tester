@@ -4,14 +4,18 @@
 
 class Ioctl {
 public:
-#pragma pack(push, 1)
+#pragma pack(push)
+#pragma pack(1)
     struct ListTestsInput {
         // intentionally left blank
     };
 
     struct ListTestsOutput {
         uint32_t numberOfTests;
+#pragma warning(push)
+#pragma warning(disable: 4200)
         TestInfo info[0];
+#pragma warning(pop)
     };
     
     struct RunTestInput {
