@@ -35,6 +35,10 @@ class RegularTest final : public Test {
 public:
     template<typename T>
     RegularTest(T func);
+    RegularTest();
+    template <typename T>
+    RegularTest& operator=(T func);
+
     TestResult run() override;
 
 private:

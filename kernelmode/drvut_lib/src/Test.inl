@@ -15,8 +15,14 @@ void TestsManager::add(std::unique_ptr<Test> test, char const (&name)[nameSize])
 }
 
 template <typename T>
-RegularTest::RegularTest(T func) : m_testFunc(new TestFuncImpl(func)) {
+RegularTest::RegularTest(T func) : m_testFunc(new TestFuncImpl(std::move(func))) {
     // itnentionally left blank
+}
+
+template <typename T>
+RegularTest& RegularTest::operator=(T func) {
+    m_testFunc = std::unique_ptr<TestFunc>(new TestFuncImpl(std::move(func)));
+    return *this;
 }
 
 template <typename T>

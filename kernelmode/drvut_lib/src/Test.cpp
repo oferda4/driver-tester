@@ -8,6 +8,10 @@ static constexpr auto POOL_TAG = 'tset';
 
 TestsManager* TestsManager::sm_manager = nullptr;
 
+RegularTest::RegularTest() : RegularTest([]() { return STATUS_SUCCESS; }) {
+    // intentionally left blank
+}
+
 TestResult RegularTest::run() {
     return { (*m_testFunc)() };
 }

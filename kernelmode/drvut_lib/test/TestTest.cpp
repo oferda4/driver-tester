@@ -19,6 +19,21 @@ TEST(RegulatTestTest, Sanity) {
     ASSERT_EQ(callCount, 1);
 }
 
+TEST(RegulatTestTest, AssignOperator) {
+    uint32_t callCount = 0;
+    const NTSTATUS arbitraryResultStatus = 65;
+
+    RegularTest test;
+    test = [&callCount, &arbitraryResultStatus]() { 
+        callCount++;
+        return arbitraryResultStatus; 
+    };
+    const auto result = test.run();
+
+    ASSERT_EQ(result.status, arbitraryResultStatus);
+    ASSERT_EQ(callCount, 1);
+}
+
 TEST(TestsManagerTest, AddRetainsUniqueness) {
     TestsManager::destroy();
     auto arbitraryTestMethod = []() -> NTSTATUS { return 0; };
