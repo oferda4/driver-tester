@@ -46,14 +46,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\drvut_lib_for_tests.vcxproj">
-      <Project>{db05b525-7ab1-4c7b-8182-09aa8cbcaf92}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\..\src\common\Messages.h" />
     <ClInclude Include="LeakCounter.h" />
     <ClInclude Include="MockResource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\drvut_lib_for_tests.vcxproj">
+      <Project>{0c76b1b1-3832-4b66-98b5-53ba965b740d}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

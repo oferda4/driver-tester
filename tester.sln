@@ -22,6 +22,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_lib_for_tests", "kernelmode\drvut_lib\src\drvut_lib_for_tests.vcxproj", "{0C76B1B1-3832-4B66-98B5-53BA965B740D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drvut_lib_tests", "kernelmode\drvut_lib\test\drvut_lib_tests.vcxproj", "{74A41CE5-3EA8-4D62-B6F3-A5A58B09A6CB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0C76B1B1-3832-4B66-98B5-53BA965B740D} = {0C76B1B1-3832-4B66-98B5-53BA965B740D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
