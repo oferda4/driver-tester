@@ -28,6 +28,10 @@ void TestsManager::destroy() {
     sm_manager = nullptr;
 }
 
+uint64_t TestsManager::getNumberOfTests() const {
+    return m_testsData.size();
+}
+
 Array<TestInfo> TestsManager::list() const {
     Array<TestInfo> info(m_testsData.size());
     size_t index = 0;

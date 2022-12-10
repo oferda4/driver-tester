@@ -55,6 +55,7 @@ public:
     static TestsManager& instance();
     static void destroy();
 
+    uint64_t getNumberOfTests() const;
     Array<TestInfo> list() const;
     TestResult run(uint32_t id);
     template <uint32_t nameSize>

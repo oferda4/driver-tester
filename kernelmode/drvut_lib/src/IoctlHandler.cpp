@@ -5,13 +5,29 @@
 namespace drvut::internal {
 
 namespace {
+NTSTATUS handleGetNumberOfTests(TestsManager& manager, BufferView input, BufferView output);
 NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView output);
-NTSTATUS validateListTestsInput(BufferView input);
-NTSTATUS validateListTestsOutput(BufferView output);
+
+template <typename ParameterType, NTSTATUS INVALID_PARAMETER_ERROR_CODE>
+NTSTATUS validateParameterBuffer(BufferView buffer);
+template <NTSTATUS INVALID_PARAMETER_ERROR_CODE>
+NTSTATUS validateParameterBuffer(BufferView buffer, uint64_t parameterSize);
+
+template <typename InputType>
+auto validateInputBuffer(BufferView buffer) { return validateParameterBuffer<InputType, STATUS_INVALID_PARAMETER_3>(buffer); }
+template <typename OutputType>
+auto validateOutputBuffer(BufferView buffer) { return validateParameterBuffer<OutputType, STATUS_INVALID_PARAMETER_4>(buffer); }
+
+auto validateListTestsInput(BufferView buffer) { return validateInputBuffer<Ioctl::ListTestsInput>(buffer); }
+NTSTATUS validateListTestsOutput(BufferView buffer, uint64_t numberOfTests) { return validateParameterBuffer<STATUS_INVALID_PARAMETER_4>(buffer, numberOfTests * sizeof(TestInfo)); }
+auto validateGetNumberOfTestsInput(BufferView buffer) { return validateInputBuffer<Ioctl::GetNumberOfTestsInput>(buffer); }
+auto validateGetNumberOfTestsOutput(BufferView buffer) { return validateOutputBuffer<Ioctl::GetNumberOfTestsOutput>(buffer); }
 }
 
 NTSTATUS IoctlHandler::handle(TestsManager& manager, uint32_t code, BufferView input, BufferView output) {
     switch (code) {
+    case Ioctl::GET_NUMBER_OF_TESTS:
+        return handleGetNumberOfTests(manager, input, output);
     case Ioctl::LIST_TESTS:
         return handleListTests(manager, input, output);
     case Ioctl::RUN_TEST:
@@ -23,34 +39,38 @@ NTSTATUS IoctlHandler::handle(TestsManager& manager, uint32_t code, BufferView i
 
 namespace {
 
+NTSTATUS handleGetNumberOfTests(TestsManager& manager, BufferView input, BufferView output) {
+    CHECK_AND_RETHROW(validateGetNumberOfTestsInput(input));
+    CHECK_AND_RETHROW(validateGetNumberOfTestsOutput(output));
+
+    auto* getNumberOfTestsOutput = static_cast<Ioctl::GetNumberOfTestsOutput*>(output.data);
+    getNumberOfTestsOutput->numberOfTests = manager.getNumberOfTests();
+
+    return STATUS_SUCCESS;
+}
+
 NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView output) {
-    // we are currently not using the input. However we still want
-    // to make sure the proper struct was passed for validation.
     CHECK_AND_RETHROW(validateListTestsInput(input));
-    CHECK_AND_RETHROW(validateListTestsOutput(output));
+
+    const auto tests = manager.list();
+    CHECK_AND_RETHROW(validateListTestsOutput(output, tests.size()));
 
     auto* listTestsOutput = static_cast<Ioctl::ListTestsOutput*>(output.data);
-    const auto tests = manager.list();
-
-    listTestsOutput->numberOfTests = tests.size();
-    const uint64_t testsThatFitsInOutput = min(tests.size(),
-        (output.size - sizeof(Ioctl::ListTestsOutput::numberOfTests)) / sizeof(TestInfo));
-    TestInfo* testsOutput = listTestsOutput->info;
-    for (uint32_t i = 0; i < testsThatFitsInOutput; i++) {
-        memcpy(testsOutput + i, &tests.at(i), sizeof(TestInfo));
+    for (uint32_t i = 0; i < tests.size(); i++) {
+        memcpy(&listTestsOutput[i], &tests.at(i), sizeof(TestInfo));
     }
 
-    return testsThatFitsInOutput >= tests.size() ? STATUS_SUCCESS : STATUS_BUFFER_TOO_SMALL;
+    return STATUS_SUCCESS;
 }
 
-NTSTATUS validateListTestsInput(BufferView input) {
-    return input.size == sizeof(Ioctl::ListTestsInput) ? STATUS_SUCCESS : STATUS_INVALID_PARAMETER_3;
+template <typename ParameterType, NTSTATUS INVALID_PARAMETER_ERROR_CODE>
+NTSTATUS validateParameterBuffer(BufferView buffer) {
+    return validateParameterBuffer<INVALID_PARAMETER_ERROR_CODE>(buffer, sizeof(ParameterType));
 }
 
-NTSTATUS validateListTestsOutput(BufferView output) {
-    // you must have at least enough size for the number of tests
-    return output.size >= sizeof(Ioctl::ListTestsOutput::numberOfTests) ?
-        STATUS_SUCCESS : STATUS_INVALID_PARAMETER_4;
+template <NTSTATUS INVALID_PARAMETER_ERROR_CODE>
+NTSTATUS validateParameterBuffer(BufferView buffer, uint64_t parameterSize) {
+    return buffer.size == parameterSize ? STATUS_SUCCESS : INVALID_PARAMETER_ERROR_CODE;
 }
 
 }

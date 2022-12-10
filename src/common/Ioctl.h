@@ -6,13 +6,19 @@ class Ioctl {
 public:
 #pragma pack(push)
 #pragma pack(1)
+    struct GetNumberOfTestsInput {
+        // intentionally left blank
+    };
+
+    struct GetNumberOfTestsOutput {
+        uint64_t numberOfTests;
+    };
+
     struct ListTestsInput {
         // intentionally left blank
     };
 
-
     struct ListTestsOutput {
-        uint64_t numberOfTests;
 #pragma warning(push)
 #pragma warning(disable : 4200)
         TestInfo info[];
@@ -28,6 +34,7 @@ public:
     };
 #pragma pack(pop)
 
-    static constexpr uint32_t LIST_TESTS = CTL_CODE(FILE_DEVICE_UNKNOWN, 0x800, METHOD_BUFFERED, FILE_READ_DATA);
-    static constexpr uint32_t RUN_TEST = CTL_CODE(FILE_DEVICE_UNKNOWN, 0x801, METHOD_BUFFERED, FILE_WRITE_DATA);
+    static constexpr uint32_t GET_NUMBER_OF_TESTS = CTL_CODE(FILE_DEVICE_UNKNOWN, 0x800, METHOD_BUFFERED, FILE_READ_DATA);
+    static constexpr uint32_t LIST_TESTS = CTL_CODE(FILE_DEVICE_UNKNOWN, 0x801, METHOD_BUFFERED, FILE_READ_DATA);
+    static constexpr uint32_t RUN_TEST = CTL_CODE(FILE_DEVICE_UNKNOWN, 0x802, METHOD_BUFFERED, FILE_WRITE_DATA);
 };
