@@ -15,6 +15,41 @@ TEST(IoctlHandlerTest, InvalidCode) {
               STATUS_INVALID_PARAMETER_2);
 }
 
+/*
+TEST(IoctlHandlerTest, ListTests_Sanity) {
+    TestsManager::destroy();
+    Ioctl::ListTestsInput input{};
+    uint64_t resultNumberOfTests = 0;
+    uint64_t expectedNumberOfTests = 0;
+
+    TestsManager::instance().add
+
+    ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
+                  Ioctl::LIST_TESTS,
+                  BufferView(&input, sizeof(input)),
+                  BufferView(&numberOfTests, sizeof(numberOfTests))),
+        STATUS_SUCCESS);
+
+    Array<byte> outputBuffer(sizeof(Ioctl::ListTestsOutput) + resultNumberOfTests * sizeof(TestInfo));
+    Ioctl::ListTestsOutput* output = ::std::addressof(outputBuffer.at(0));
+
+    ASSERT_EQ(output->resultNumberOfTests);
+}
+*/
+
+TEST(IoctlHandlerTest, ListTests_NoTests) {
+    TestsManager::destroy();
+    Ioctl::ListTestsInput input{};
+    uint64_t numberOfTests = 0;
+    
+    ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
+                  Ioctl::LIST_TESTS,
+                  BufferView(&input, sizeof(input)),
+                  BufferView(&numberOfTests, sizeof(numberOfTests))),
+        STATUS_SUCCESS);
+    ASSERT_EQ(numberOfTests, 0);
+}
+
 TEST(IoctlHandlerTest, ListTests_BadInput) {
     TestsManager::destroy();
     ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
