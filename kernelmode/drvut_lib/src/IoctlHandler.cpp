@@ -40,11 +40,7 @@ NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView out
         memcpy(testsOutput + i, &tests.at(i), sizeof(TestInfo));
     }
 
-    if (testsThatFitsInOutput < tests.size()) {
-        return STATUS_BUFFER_TOO_SMALL;
-    }
-
-    return STATUS_SUCCESS;
+    return testsThatFitsInOutput >= tests.size() ? STATUS_SUCCESS : STATUS_BUFFER_TOO_SMALL;
 }
 
 NTSTATUS validateListTestsInput(BufferView input) {
