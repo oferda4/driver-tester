@@ -14,6 +14,6 @@ struct TestInfo {
 };
 
 struct TestResult {
-    unsigned long long status;
+    long status;
 };
 #pragma pack(pop)

@@ -16,7 +16,7 @@ using uint64_t = unsigned long long;
 
 // Windows kernel specific definitions
 #define ExRaiseStatus(status) throw ::std::exception("exception raised",  status)
-#define NTSTATUS    uint64_t
+#define NTSTATUS    int32_t
 #define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
 #define STATUS_SUCCESS ((NTSTATUS)0x00000000L)
 #define STATUS_INVALID_STATE_TRANSITION ((NTSTATUS)0xC000A003L)
