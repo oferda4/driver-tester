@@ -7,6 +7,7 @@ namespace drvut::internal {
 namespace {
 NTSTATUS handleGetNumberOfTests(TestsManager& manager, BufferView input, BufferView output);
 NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView output);
+NTSTATUS handleRunTest(TestsManager& manager, BufferView input, BufferView output);
 
 template <typename ParameterType, NTSTATUS INVALID_PARAMETER_ERROR_CODE>
 NTSTATUS validateParameterBuffer(BufferView buffer);
@@ -22,6 +23,8 @@ auto validateListTestsInput(BufferView buffer) { return validateInputBuffer<Ioct
 NTSTATUS validateListTestsOutput(BufferView buffer, uint64_t numberOfTests) { return validateParameterBuffer<STATUS_INVALID_PARAMETER_4>(buffer, numberOfTests * sizeof(TestInfo)); }
 auto validateGetNumberOfTestsInput(BufferView buffer) { return validateInputBuffer<Ioctl::GetNumberOfTestsInput>(buffer); }
 auto validateGetNumberOfTestsOutput(BufferView buffer) { return validateOutputBuffer<Ioctl::GetNumberOfTestsOutput>(buffer); }
+auto validateRunTestInput(BufferView buffer) { return validateInputBuffer<Ioctl::RunTestInput>(buffer); }
+auto validateRunTestOutput(BufferView buffer) { return validateOutputBuffer<Ioctl::RunTestOutput>(buffer); }
 }
 
 NTSTATUS IoctlHandler::handle(TestsManager& manager, uint32_t code, BufferView input, BufferView output) {
@@ -31,7 +34,7 @@ NTSTATUS IoctlHandler::handle(TestsManager& manager, uint32_t code, BufferView i
     case Ioctl::LIST_TESTS:
         return handleListTests(manager, input, output);
     case Ioctl::RUN_TEST:
-        return STATUS_SUCCESS;
+        return handleRunTest(manager, input, output);
     default:
         return STATUS_INVALID_PARAMETER_2;
     }
@@ -59,6 +62,18 @@ NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView out
     for (uint32_t i = 0; i < tests.size(); i++) {
         memcpy(&listTestsOutput[i], &tests.at(i), sizeof(TestInfo));
     }
+
+    return STATUS_SUCCESS;
+}
+
+NTSTATUS handleRunTest(TestsManager& manager, BufferView input, BufferView output) {
+    CHECK_AND_RETHROW(validateRunTestInput(input));
+    CHECK_AND_RETHROW(validateRunTestOutput(output));
+
+    auto* runTestInput = static_cast<Ioctl::RunTestInput*>(input.data);
+    auto* runTestsOutput = static_cast<Ioctl::RunTestOutput*>(output.data);
+
+    runTestsOutput->result = manager.run(runTestInput->testId).status;
 
     return STATUS_SUCCESS;
 }

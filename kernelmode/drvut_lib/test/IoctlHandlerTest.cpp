@@ -138,6 +138,43 @@ TEST(IoctlHandlerTest, ListTests_BadOutput) {
         STATUS_INVALID_PARAMETER_4);
 }
 
+TEST(IoctlHandlerTest, RunTest_Sanity) {
+    TestsManager::destroy();
+    auto& manager = TestsManager::instance();
+    const NTSTATUS arbitraryResultStatus = 1461;
+
+    uint32_t expectNotCalledTestCallCount = 0;
+    std::unique_ptr<drvut::internal::Test> expectNotCalledTest(
+        new RegularTest([&expectNotCalledTestCallCount, &arbitraryResultStatus]() { 
+            expectNotCalledTestCallCount++; 
+            return arbitraryResultStatus;
+        }));
+    uint32_t expectCalledTestCallCount = 0;
+    std::unique_ptr<drvut::internal::Test> expectCalledTest(
+        new RegularTest([&expectCalledTestCallCount, &arbitraryResultStatus]() { 
+            expectCalledTestCallCount++; 
+            return arbitraryResultStatus;
+        }));
+
+    manager.add(std::move(expectNotCalledTest), "ExpectNotCalled");
+    manager.add(std::move(expectCalledTest), "ExpectCalled");
+
+    auto tests = manager.list();
+    ASSERT_EQ(tests.size(), 2);
+
+    Ioctl::RunTestInput input = { .testId = tests.at(1).id };
+    Ioctl::RunTestOutput output = {0};
+    ASSERT_EQ(IoctlHandler::handle(manager, 
+                                   Ioctl::RUN_TEST, 
+                                   BufferView(&input, sizeof(input)), 
+                                   BufferView(&output, sizeof(output))),
+              STATUS_SUCCESS);
+
+    ASSERT_EQ(output.result, arbitraryResultStatus);
+    ASSERT_EQ(expectNotCalledTestCallCount, 0);
+    ASSERT_EQ(expectCalledTestCallCount, 1);
+}
+
 namespace {
 
 std::unique_ptr<Test> createArbitraryTest() {
