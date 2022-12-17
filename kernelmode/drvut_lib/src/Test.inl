@@ -39,8 +39,8 @@ NTSTATUS TestFuncImpl<T>::operator()() {
 
 template <uint32_t nameSize, typename T>
 void test(char const (&name)[nameSize], T testFunc) {
-    auto testObj = internal::std::unique_ptr<internal::RegularTest>(new internal::RegularTest(std::move(testFunc)));
-    internal::TestsManager::instance().add(std::move(testObj), name);
+    auto testObj = internal::std::unique_ptr<internal::RegularTest>(new internal::RegularTest(internal::std::move(testFunc)));
+    internal::TestsManager::instance().add(internal::std::move(testObj), name);
 }
 
 }

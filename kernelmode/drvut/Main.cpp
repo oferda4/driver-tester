@@ -2,7 +2,7 @@
 
 #include "Device.h"
 #include "Test.h"
-#include "Ioctl.h"
+#include "IoctlHandler.h"
 
 namespace drvut {
 namespace internal {
@@ -15,8 +15,6 @@ void unloadDriver(PDRIVER_OBJECT DriverObject);
 NTSTATUS doNothing(PDEVICE_OBJECT deviceObject, PIRP irp);
 NTSTATUS deviceControl(PDEVICE_OBJECT deviceObject, PIRP irp);
 NTSTATUS performIoctl(PIRP irp);
-NTSTATUS handleListTestsIoctl(PIRP irp);
-NTSTATUS handleRunTestIoctl(PIRP irp);
 }
 
 EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath) {
@@ -77,32 +75,16 @@ NTSTATUS deviceControl(PDEVICE_OBJECT deviceObject, PIRP irp) {
 
 NTSTATUS performIoctl(PIRP irp) {
     auto irpSp = IoGetCurrentIrpStackLocation(irp);
-    const auto inBufferLength = irpSp->Parameters.DeviceIoControl.InputBufferLength;
-    const auto outBufferLength = irpSp->Parameters.DeviceIoControl.OutputBufferLength;
-    
-    if (!inBufferLength || !outBufferLength) {
-        return STATUS_INVALID_PARAMETER;
-    }
+    const auto inputBufferLength = irpSp->Parameters.DeviceIoControl.InputBufferLength;
+    const auto outputBufferLength = irpSp->Parameters.DeviceIoControl.OutputBufferLength;
 
-    // auto inBuffer = irp->AssociatedIrp.SystemBuffer;
-    // auto outBuffer = irp->AssociatedIrp.SystemBuffer;
+    auto inputBuffer = irp->AssociatedIrp.SystemBuffer;
+    auto outputBuffer = irp->AssociatedIrp.SystemBuffer;
 
-    switch (irpSp->Parameters.DeviceIoControl.IoControlCode) {
-    case Ioctl::LIST_TESTS:
-        break;
-    case Ioctl::RUN_TEST:
-        break;
-    }
-
-    return STATUS_INVALID_DEVICE_REQUEST;
-}
-
-NTSTATUS handleListTestsIoctl(PIRP irp) {
-    UNREFERENCED_PARAMETER(irp);
-}
-
-NTSTATUS handleRunTestIoctl(PIRP irp) {
-    UNREFERENCED_PARAMETER(irp);
+    return IoctlHandler::handle(TestsManager::instance(),
+                                irpSp->Parameters.DeviceIoControl.IoControlCode, 
+                                BufferView(inputBuffer, inputBufferLength),
+                                BufferView(outputBuffer, outputBufferLength));
 }
 
 }
