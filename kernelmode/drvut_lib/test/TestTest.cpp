@@ -109,12 +109,22 @@ namespace drvut {
 
 TEST(TestSyntax, CreateRegularTest) {
     internal::TestsManager::destroy();
+    auto& manager = internal::TestsManager::instance();
+    
     const char arbitraryName[] = "Some Name";
     bool didRun = false;
+    NTSTATUS arbitraryResult = 2001;
 
-    // test(arbitraryName, [&didRun]() {  }) {
+    test(arbitraryName) = [&didRun, &arbitraryResult]() {
+        didRun = true;
+        return arbitraryResult;
+    };
 
-//    }
+    auto tests = manager.list();
+    ASSERT_EQ(tests.size(), 1);
+    ASSERT_EQ(std::string(tests.at(0).name), std::string(arbitraryName));
+    ASSERT_EQ(manager.run(tests.at(0).id).status, arbitraryResult);
+    ASSERT_TRUE(didRun);
 }
 
 }

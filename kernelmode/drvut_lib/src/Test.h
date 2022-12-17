@@ -73,8 +73,8 @@ private:
 
 }
 
-template <uint32_t nameSize, typename T>
-void test(char const (&name)[nameSize], T testFunc);
+template <uint32_t nameSize>
+internal::RegularTest& test(char const (&name)[nameSize]);
 
 }
 
