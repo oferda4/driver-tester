@@ -20,6 +20,7 @@ int main(int argc, char* argv[]) {
 
     if (argc != 3) {
         traceUsages();
+        return 1;
     }
 
     WsaTcpSocketServer server(argv[1], getPortFromArg(argv[2]));
