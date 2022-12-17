@@ -57,6 +57,9 @@
     <ClCompile Include="TcpSocketTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RequestsHandlerTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MockParser.h">
@@ -81,6 +84,12 @@
       <Filter>Mocks</Filter>
     </ClInclude>
     <ClInclude Include="MockHandle.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="FakeFile.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="MockIoctlApi.h">
       <Filter>Mocks</Filter>
     </ClInclude>
   </ItemGroup>

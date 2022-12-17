@@ -39,6 +39,7 @@
     <ClCompile Include="HandleTest.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ProtobufParserTest.cpp" />
+    <ClCompile Include="RequestsHandlerTest.cpp" />
     <ClCompile Include="RequestsRouterTest.cpp" />
     <ClCompile Include="StreamTest.cpp" />
     <ClCompile Include="TcpSocketTest.cpp" />
@@ -54,7 +55,9 @@
   <ItemGroup>
     <ClInclude Include="MockCommunication.h" />
     <ClInclude Include="MockConnection.h" />
+    <ClInclude Include="FakeFile.h" />
     <ClInclude Include="MockHandle.h" />
+    <ClInclude Include="MockIoctlApi.h" />
     <ClInclude Include="MockParser.h" />
     <ClInclude Include="MockRequestsHandler.h" />
     <ClInclude Include="MockRequestsRouter.h" />
@@ -76,7 +79,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\common;$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -94,7 +97,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\common;$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -111,7 +114,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\common;$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -130,7 +133,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\common;$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
