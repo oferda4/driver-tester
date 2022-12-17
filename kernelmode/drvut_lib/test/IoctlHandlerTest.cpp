@@ -175,6 +175,48 @@ TEST(IoctlHandlerTest, RunTest_Sanity) {
     ASSERT_EQ(expectCalledTestCallCount, 1);
 }
 
+TEST(IoctlHandlerTest, RunTest_BadInput) {
+    TestsManager::destroy();
+    ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
+                  Ioctl::RUN_TEST,
+                  BufferView(nullptr, sizeof(Ioctl::RunTestInput) + 1),
+                  BufferView(nullptr, 0)),
+        STATUS_INVALID_PARAMETER_3);
+    ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
+                  Ioctl::RUN_TEST,
+                  BufferView(nullptr, sizeof(Ioctl::RunTestInput) - 1),
+                  BufferView(nullptr, 0)),
+        STATUS_INVALID_PARAMETER_3);
+}
+
+TEST(IoctlHandlerTest, RunTest_BadOutput) {
+    TestsManager::destroy();
+    Ioctl::RunTestInput input{};
+
+    ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
+                  Ioctl::RUN_TEST,
+                  BufferView(&input, sizeof(input)),
+                  BufferView(nullptr, sizeof(Ioctl::RunTestOutput) + 1)),
+        STATUS_INVALID_PARAMETER_4);
+    ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
+                  Ioctl::RUN_TEST,
+                  BufferView(&input, sizeof(input)),
+                  BufferView(nullptr, sizeof(Ioctl::RunTestOutput) - 1)),
+        STATUS_INVALID_PARAMETER_4);
+}
+
+TEST(IoctlHandlerTest, RunTest_UnknownTest) {
+    TestsManager::destroy();
+    // we won't add  any test so any id will cause the failure
+    Ioctl::RunTestInput input{ .testId = 5 };
+    Ioctl::RunTestOutput output = { 0 };
+
+    ASSERT_ANY_THROW(IoctlHandler::handle(TestsManager::instance(),
+                     Ioctl::RUN_TEST,
+                     BufferView(&input, sizeof(input)),
+                     BufferView(&output, sizeof(output))));
+}
+
 namespace {
 
 std::unique_ptr<Test> createArbitraryTest() {
