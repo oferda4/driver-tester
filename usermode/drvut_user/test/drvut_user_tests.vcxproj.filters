@@ -86,7 +86,7 @@
     <ClInclude Include="MockHandle.h">
       <Filter>Mocks</Filter>
     </ClInclude>
-    <ClInclude Include="FakeFile.h">
+    <ClInclude Include="MockFile.h">
       <Filter>Mocks</Filter>
     </ClInclude>
     <ClInclude Include="MockIoctlApi.h">

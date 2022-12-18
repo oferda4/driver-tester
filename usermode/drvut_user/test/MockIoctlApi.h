@@ -5,7 +5,7 @@
 #include "Defs.h"
 #include "IoctlApi.h"
 #include "Buffer.h"
-#include "FakeFile.h"
+#include "MockFile.h"
 
 class MockIoctlApi {
 public:

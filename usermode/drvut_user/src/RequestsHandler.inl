@@ -4,7 +4,8 @@
 #include "Ioctl.h"
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
-RequestsHandlerImpl<FileApiType, IoctlApiType>::RequestsHandlerImpl(const std::wstring& deviceName, FileApiType& creationApi)
+template <FileCreationApi FileCreationApiType>
+RequestsHandlerImpl<FileApiType, IoctlApiType>::RequestsHandlerImpl(const std::wstring& deviceName, FileCreationApiType& creationApi)
     : m_device(creationApi.open(deviceName)) {
     // intentionally left blank
 }

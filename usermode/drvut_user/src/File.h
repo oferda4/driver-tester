@@ -5,9 +5,13 @@
 
 template <typename T>
 concept FileApi = requires(T& api, 
-                           HANDLE handle,
-                           const std::wstring& path) {
+                           HANDLE handle) {
     { api.close(handle) } -> std::same_as<void>;
+};
+
+template <typename T>
+concept FileCreationApi = requires(T& api, 
+                                   const std::wstring& path) {
     { api.open(path) } -> std::same_as<HANDLE>;
 };
 

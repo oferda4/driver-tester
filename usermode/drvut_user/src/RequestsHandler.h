@@ -17,7 +17,8 @@ concept RequestsHandler = requires(T& t,
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
 class RequestsHandlerImpl final {
 public:
-    RequestsHandlerImpl(const std::wstring& deviceName, FileApiType& creationApi);
+    template <FileCreationApi FileCreationApiType>
+    RequestsHandlerImpl(const std::wstring& deviceName, FileCreationApiType& creationApi);
 
     ListTestsOutput listTests(const ListTestsInput& input);
     RunTestOutput runTest(const RunTestInput& input);

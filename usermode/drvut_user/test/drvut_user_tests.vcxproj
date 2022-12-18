@@ -55,7 +55,7 @@
   <ItemGroup>
     <ClInclude Include="MockCommunication.h" />
     <ClInclude Include="MockConnection.h" />
-    <ClInclude Include="FakeFile.h" />
+    <ClInclude Include="MockFile.h" />
     <ClInclude Include="MockHandle.h" />
     <ClInclude Include="MockIoctlApi.h" />
     <ClInclude Include="MockParser.h" />

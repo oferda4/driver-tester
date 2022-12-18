@@ -80,8 +80,8 @@ TcpSocketConnection<Api> TcpSocketServer<Api>::waitForConnection() {
     if (connectionSocket == INVALID_SOCKET) {
         throw typename Api::ExceptionType();
     }
-    return { connectionSocket };
-}
+    return { SocketGuard<Api>(connectionSocket) };
+    }
 
 template <typename Api>
 SocketGuard<Api> impl::createTcpSocket(Api& api) {
