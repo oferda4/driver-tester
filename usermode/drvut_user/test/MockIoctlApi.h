@@ -9,8 +9,6 @@
 
 class MockIoctlApi {
 public:
-    virtual ~MockIoctlApi() = default;
-
     MOCK_METHOD(void, send, (FileHandleGuard<FakeFileApi>&, const Buffer&, Buffer&));
 };
 
@@ -18,10 +16,13 @@ class MoveableMockIoctlApi {
 public:
     MoveableMockIoctlApi()
         : m_mock(std::make_unique<testing::StrictMock<MockIoctlApi>>()) {}
-    virtual ~MoveableMockIoctlApi() = default;
-
+    
     void send(FileHandleGuard<FakeFileApi>& handle, const Buffer& input, Buffer& output) {
         m_mock->send(handle, input, output);
+    }
+
+    testing::StrictMock<MockIoctlApi>& getMock() {
+        return *m_mock;
     }
 
 private:

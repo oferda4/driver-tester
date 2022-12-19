@@ -18,7 +18,7 @@ template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
 class RequestsHandlerImpl final {
 public:
     template <FileCreationApi FileCreationApiType>
-    RequestsHandlerImpl(const std::wstring& deviceName, FileCreationApiType& creationApi);
+    RequestsHandlerImpl(const std::wstring& deviceName, FileCreationApiType& creationApi, IoctlApiType ioctlApi = IoctlApiType());
 
     ListTestsOutput listTests(const ListTestsInput& input);
     RunTestOutput runTest(const RunTestInput& input);
