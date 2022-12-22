@@ -51,7 +51,7 @@
     <ClInclude Include="Server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="messages.pb.h">
+    <ClInclude Include="runner_user_messages.pb.h">
       <Filter>Protobuf</Filter>
     </ClInclude>
     <ClInclude Include="ProtobufParser.h">
@@ -101,7 +101,7 @@
     <None Include="TcpSocket.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="$(SolutionDir)common\messages.proto" />
+    <None Include="$(SolutionDir)common\runner_user_messages.proto" />
     <None Include="File.inl">
       <Filter>Source Files</Filter>
     </None>
@@ -116,7 +116,7 @@
     <ClCompile Include="Stream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="messages.pb.cc">
+    <ClCompile Include="runner_user_messages.pb.cc">
       <Filter>Protobuf</Filter>
     </ClCompile>
     <ClCompile Include="ProtobufParser.cpp">

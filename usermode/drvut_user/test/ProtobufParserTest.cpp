@@ -4,7 +4,7 @@
 
 #include "ProtobufUtils.h"
 
-#include "messages.pb.h"
+#include "runner_user_messages.pb.h"
 
 using google::protobuf::Message;
 

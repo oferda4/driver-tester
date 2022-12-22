@@ -1,6 +1,6 @@
 #include "ProtobufParser.h"
 
-#include "messages.pb.h"
+#include "runner_user_messages.pb.h"
 
 #include "ProtobufUtils.h"
 

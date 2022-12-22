@@ -29,7 +29,7 @@
     <ClInclude Include="Handle.h" />
     <ClInclude Include="IoctlApi.h" />
     <ClInclude Include="Messages.h" />
-    <ClInclude Include="messages.pb.h" />
+    <ClInclude Include="runner_user_messages.pb.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ProtobufParser.h" />
     <ClInclude Include="ProtobufUtils.h" />
@@ -40,7 +40,7 @@
     <ClInclude Include="TcpSocket.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(SolutionDir)common\messages.proto" />
+    <None Include="$(SolutionDir)common\runner_user_messages.proto" />
     <None Include="Buffer.inl" />
     <None Include="CastUtils.inl" />
     <None Include="Communication.inl" />
@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
-    <ClCompile Include="messages.pb.cc" />
+    <ClCompile Include="runner_user_messages.pb.cc" />
     <ClCompile Include="ProtobufParser.cpp" />
     <ClCompile Include="ProtobufUtils.cpp" />
     <ClCompile Include="Stream.cpp" />
@@ -139,7 +139,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\messages.proto</Command>
+      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\runner_user_messages.proto</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -162,7 +162,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\messages.proto</Command>
+      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\runner_user_messages.proto</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -181,7 +181,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\messages.proto</Command>
+      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\runner_user_messages.proto</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -204,7 +204,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\messages.proto</Command>
+      <Command>protoc --proto_path $(SolutionDir)common --cpp_out=$(ProjectDir) $(SolutionDir)common\runner_user_messages.proto</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
