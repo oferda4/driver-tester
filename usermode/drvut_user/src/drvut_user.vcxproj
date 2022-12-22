@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\common\Ioctl.h" />
+    <ClInclude Include="$(SolutionDir)common\Ioctl.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="CastUtils.h" />
     <ClInclude Include="Communication.h" />
@@ -27,8 +27,9 @@
     <ClInclude Include="Defs.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Handle.h" />
+    <ClInclude Include="InternalMessages.h" />
     <ClInclude Include="IoctlApi.h" />
-    <ClInclude Include="Messages.h" />
+    <ClInclude Include="$(SolutionDir)common\UserDriverMessages.h" />
     <ClInclude Include="runner_user_messages.pb.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ProtobufParser.h" />
@@ -172,7 +173,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)src\common;$(PROTOBUF_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)common;$(PROTOBUF_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>

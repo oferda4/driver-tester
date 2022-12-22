@@ -61,7 +61,7 @@
     <ClCompile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kernelmode\drvut;$(SolutionDir)src\common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)kernelmode\drvut;$(SolutionDir)common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -74,7 +74,7 @@
     <ClCompile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kernelmode\drvut;$(SolutionDir)src\common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)kernelmode\drvut;$(SolutionDir)common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -86,8 +86,8 @@
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\common\Ioctl.h" />
-    <ClInclude Include="$(SolutionDir)src\common\Messages.h" />
+    <ClInclude Include="$(SolutionDir)common\Ioctl.h" />
+    <ClInclude Include="$(SolutionDir)common\UserDriverMessages.h" />
     <ClInclude Include="Array.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Concepts.h" />

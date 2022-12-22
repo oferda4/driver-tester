@@ -57,10 +57,10 @@
     <ClInclude Include="Array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\common\Ioctl.h">
+    <ClInclude Include="$(SolutionDir)common\Ioctl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(SolutionDir)src\common\Messages.h">
+    <ClInclude Include="$(SolutionDir)common\UserDriverMessages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IoctlHandler.h">

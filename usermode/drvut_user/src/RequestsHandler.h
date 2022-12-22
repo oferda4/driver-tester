@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Defs.h"
-#include "Messages.h"
+#include "InternalMessages.h"
 #include "RequestsHandler.h"
 #include "File.h"
 #include "IoctlApi.h"

@@ -39,7 +39,7 @@
     <ClInclude Include="RequestsRouter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Messages.h">
+    <ClInclude Include="$(SolutionDir)common\UserDriverMessages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Stream.h">
@@ -66,13 +66,16 @@
     <ClInclude Include="Handle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\common\Ioctl.h">
+    <ClInclude Include="$(SolutionDir)common\Ioctl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="File.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IoctlApi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalMessages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

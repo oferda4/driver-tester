@@ -30,7 +30,7 @@
     <ClInclude Include="Array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\common\Messages.h">
+    <ClInclude Include="$(SolutionDir)common\UserDriverMessages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Test.h">

@@ -2,7 +2,7 @@
 
 #include "Defs.h"
 #include "Buffer.h"
-#include "Messages.h"
+#include "InternalMessages.h"
 
 enum class RequestType : uint32_t {
     LIST_TESTS,

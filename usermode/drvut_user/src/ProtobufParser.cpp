@@ -3,6 +3,7 @@
 #include "runner_user_messages.pb.h"
 
 #include "ProtobufUtils.h"
+#include "InternalMessages.h"
 
 ParsedRequest ProtobufParser::parseRequest(const Buffer& data) {
     ParsedRequest result{};
