@@ -29,7 +29,16 @@ ListTestsOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::listTests(const 
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
 RunTestOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::runTest(const RunTestInput& input) {
+    Buffer ioctlInputBuffer(sizeof(Ioctl::RunTestInput), 0);
+    auto* ioctlInput = reinterpret_cast<Ioctl::RunTestInput*>(ioctlInputBuffer.data());
+    Buffer ioctlOutputBuffer(sizeof(Ioctl::RunTestOutput), 0);
+    auto* ioctlOutput = reinterpret_cast<Ioctl::RunTestOutput*>(ioctlOutputBuffer.data());
 
+    ioctlInput->testId = input.testId;
+    m_ioctlApi.send(m_device, ioctlInputBuffer, ioctlOutputBuffer);
+    
+
+    return { .result = { .status = ioctlOutput->result } };
 }
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>

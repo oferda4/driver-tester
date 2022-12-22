@@ -12,7 +12,7 @@ struct TestInfo {
 };
 
 struct TestResult {
-    uint64_t status;
+    int32_t status;
 };
 
 struct ListTestsInput {
