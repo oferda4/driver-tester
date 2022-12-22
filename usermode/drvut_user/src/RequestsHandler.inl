@@ -33,10 +33,10 @@ RunTestOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::runTest(const RunT
 }
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
-uint32_t RequestsHandlerImpl<FileApiType, IoctlApiType>::getNumberOfTests() {
-    Buffer ioctlInputBuffer(0, sizeof(Ioctl::GetNumberOfTestsInput));
+uint64_t RequestsHandlerImpl<FileApiType, IoctlApiType>::getNumberOfTests() {
+    Buffer ioctlInputBuffer(sizeof(Ioctl::GetNumberOfTestsInput), 0);
     auto* ioctlInput = reinterpret_cast<Ioctl::GetNumberOfTestsInput*>(ioctlInputBuffer.data());
-    Buffer ioctlOutputBuffer(0, sizeof(Ioctl::GetNumberOfTestsOutput));
+    Buffer ioctlOutputBuffer(sizeof(Ioctl::GetNumberOfTestsOutput), 0);
     auto* ioctlOutput = reinterpret_cast<Ioctl::GetNumberOfTestsOutput*>(ioctlOutputBuffer.data());
     
     *ioctlInput = Ioctl::GetNumberOfTestsInput{};

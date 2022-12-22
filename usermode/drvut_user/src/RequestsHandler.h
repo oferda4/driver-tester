@@ -24,7 +24,7 @@ public:
     RunTestOutput runTest(const RunTestInput& input);
 
 private:
-    uint32_t getNumberOfTests();
+    uint64_t getNumberOfTests();
 
     FileHandleGuard<FileApiType> m_device;
     IoctlApiType m_ioctlApi;
