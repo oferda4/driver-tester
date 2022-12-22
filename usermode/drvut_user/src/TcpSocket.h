@@ -4,6 +4,7 @@
 
 #include "Handle.h"
 #include "Buffer.h"
+#include "Connection.h"
 
 struct BadIpAddress : std::exception {
     // left blank intentionally
@@ -12,7 +13,7 @@ struct BadIpAddress : std::exception {
 template <typename T>
 concept PosixSocketApi = requires(T& api, 
                                   SOCKET socket) {
-    { T::ExceptionType };
+    typename T::ExceptionType;
     std::derived_from<typename T::ExceptionType, std::exception>;
     { api.close(socket) } -> std::same_as<int>;
 };

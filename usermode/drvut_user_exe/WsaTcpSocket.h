@@ -21,3 +21,4 @@ public:
 };
 
 using WsaTcpSocketServer = TcpSocketServer<WsaTcpSocketApi>;
+using WsaTcpConnection = TcpSocketConnection<WsaTcpSocketApi>;

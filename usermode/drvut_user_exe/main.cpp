@@ -4,6 +4,13 @@
 
 #include "WsaGuard.h"
 #include "WsaTcpSocket.h"
+#include "WinFile.h"
+#include "WinIoctlApi.h"
+
+#include "RequestsHandler.h"
+#include "RequestsRouter.h"
+#include "ProtobufParser.h"
+#include "Communication.h"
 
 namespace {
 struct BadArgument  : std::exception {
@@ -13,6 +20,8 @@ struct BadArgument  : std::exception {
 void trace(const std::string& msg);
 void traceUsages();
 uint16_t getPortFromArg(const char* portArg);
+
+const std::wstring DEVICE_NAME = L"\\\\.\\TestDriver";
 }
 
 int main(int argc, char* argv[]) {
@@ -24,6 +33,13 @@ int main(int argc, char* argv[]) {
     }
 
     WsaTcpSocketServer server(argv[1], getPortFromArg(argv[2]));
+    WinFileCreationApi creationApi;
+    RequestsHandlerImpl<WinFileApi, WinIoctlApi> handler(DEVICE_NAME, creationApi);
+    RequestsRouterImpl router(std::move(handler), ProtobufParser());
+
+    Communication communication(CommunicationSetupImpl<WsaTcpSocketServer>(std::move(server)), 
+                                CommunicationLogicImpl<StreamImpl<WsaTcpConnection>, decltype(router)>(std::move(router)));
+    communication.run();
 
     return 0;
 }

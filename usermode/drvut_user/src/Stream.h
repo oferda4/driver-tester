@@ -12,7 +12,7 @@ struct ConnectionTerminatedInTheMiddle : std::exception {
 template<typename T>
 concept Stream = requires(T& stream, const Buffer& data) {
     { stream.recv() } -> std::same_as<Buffer>;
-    { stream.send(data) } -> std::same_as<void>;
+    { stream.send(data) } ;//-> std::same_as<void>;
 };
 
 template<Connection ConnectionType>
