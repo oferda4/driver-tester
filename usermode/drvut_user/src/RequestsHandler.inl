@@ -22,7 +22,7 @@ ListTestsOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::listTests(const 
     auto* ioctlOutput = reinterpret_cast<Ioctl::ListTestsOutput*>(ioctlOutputBuffer.data());
 
     *ioctlInput = Ioctl::ListTestsInput{};
-    m_ioctlApi.send(m_device, ioctlInputBuffer, ioctlOutputBuffer);
+    m_ioctlApi.send(m_device, Ioctl::LIST_TESTS, ioctlInputBuffer, ioctlOutputBuffer);
 
     return { std::vector<TestInfo>(ioctlOutput->info, ioctlOutput->info + numberOfTests) };
 }
@@ -35,7 +35,7 @@ RunTestOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::runTest(const RunT
     auto* ioctlOutput = reinterpret_cast<Ioctl::RunTestOutput*>(ioctlOutputBuffer.data());
 
     ioctlInput->testId = input.testId;
-    m_ioctlApi.send(m_device, ioctlInputBuffer, ioctlOutputBuffer);
+    m_ioctlApi.send(m_device, Ioctl::RUN_TEST, ioctlInputBuffer, ioctlOutputBuffer);
 
     return { .result = { .status = ioctlOutput->result } };
 }
@@ -48,7 +48,7 @@ uint64_t RequestsHandlerImpl<FileApiType, IoctlApiType>::getNumberOfTests() {
     auto* ioctlOutput = reinterpret_cast<Ioctl::GetNumberOfTestsOutput*>(ioctlOutputBuffer.data());
     
     *ioctlInput = Ioctl::GetNumberOfTestsInput{};
-    m_ioctlApi.send(m_device, ioctlInputBuffer, ioctlOutputBuffer);
+    m_ioctlApi.send(m_device, Ioctl::GET_NUMBER_OF_TESTS, ioctlInputBuffer, ioctlOutputBuffer);
     
     return ioctlOutput->numberOfTests;
 

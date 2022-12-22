@@ -26,15 +26,17 @@ TEST(RequestsHandlerTest, ListTests) {
     const TestInfo tests[] = { { 1, "First Test" }, { 2, "Second" }, { 10, "BumpInId" }, { 6, "BackDown" } };
     const uint64_t numberOfTests = sizeof(tests) / sizeof(tests[0]);
 
-    EXPECT_CALL(ioctlApi.getMock(), send(::testing::_, ::testing::_, ::testing::_))
-        .WillOnce([&numberOfTests](FileHandleGuard<FakeFileApi>&, const Buffer& inputBuffer, Buffer& outputBuffer) {
+    EXPECT_CALL(ioctlApi.getMock(), send(::testing::_, ::testing::_, ::testing::_, ::testing::_))
+        .WillOnce([&numberOfTests](FileHandleGuard<FakeFileApi>&, uint32_t code, const Buffer& inputBuffer, Buffer& outputBuffer) {
+            ASSERT_EQ(code, Ioctl::GET_NUMBER_OF_TESTS);
             assertSameBufferAsObj(Ioctl::GetNumberOfTestsInput{}, inputBuffer);
 
             ASSERT_EQ(outputBuffer.size(), sizeof(Ioctl::GetNumberOfTestsOutput));
             auto* output = reinterpret_cast<Ioctl::GetNumberOfTestsOutput*>(outputBuffer.data());
             output->numberOfTests = numberOfTests;
         })
-        .WillOnce([&numberOfTests, &tests](FileHandleGuard<FakeFileApi>&, const Buffer& inputBuffer, Buffer& outputBuffer) {
+        .WillOnce([&numberOfTests, &tests](FileHandleGuard<FakeFileApi>&, uint32_t code, const Buffer& inputBuffer, Buffer& outputBuffer) {
+            ASSERT_EQ(code, Ioctl::LIST_TESTS);
             assertSameBufferAsObj(Ioctl::ListTestsInput{}, inputBuffer);
             
             ASSERT_EQ(outputBuffer.size(), sizeof(TestInfo) * numberOfTests);
@@ -58,8 +60,9 @@ TEST(RequestsHandlerTest, RunTest) {
     const uint32_t arbitraryTestId = 1001;
     const NTSTATUS arbitraryResult = 37002;
     
-    EXPECT_CALL(ioctlApi.getMock(), send(::testing::_, ::testing::_, ::testing::_))
-        .WillOnce([&arbitraryTestId, &arbitraryResult](FileHandleGuard<FakeFileApi>&, const Buffer& inputBuffer, Buffer& outputBuffer) {
+    EXPECT_CALL(ioctlApi.getMock(), send(::testing::_, ::testing::_, ::testing::_, ::testing::_))
+        .WillOnce([&arbitraryTestId, &arbitraryResult](FileHandleGuard<FakeFileApi>&, uint32_t code, const Buffer& inputBuffer, Buffer& outputBuffer) {
+            ASSERT_EQ(code, Ioctl::RUN_TEST);    
             assertSameBufferAsObj(Ioctl::RunTestInput{ .testId = arbitraryTestId }, inputBuffer);
 
             ASSERT_EQ(outputBuffer.size(), sizeof(Ioctl::RunTestOutput));
