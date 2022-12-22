@@ -36,7 +36,6 @@ RunTestOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::runTest(const RunT
 
     ioctlInput->testId = input.testId;
     m_ioctlApi.send(m_device, ioctlInputBuffer, ioctlOutputBuffer);
-    
 
     return { .result = { .status = ioctlOutput->result } };
 }
