@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+message ListTestsRequest {
+    // intentionally left blank
+}
+
+message ListTestsResponse {
+    message TestInfo {
+        uint32 id = 1;
+        string name = 2;
+    }
+    repeated TestInfo tests = 1;
+}
+
+message RunTestRequest {
+    uint32 test_id = 1;
+}
+
+message RunTestResponse {
+    uint64 status = 1;
+}
+
+message Request {
+    oneof requests {
+        ListTestsRequest list_tests = 1;
+        RunTestRequest run_test = 2;
+    }
+}
+
+message Response {
+    oneof responses {
+        ListTestsResponse list_tests = 1;
+        RunTestResponse run_test = 2;
+    }
+}
