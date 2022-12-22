@@ -104,12 +104,14 @@
     <None Include="TcpSocket.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="$(SolutionDir)common\runner_user_messages.proto" />
     <None Include="File.inl">
       <Filter>Source Files</Filter>
     </None>
     <None Include="RequestsHandler.inl">
       <Filter>Source Files</Filter>
+    </None>
+    <None Include="$(SolutionDir)common\runner_user_messages.proto">
+      <Filter>Protobuf</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
