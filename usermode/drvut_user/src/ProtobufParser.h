@@ -6,5 +6,5 @@ class ProtobufParser final {
 public:
     ParsedRequest parseRequest(const Buffer& data);
     Buffer serializeListTestsOutput(const ListTestsOutput& output);
-    Buffer parseRunTestOutput(const RunTestOutput& output);
+    Buffer serializeRunTestOutput(const RunTestOutput& output);
 };

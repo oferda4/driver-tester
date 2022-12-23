@@ -8,7 +8,7 @@ class MockParser {
 public:
     MOCK_METHOD(ParsedRequest, parseRequest, (const Buffer&));
     MOCK_METHOD(Buffer, serializeListTestsOutput, (const ListTestsOutput&));
-    MOCK_METHOD(Buffer, parseRunTestOutput, (const RunTestOutput&));
+    MOCK_METHOD(Buffer, serializeRunTestOutput, (const RunTestOutput&));
 };
 
 class MoveableMockParser {
@@ -24,8 +24,8 @@ public:
         return m_mock->serializeListTestsOutput(output);
     }
 
-    Buffer parseRunTestOutput(const RunTestOutput& output) {
-        return m_mock->parseRunTestOutput(output);
+    Buffer serializeRunTestOutput(const RunTestOutput& output) {
+        return m_mock->serializeRunTestOutput(output);
     }
 
     testing::StrictMock<MockParser>& getMock() {

@@ -17,7 +17,7 @@ Buffer RequestsRouterImpl<RequestsHandlerType, ParserType>::route(const Buffer& 
             m_handler.listTests(
                 request.input.listTestsInput));
     case RequestType::RUN_TEST:
-        return m_parser.parseRunTestOutput(
+        return m_parser.serializeRunTestOutput(
             m_handler.runTest(
                 request.input.runTestInput));
     }

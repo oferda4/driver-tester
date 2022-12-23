@@ -58,7 +58,7 @@ TEST(TestProtobufParser, RunTestOutput) {
     const RunTestOutput output = { { arbitraryTestResult } };
 
     const auto response = ProtobufUtils::deserialize<RunTestResponse>(
-        ProtobufParser().parseRunTestOutput(output));
+        ProtobufParser().serializeRunTestOutput(output));
 
     ASSERT_EQ(arbitraryTestResult, response.status());
 }

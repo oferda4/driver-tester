@@ -40,7 +40,7 @@ TEST(RequestsRouterTest, RoutingRunTest) {
             Return(ParsedRequest { .type = RequestType::RUN_TEST, 
                                    .input = { .runTestInput = {} } })
         );
-    EXPECT_CALL(parser.getMock(), parseRunTestOutput(_))
+    EXPECT_CALL(parser.getMock(), serializeRunTestOutput(_))
         .WillOnce(
             Return(fakeBuffer));
 

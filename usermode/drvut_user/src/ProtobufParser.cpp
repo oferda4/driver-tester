@@ -27,7 +27,7 @@ Buffer ProtobufParser::serializeListTestsOutput(const ListTestsOutput& output) {
     return ProtobufUtils::serialize(response);
 }
 
-Buffer ProtobufParser::parseRunTestOutput(const RunTestOutput& output) {
+Buffer ProtobufParser::serializeRunTestOutput(const RunTestOutput& output) {
     RunTestResponse response;
     response.set_status(output.result.status);
     return ProtobufUtils::serialize(response);
