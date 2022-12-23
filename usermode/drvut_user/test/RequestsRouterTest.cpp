@@ -18,7 +18,7 @@ TEST(RequestsRouterTest, RoutingListTests) {
             Return(ParsedRequest { .type = RequestType::LIST_TESTS, 
                                    .input = { .listTestsInput =  {} } })
         );
-    EXPECT_CALL(parser.getMock(), parseListTestsOutput(_))
+    EXPECT_CALL(parser.getMock(), serializeListTestsOutput(_))
         .WillOnce(
             Return(fakeBuffer));
 

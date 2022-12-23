@@ -23,6 +23,6 @@ concept Parser = requires(T& parser,
                           const ListTestsOutput& listTestsOutput,
                           const RunTestOutput& runTestOutput) {
     { parser.parseRequest(data) } -> std::same_as<ParsedRequest>;
-    { parser.parseListTestsOutput(listTestsOutput) } -> std::same_as<Buffer>;
+    { parser.serializeListTestsOutput(listTestsOutput) } -> std::same_as<Buffer>;
     { parser.parseRunTestOutput(runTestOutput) } -> std::same_as<Buffer>;
 };

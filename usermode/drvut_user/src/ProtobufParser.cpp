@@ -17,7 +17,7 @@ ParsedRequest ProtobufParser::parseRequest(const Buffer& data) {
     return result;
 }
 
-Buffer ProtobufParser::parseListTestsOutput(const ListTestsOutput& output) {
+Buffer ProtobufParser::serializeListTestsOutput(const ListTestsOutput& output) {
     ListTestsResponse response;
     for (auto& test : output.tests) {
         auto* info = response.add_tests();

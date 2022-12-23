@@ -7,7 +7,7 @@
 class MockParser {
 public:
     MOCK_METHOD(ParsedRequest, parseRequest, (const Buffer&));
-    MOCK_METHOD(Buffer, parseListTestsOutput, (const ListTestsOutput&));
+    MOCK_METHOD(Buffer, serializeListTestsOutput, (const ListTestsOutput&));
     MOCK_METHOD(Buffer, parseRunTestOutput, (const RunTestOutput&));
 };
 
@@ -20,8 +20,8 @@ public:
         return m_mock->parseRequest(data);
     }
 
-    Buffer parseListTestsOutput(const ListTestsOutput& output) {
-        return m_mock->parseListTestsOutput(output);
+    Buffer serializeListTestsOutput(const ListTestsOutput& output) {
+        return m_mock->serializeListTestsOutput(output);
     }
 
     Buffer parseRunTestOutput(const RunTestOutput& output) {

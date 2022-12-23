@@ -45,7 +45,7 @@ TEST(TestProtobufParser, ListTestsOutput) {
     const ListTestsOutput output = { tests };
 
     const auto response = ProtobufUtils::deserialize<ListTestsResponse>(
-        ProtobufParser().parseListTestsOutput(output));
+        ProtobufParser().serializeListTestsOutput(output));
 
     ASSERT_EQ(tests.size(), response.tests_size());
     for (int i = 0; i < response.tests_size(); i++) {
