@@ -7,12 +7,21 @@ using System.Threading.Tasks;
 namespace Runner {
     public static class InternalMessages {
         public struct TestInfo {
-            uint id;
-            string name;
+            public TestInfo(uint id, string name) {
+                this.id = id;
+                this.name = name;
+            }
+
+            public uint id;
+            public string name;
         };
 
         public struct TestResult {
-            int status;
+            public TestResult(int status) {
+                this.status = status;
+            }
+
+            public int status;
         };
 
         public struct ListTestsInput {
@@ -20,15 +29,27 @@ namespace Runner {
         };
 
         public struct ListTestsOutput {
-            List<TestInfo> tests;
+            public ListTestsOutput(List<TestInfo> tests) {
+                this.tests = tests;
+            }
+
+            public List<TestInfo> tests;
         };
 
         public struct RunTestInput {
-            uint testId;
+            public RunTestInput(uint testId) {
+                this.testId = testId;
+            }
+
+            public uint testId;
         };
 
         public struct RunTestOutput {
-            TestResult result;
+            public RunTestOutput(TestResult result) {
+                this.result = result;
+            }
+
+            public TestResult result;
         };
     }
 }
