@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace runner {
-    interface Connection {
+namespace Runner {
+    public interface MessagesConnection {
         void send(byte[] data);
         byte[] recv();
     }
 
-    class ConnectionImpl : Connection {
-        const int HEADER_SIZE = 4;
+    public class MessageConnectionImpl : MessagesConnection {
+        public const int HEADER_SIZE = 4;
 
         private Stream stream;
 
-        public ConnectionImpl(Stream stream) {
+        public MessageConnectionImpl(Stream stream) {
             this.stream = stream;
         }
 
