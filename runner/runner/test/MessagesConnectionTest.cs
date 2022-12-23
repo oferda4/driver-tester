@@ -9,17 +9,15 @@ namespace Runner.Tests {
     public class MessagesConnectionTest {
         [TestMethod]
         public void recvTest() {
-            byte[] arbitraryMessage = { 1, 2, 3, 101, 2, 11, 7, 13, 13, 15, 15 };
-            byte[] arbitraryMessageHeader = BitConverter.GetBytes(arbitraryMessage.Length);
-            Assert.AreEqual(arbitraryMessageHeader.Length, MessageConnectionImpl.HEADER_SIZE);
-            
+            byte[] message = { 1, 2, 3, 101, 2, 11, 7, 13, 13, 15, 15 };
+            byte[] messageHeader = getMessageHeader(message);
             bool isReadingHeader = true;
             const int blockSize = 2;
 
             var streamMock = new Mock<Stream>();
             streamMock.Setup(stream => stream.Read(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns((byte[] buffer, int offset, int count) => {
-                    byte[] currBuffer = isReadingHeader ? arbitraryMessageHeader : arbitraryMessage;
+                    byte[] currBuffer = isReadingHeader ? messageHeader : message;
                     Assert.AreEqual(buffer.Length, currBuffer.Length);
                     Assert.IsTrue(offset + count <= currBuffer.Length);
 
@@ -35,7 +33,38 @@ namespace Runner.Tests {
 
             MessageConnectionImpl connection = new MessageConnectionImpl(streamMock.Object);
             var result = connection.recv();
-            Assert.IsTrue(result.SequenceEqual(arbitraryMessage));
+            Assert.IsTrue(result.SequenceEqual(message));
+        }
+
+        [TestMethod]
+        public void sendTest() {
+            byte[] message = { 0, 202, 79, 88, 2, 1, 102 };
+            byte[] messageHeader = getMessageHeader(message);
+            bool isReadingHeader = true;
+
+            var streamMock = new Mock<Stream>();
+            streamMock.Setup(stream => stream.Write(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Callback((byte[] buffer, int offset, int count) => {
+                    byte[] currBuffer = isReadingHeader ? messageHeader : message;
+                    Assert.AreEqual(buffer.Length, currBuffer.Length);
+                    Assert.AreEqual(count, currBuffer.Length);
+                    Assert.AreEqual(offset, 0);
+                    Assert.IsTrue(buffer.SequenceEqual(currBuffer));
+
+                    if (isReadingHeader) {
+                        isReadingHeader = false;
+                    }
+                });
+
+            MessageConnectionImpl connection = new MessageConnectionImpl(streamMock.Object);
+            connection.send(message);
+            streamMock.Verify(stream => stream.Write(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()), Times.Exactly(2));
+        }
+
+        private byte[] getMessageHeader(byte[] message) {
+            byte[] messageHeader = BitConverter.GetBytes(message.Length);
+            Assert.AreEqual(messageHeader.Length, MessageConnectionImpl.HEADER_SIZE);
+            return messageHeader;
         }
     }
 }
