@@ -6,6 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Runner {
+    public class StreamEndedPrematurely : Exception {
+        // intentionally left blank
+    }
+
     public interface MessagesConnection {
         void send(byte[] data);
         byte[] recv();
@@ -32,7 +36,7 @@ namespace Runner {
             while (bytesRecv < size) {
                 int currBytesRecv = stream.Read(buffer, bytesRecv, size - bytesRecv);
                 if (currBytesRecv == 0) {
-                    // TODO: throw
+                    throw new StreamEndedPrematurely();
                 }
                 bytesRecv += currBytesRecv;
             }
