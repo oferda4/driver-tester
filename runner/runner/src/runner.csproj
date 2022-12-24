@@ -46,9 +46,7 @@
     <Compile Include="Parser.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="runner_user_messages.proto" />
+    <Compile Include="RunnerUserMessages.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

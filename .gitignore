@@ -400,3 +400,4 @@ FodyWeavers.xsd
 # Protocol Buffer Files
 *.pb.cc
 *.pb.h
+runner/runner/src/RunnerUserMessages.cs
