@@ -60,12 +60,17 @@
     <Compile Include="InternalMessages.cs" />
     <Compile Include="MessagesConnection.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="ProtobufParser.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunnerUserMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="$(SolutionDir)common\runner_user_messages.proto" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>protoc --proto_path $(SolutionDir)common --csharp_out=$(ProjectDir) $(SolutionDir)common\runner_user_messages.proto</PreBuildEvent>
+  </PropertyGroup>
 </Project>

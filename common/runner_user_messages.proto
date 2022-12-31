@@ -17,7 +17,7 @@ message RunTestRequest {
 }
 
 message RunTestResponse {
-    uint64 status = 1;
+    int64 status = 1;
 }
 
 message Request {

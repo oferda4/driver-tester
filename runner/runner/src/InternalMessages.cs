@@ -17,11 +17,11 @@ namespace Runner {
         };
 
         public struct TestResult {
-            public TestResult(int status) {
+            public TestResult(long status) {
                 this.status = status;
             }
 
-            public int status;
+            public long status;
         };
 
         public struct ListTestsInput {
