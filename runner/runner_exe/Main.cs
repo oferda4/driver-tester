@@ -18,7 +18,7 @@ namespace Runner {
 
             try {
                 var parser = new ProtobufParser();
-                var runner = new Runner(new ProtobufParser(), 
+                var runner = new RunnerImpl(new ProtobufParser(), 
                                         new MessagesConnectionImpl(client.GetStream()));
             } finally {
                 client.GetStream().Close();

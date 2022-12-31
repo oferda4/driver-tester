@@ -27,7 +27,7 @@ namespace Runner.Tests {
             connection.Setup(c => c.recv())
                 .Returns(fakeSerializedListTestsOutput);
 
-            var runner = new Runner(parser.Object, connection.Object);
+            var runner = new RunnerImpl(parser.Object, connection.Object);
             var result = runner.listTests();
             Assert.AreEqual(fakeTests, result);
         }
@@ -53,7 +53,7 @@ namespace Runner.Tests {
             connection.Setup(c => c.recv())
                 .Returns(fakeSerializedRunTestOutput);
 
-            var runner = new Runner(parser.Object, connection.Object);
+            var runner = new RunnerImpl(parser.Object, connection.Object);
             var result = runner.runTest(fakeTestId);
             Assert.AreEqual(fakeTestResult.status, result.status);
         }

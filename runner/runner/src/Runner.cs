@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Runner {
-    public class Runner {
+    public class RunnerImpl {
         private Parser parser;
         private MessagesConnection connection;
 
-        public Runner(Parser parser, MessagesConnection connection) { 
+        public RunnerImpl(Parser parser, MessagesConnection connection) { 
             this.parser = parser;
             this.connection = connection;
         }
