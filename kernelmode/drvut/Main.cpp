@@ -36,6 +36,9 @@ EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING Regis
     symbolicLink.leak();
     device.leak();
 
+    __debugbreak();
+    initializeTests();
+
     return STATUS_SUCCESS;
 }
 

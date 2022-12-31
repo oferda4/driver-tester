@@ -61,7 +61,7 @@
     <ClCompile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)common;$(SolutionDir)kernelmode\drvut_lib\src;$(SolutionDir)kernelmode\drvut;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -74,7 +74,7 @@
     <ClCompile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)common;$(SolutionDir)kernelmode\drvut_lib\src;$(SolutionDir)kernelmode\drvut;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -83,6 +83,9 @@
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)kernelmode\drvut\drvut.vcxproj">
       <Project>{f2806d28-b8ab-4acc-b268-cd35a611f79b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\kernelmode\drvut_lib\src\drvut_lib.vcxproj">
+      <Project>{1cf337fe-dc7d-4f2c-b849-840257d145e0}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

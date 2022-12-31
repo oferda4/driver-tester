@@ -3,7 +3,7 @@
 static constexpr ULONG TEST_DRIVER_POOL_TAG = 'tset';
 
 void* __cdecl operator new(size_t size) {
-    void* result = ExAllocatePool2(PagedPool, size, TEST_DRIVER_POOL_TAG);
+    void* result = ExAllocatePool2(POOL_FLAG_PAGED, size, TEST_DRIVER_POOL_TAG);
     if (!result) {
         ExRaiseStatus(STATUS_BAD_DATA);
     }
