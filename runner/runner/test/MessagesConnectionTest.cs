@@ -37,7 +37,7 @@ namespace Runner.Tests {
                     return actualCount;
                 });
 
-            MessageConnectionImpl connection = new MessageConnectionImpl(streamMock.Object);
+            MessagesConnectionImpl connection = new MessagesConnectionImpl(streamMock.Object);
             var result = connection.recv();
             Assert.IsTrue(result.SequenceEqual(message));
         }
@@ -46,10 +46,10 @@ namespace Runner.Tests {
         public void Recv_StreamEndedWhileReadingHeaderTest() {
             var streamMock = new Mock<Stream>();
             streamMock.SetupSequence(ReadCall)
-                .Returns(MessageConnectionImpl.HEADER_SIZE / 2)
+                .Returns(MessagesConnectionImpl.HEADER_SIZE / 2)
                 .Returns(0);
 
-            MessageConnectionImpl connection = new MessageConnectionImpl(streamMock.Object);
+            MessagesConnectionImpl connection = new MessagesConnectionImpl(streamMock.Object);
             Assert.ThrowsException<StreamEndedPrematurely>(() => connection.recv());
         }
 
@@ -69,7 +69,7 @@ namespace Runner.Tests {
                     return messageHeader.Length; 
                 });
 
-            MessageConnectionImpl connection = new MessageConnectionImpl(streamMock.Object);
+            MessagesConnectionImpl connection = new MessagesConnectionImpl(streamMock.Object);
             Assert.ThrowsException<StreamEndedPrematurely>(() => connection.recv());
         }
 
@@ -93,14 +93,14 @@ namespace Runner.Tests {
                     }
                 });
 
-            MessageConnectionImpl connection = new MessageConnectionImpl(streamMock.Object);
+            MessagesConnectionImpl connection = new MessagesConnectionImpl(streamMock.Object);
             connection.send(message);
             streamMock.Verify(WriteCall, Times.Exactly(2));
         }
 
         private byte[] getMessageHeader(byte[] message) {
             byte[] messageHeader = BitConverter.GetBytes(message.Length);
-            Assert.AreEqual(messageHeader.Length, MessageConnectionImpl.HEADER_SIZE);
+            Assert.AreEqual(messageHeader.Length, MessagesConnectionImpl.HEADER_SIZE);
             return messageHeader;
         }
     }

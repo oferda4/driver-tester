@@ -16,8 +16,14 @@ namespace Runner {
             Console.WriteLine("Connecting to server");
             TcpClient client = new TcpClient(args[1], int.Parse(args[2]));
 
-            client.GetStream().Close();
-            client.Close();
+            try {
+                var parser = new ProtobufParser();
+                var runner = new Runner(new ProtobufParser(), 
+                                        new MessagesConnectionImpl(client.GetStream()));
+            } finally {
+                client.GetStream().Close();
+                client.Close();
+            }
 
             pause();
             return 0;

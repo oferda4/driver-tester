@@ -15,12 +15,12 @@ namespace Runner {
         byte[] recv();
     }
 
-    public class MessageConnectionImpl : MessagesConnection {
+    public class MessagesConnectionImpl : MessagesConnection {
         public const int HEADER_SIZE = 4;
 
         private Stream stream;
 
-        public MessageConnectionImpl(Stream stream) {
+        public MessagesConnectionImpl(Stream stream) {
             this.stream = stream;
         }
 
