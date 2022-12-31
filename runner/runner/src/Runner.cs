@@ -5,7 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Runner {
-    public class RunnerImpl {
+    public interface Runner {
+        List<InternalMessages.TestInfo> listTests();
+        InternalMessages.TestResult runTest(uint testId);
+    }
+
+    public class RunnerImpl : Runner {
         private Parser parser;
         private MessagesConnection connection;
 
