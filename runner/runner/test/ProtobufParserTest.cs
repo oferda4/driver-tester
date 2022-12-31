@@ -34,17 +34,28 @@ namespace Runner.Tests {
 
         [TestMethod()]
         public void parseRunTestOutputTest() {
-            Assert.Fail();
+            var fakeTestResult = new InternalMessages.TestResult(56);
+            var fakeResponse = new RunTestResponse() { Status = fakeTestResult.status };
+
+            var result = (new ProtobufParser()).parseRunTestOutput(fakeResponse.ToByteArray());
+            Assert.AreEqual(result.result.status, fakeTestResult.status);
         }
 
         [TestMethod()]
         public void serializeListTestsInputTest() {
-            Assert.Fail();
+            var fakeInput = new InternalMessages.ListTestsInput();
+            var serializedFakeInput = (new ProtobufParser()).serializeListTestsInput(fakeInput);
+            // Nothing to check on the result as this is currently empty
+            var _ = ListTestsRequest.Parser.ParseFrom(serializedFakeInput);
         }
 
         [TestMethod()]
         public void serializeRunTestInputTest() {
-            Assert.Fail();
+            var fakeInput = new InternalMessages.RunTestInput(105);
+            var serializedFakeInput = (new ProtobufParser()).serializeRunTestInput(fakeInput);
+
+            var result = RunTestRequest.Parser.ParseFrom(serializedFakeInput);
+            Assert.AreEqual(fakeInput.testId, result.TestId);
         }
     }
 }
