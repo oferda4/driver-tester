@@ -105,5 +105,8 @@ long impl::getIpAddrees(const std::string& ip) {
     if (inet_pton(AF_INET, ip.c_str(), &address) != 1) {
         throw BadIpAddress();
     }
+    if (address == INADDR_NONE) {
+        throw BadIpAddress();
+    }
     return address;
 }
