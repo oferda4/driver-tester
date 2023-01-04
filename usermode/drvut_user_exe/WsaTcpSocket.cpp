@@ -14,8 +14,8 @@ SOCKET WsaTcpSocketApi::create(int af, int type, int protocol) {
 
 int WsaTcpSocketApi::bind(SOCKET socket, const sockaddr* addr, int addrlen) {
     std::cout << "bind" << std::endl;
-    
-    int res = ::bind(socket, reinterpret_cast<sockaddr*>(&addr), addrlen);
+
+    int res = ::bind(socket, addr, addrlen);
 
     std::cout << "res: " << res << std::endl;
     std::cout << "gle: " << WSAGetLastError() << std::endl;
