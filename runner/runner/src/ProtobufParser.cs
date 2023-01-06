@@ -22,12 +22,14 @@ namespace Runner {
 
         public byte[] serializeListTestsInput(InternalMessages.ListTestsInput input) {
             // currently there is no input
-            var listTestsRequest = new ListTestsRequest();
+            var listTestsRequest = new Request() { ListTests = new ListTestsRequest() };
             return listTestsRequest.ToByteArray();
         }
 
         public byte[] serializeRunTestInput(InternalMessages.RunTestInput input) {
-            var runTestRequest = new RunTestRequest() { TestId=input.testId };
+            var runTestRequest = new Request() { 
+                RunTest = new RunTestRequest() { TestId = input.testId } 
+            };
             return runTestRequest.ToByteArray();
         }
     }

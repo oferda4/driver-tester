@@ -45,8 +45,10 @@ namespace Runner.Tests {
         public void serializeListTestsInputTest() {
             var fakeInput = new InternalMessages.ListTestsInput();
             var serializedFakeInput = (new ProtobufParser()).serializeListTestsInput(fakeInput);
+
             // Nothing to check on the result as this is currently empty
-            var _ = ListTestsRequest.Parser.ParseFrom(serializedFakeInput);
+            var parsedRequest = Request.Parser.ParseFrom(serializedFakeInput);
+            Assert.IsTrue(parsedRequest.ListTests.IsInitialized());
         }
 
         [TestMethod()]
@@ -54,8 +56,9 @@ namespace Runner.Tests {
             var fakeInput = new InternalMessages.RunTestInput(105);
             var serializedFakeInput = (new ProtobufParser()).serializeRunTestInput(fakeInput);
 
-            var result = RunTestRequest.Parser.ParseFrom(serializedFakeInput);
-            Assert.AreEqual(fakeInput.testId, result.TestId);
+            var parsedRequest = Request.Parser.ParseFrom(serializedFakeInput);
+            Assert.IsTrue(parsedRequest.RunTest.IsInitialized());
+            Assert.AreEqual(fakeInput.testId, parsedRequest.RunTest.TestId);
         }
     }
 }
