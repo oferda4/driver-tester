@@ -26,10 +26,3 @@ message Request {
         RunTestRequest run_test = 2;
     }
 }
-
-message Response {
-    oneof responses {
-        ListTestsResponse list_tests = 1;
-        RunTestResponse run_test = 2;
-    }
-}
