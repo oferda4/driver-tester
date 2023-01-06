@@ -5,6 +5,7 @@
 #include "InternalMessages.h"
 
 enum class RequestType : uint32_t {
+    INVALID,
     LIST_TESTS,
     RUN_TEST
 };

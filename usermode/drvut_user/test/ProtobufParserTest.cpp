@@ -13,11 +13,11 @@ ParsedRequest serializeAndParse(const Message& msg);
 void assertSameTestInfo(TestInfo info1, ListTestsResponse_TestInfo info2);
 }
 
-TEST(TestProtobufParser, BadRequest) {
+TEST(ProtobufParserTest, BadRequest) {
     ASSERT_THROW(ProtobufParser().parseRequest(Buffer(1, 0)), FailedParsingMessage);
 }
 
-TEST(TestProtobufParser, ListTestsRequest) {
+TEST(ProtobufParserTest, ListTestsRequest) {
     Request request;
     auto *specificRequest = request.mutable_list_tests();
     const auto parsedRequest = serializeAndParse(request);
@@ -25,7 +25,7 @@ TEST(TestProtobufParser, ListTestsRequest) {
     ASSERT_EQ(parsedRequest.type, RequestType::LIST_TESTS);
 }
 
-TEST(TestProtobufParser, RunTestRequest) {
+TEST(ProtobufParserTest, RunTestRequest) {
     const uint32_t arbitraryTestId = 103;
     Request request;
     auto* specificRequest = request.mutable_run_test();
@@ -36,7 +36,7 @@ TEST(TestProtobufParser, RunTestRequest) {
     ASSERT_EQ(parsedRequest.input.runTestInput.testId, arbitraryTestId);
 }
 
-TEST(TestProtobufParser, ListTestsOutput) {
+TEST(ProtobufParserTest, ListTestsOutput) {
     const std::vector<TestInfo> tests = {
         { 21, "this is a test" },
         { 3, "NiceTest" },
@@ -53,7 +53,7 @@ TEST(TestProtobufParser, ListTestsOutput) {
     }
 }
 
-TEST(TestProtobufParser, RunTestOutput) {
+TEST(ProtobufParserTest, RunTestOutput) {
     const uint64_t arbitraryTestResult = 1001;
     const RunTestOutput output = { { arbitraryTestResult } };
 
