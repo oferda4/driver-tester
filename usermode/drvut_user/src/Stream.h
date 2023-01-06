@@ -18,7 +18,7 @@ concept Stream = requires(T& stream, const Buffer& data) {
 template<Connection ConnectionType>
 class StreamImpl final {
 public:
-    using SizeType = uint64_t;
+    using SizeType = uint32_t;
 
     explicit StreamImpl(ConnectionType connection);
 

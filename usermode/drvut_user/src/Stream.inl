@@ -42,6 +42,6 @@ void StreamImpl<ConnectionType>::sendAll(const Buffer& buffer) {
         if (!currSent) {
             throw ConnectionTerminatedInTheMiddle();
         }
-        bytesSent += currSent;
+        bytesSent += CastUtils::cast<SizeType>(currSent);
     }
 }
