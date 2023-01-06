@@ -4,8 +4,21 @@
 
 class Ioctl {
 public:
+    Ioctl() = delete;
+
+    static constexpr unsigned int MAX_NAME_SIZE = 20;
+
 #pragma pack(push)
 #pragma pack(1)
+    struct TestInfo {
+        unsigned int id;
+        char name[MAX_NAME_SIZE];
+    };
+
+    struct TestResult {
+        long status;
+    };
+
     struct GetNumberOfTestsInput {
         // intentionally left blank
     };

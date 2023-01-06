@@ -4,29 +4,34 @@
 
 #include <string>
 
-using IdType = uint32_t;
+class InternalMessages final {
+public:
+    InternalMessages() = delete;
 
-struct TestInfo {
-    IdType id;
-    std::string name;
-};
+    using IdType = uint32_t;
 
-struct TestResult {
-    int32_t status;
-};
+    struct TestInfo {
+        IdType id;
+        std::string name;
+    };
 
-struct ListTestsInput {
-    // intentionally left blank
-};
+    struct TestResult {
+        int32_t status;
+    };
 
-struct ListTestsOutput {
-    std::vector<TestInfo> tests;
-};
+    struct ListTestsInput {
+        // intentionally left blank
+    };
 
-struct RunTestInput {
-    IdType testId;
-};
+    struct ListTestsOutput {
+        std::vector<TestInfo> tests;
+    };
 
-struct RunTestOutput {
-    TestResult result;
+    struct RunTestInput {
+        IdType testId;
+    };
+
+    struct RunTestOutput {
+        TestResult result;
+    };
 };

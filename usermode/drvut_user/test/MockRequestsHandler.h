@@ -6,8 +6,8 @@
 
 class MockRequestsHandler {
 public:
-    MOCK_METHOD(ListTestsOutput, listTests, (const ListTestsInput&));
-    MOCK_METHOD(RunTestOutput, runTest, (const RunTestInput&));
+    MOCK_METHOD(InternalMessages::ListTestsOutput, listTests, (const InternalMessages::ListTestsInput&));
+    MOCK_METHOD(InternalMessages::RunTestOutput, runTest, (const InternalMessages::RunTestInput&));
 };
 
 class MoveableMockRequestsHandler {
@@ -15,11 +15,11 @@ public:
     MoveableMockRequestsHandler()
         : m_mock(std::make_unique<testing::StrictMock<MockRequestsHandler>>()) {}
 
-    ListTestsOutput listTests(const ListTestsInput& input) {
+    InternalMessages::ListTestsOutput listTests(const InternalMessages::ListTestsInput& input) {
         return m_mock->listTests(input);
     }
 
-    RunTestOutput runTest(const RunTestInput& input) {
+    InternalMessages::RunTestOutput runTest(const InternalMessages::RunTestInput& input) {
         return m_mock->runTest(input);
     }
     

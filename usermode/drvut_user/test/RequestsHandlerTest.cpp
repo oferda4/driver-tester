@@ -23,7 +23,7 @@ TEST(RequestsHandlerTest, ListTests) {
     MoveableMockFileCreationApi creationApi;
     MoveableMockIoctlApi ioctlApi;
 
-    const TestInfo tests[] = { { 1, "First Test" }, { 2, "Second" }, { 10, "BumpInId" }, { 6, "BackDown" } };
+    const Ioctl::TestInfo tests[] = { { 1, "First Test" }, { 2, "Second" }, { 10, "BumpInId" }, { 6, "BackDown" } };
     const uint64_t numberOfTests = sizeof(tests) / sizeof(tests[0]);
 
     EXPECT_CALL(ioctlApi.getMock(), send(::testing::_, ::testing::_, ::testing::_, ::testing::_))
@@ -39,13 +39,13 @@ TEST(RequestsHandlerTest, ListTests) {
             ASSERT_EQ(code, Ioctl::LIST_TESTS);
             assertSameBufferAsObj(Ioctl::ListTestsInput{}, inputBuffer);
             
-            ASSERT_EQ(outputBuffer.size(), sizeof(TestInfo) * numberOfTests);
+            ASSERT_EQ(outputBuffer.size(), sizeof(Ioctl::TestInfo) * numberOfTests);
             auto* output = reinterpret_cast<Ioctl::ListTestsOutput*>(outputBuffer.data());
             memcpy(output->info, tests, outputBuffer.size());
         });
     RequestsHandlerImpl<FakeFileApi, MoveableMockIoctlApi> handler(FAKE_DEVICE_NAME, creationApi, std::move(ioctlApi));
 
-    const auto output = handler.listTests(ListTestsInput{});
+    const auto output = handler.listTests(InternalMessages::ListTestsInput{});
     ASSERT_EQ(output.tests.size(), numberOfTests);
     for (uint32_t i = 0; i < numberOfTests; i++) {
         ASSERT_EQ(output.tests[i].id, tests[i].id);
@@ -71,7 +71,7 @@ TEST(RequestsHandlerTest, RunTest) {
         });
     RequestsHandlerImpl<FakeFileApi, MoveableMockIoctlApi> handler(FAKE_DEVICE_NAME, creationApi, std::move(ioctlApi));
 
-    const auto output = handler.runTest(RunTestInput{.testId = arbitraryTestId});
+    const auto output = handler.runTest(InternalMessages::RunTestInput{ .testId = arbitraryTestId });
     ASSERT_EQ(output.result.status, arbitraryResult);
 }
 

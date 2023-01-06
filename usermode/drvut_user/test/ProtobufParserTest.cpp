@@ -10,7 +10,7 @@ using google::protobuf::Message;
 
 namespace {
 ParsedRequest serializeAndParse(const Message& msg);
-void assertSameTestInfo(TestInfo info1, ListTestsResponse_TestInfo info2);
+void assertSameTestInfo(InternalMessages::TestInfo info1, ListTestsResponse_TestInfo info2);
 }
 
 TEST(ProtobufParserTest, BadRequest) {
@@ -37,12 +37,12 @@ TEST(ProtobufParserTest, RunTestRequest) {
 }
 
 TEST(ProtobufParserTest, ListTestsOutput) {
-    const std::vector<TestInfo> tests = {
+    const std::vector<InternalMessages::TestInfo> tests = {
         { 21, "this is a test" },
         { 3, "NiceTest" },
         { 15, "Excellent Test!" }
     };
-    const ListTestsOutput output = { tests };
+    const InternalMessages::ListTestsOutput output = { tests };
 
     const auto response = ProtobufUtils::deserialize<ListTestsResponse>(
         ProtobufParser().serializeListTestsOutput(output));
@@ -55,7 +55,7 @@ TEST(ProtobufParserTest, ListTestsOutput) {
 
 TEST(ProtobufParserTest, RunTestOutput) {
     const uint64_t arbitraryTestResult = 1001;
-    const RunTestOutput output = { { arbitraryTestResult } };
+    const InternalMessages::RunTestOutput output = { { arbitraryTestResult } };
 
     const auto response = ProtobufUtils::deserialize<RunTestResponse>(
         ProtobufParser().serializeRunTestOutput(output));
@@ -68,7 +68,7 @@ ParsedRequest serializeAndParse(const Message& msg) {
     return ProtobufParser().parseRequest(ProtobufUtils::serialize(msg));
 }
 
-void assertSameTestInfo(TestInfo info1, ListTestsResponse_TestInfo info2) {
+void assertSameTestInfo(InternalMessages::TestInfo info1, ListTestsResponse_TestInfo info2) {
     ASSERT_EQ(info1.id, info2.id());
     ASSERT_EQ(info1.name, info2.name());
 }

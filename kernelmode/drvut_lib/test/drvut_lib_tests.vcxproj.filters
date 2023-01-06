@@ -56,9 +56,6 @@
     <ClInclude Include="MockResource.h">
       <Filter>Mocks</Filter>
     </ClInclude>
-    <ClInclude Include="$(SolutionDir)common\UserDriverMessages.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LeakCounter.h">
       <Filter>Mocks</Filter>
     </ClInclude>

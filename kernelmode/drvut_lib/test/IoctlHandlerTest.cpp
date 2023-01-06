@@ -82,13 +82,13 @@ TEST(IoctlHandlerTest, ListTests_Sanity) {
     char indexName[1];
 
     do {
-        Array<TestInfo> output(index);
+        Array<Ioctl::TestInfo> output(index);
         ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
                       Ioctl::LIST_TESTS,
                       BufferView(&input, sizeof(Ioctl::GetNumberOfTestsInput)),
                       BufferView(
                           output.size() > 0 ? ::std::addressof(output.at(0)) : nullptr, 
-                          output.size() * sizeof(TestInfo))),
+                          output.size() * sizeof(Ioctl::TestInfo))),
             STATUS_SUCCESS);
 
         const auto resultList = TestsManager::instance().list();
@@ -129,12 +129,12 @@ TEST(IoctlHandlerTest, ListTests_BadOutput) {
     ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
                   Ioctl::LIST_TESTS,
                   BufferView(&input, sizeof(input)),
-                  BufferView(nullptr, sizeof(TestInfo) * (numberOfTests + 1))),
+                  BufferView(nullptr, sizeof(Ioctl::TestInfo) * (numberOfTests + 1))),
         STATUS_INVALID_PARAMETER_4);
     ASSERT_EQ(IoctlHandler::handle(TestsManager::instance(),
                   Ioctl::LIST_TESTS,
                   BufferView(&input, sizeof(input)),
-                  BufferView(nullptr, sizeof(TestInfo) * (numberOfTests - 1))),
+                  BufferView(nullptr, sizeof(Ioctl::TestInfo) * (numberOfTests - 1))),
         STATUS_INVALID_PARAMETER_4);
 }
 

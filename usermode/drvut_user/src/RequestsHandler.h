@@ -8,10 +8,10 @@
 
 template<typename T>
 concept RequestsHandler = requires(T& t, 
-                                   const ListTestsInput& listTestsInput,
-                                   const RunTestInput& runTestInput) {
-    { t.listTests(listTestsInput) } -> std::same_as<ListTestsOutput>;
-    { t.runTest(runTestInput) } -> std::same_as<RunTestOutput>;
+                                   const InternalMessages::ListTestsInput& listTestsInput,
+                                   const InternalMessages::RunTestInput& runTestInput) {
+    { t.listTests(listTestsInput) } -> std::same_as<InternalMessages::ListTestsOutput>;
+    { t.runTest(runTestInput) } -> std::same_as<InternalMessages::RunTestOutput>;
 };
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
@@ -20,8 +20,8 @@ public:
     template <FileCreationApi FileCreationApiType>
     RequestsHandlerImpl(const std::wstring& deviceName, FileCreationApiType& creationApi, IoctlApiType ioctlApi = IoctlApiType());
 
-    ListTestsOutput listTests(const ListTestsInput& input);
-    RunTestOutput runTest(const RunTestInput& input);
+    InternalMessages::ListTestsOutput listTests(const InternalMessages::ListTestsInput& input);
+    InternalMessages::RunTestOutput runTest(const InternalMessages::RunTestInput& input);
 
 private:
     uint64_t getNumberOfTests();

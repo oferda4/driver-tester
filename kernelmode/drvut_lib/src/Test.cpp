@@ -12,7 +12,7 @@ RegularTest::RegularTest() : RegularTest([]() { return STATUS_SUCCESS; }) {
     // intentionally left blank
 }
 
-TestResult RegularTest::run() {
+Ioctl::TestResult RegularTest::run() {
     return { (*m_testFunc)() };
 }
 
@@ -32,8 +32,8 @@ uint64_t TestsManager::getNumberOfTests() const {
     return m_testsData.size();
 }
 
-Array<TestInfo> TestsManager::list() const {
-    Array<TestInfo> info(m_testsData.size());
+Array<Ioctl::TestInfo> TestsManager::list() const {
+    Array<Ioctl::TestInfo> info(m_testsData.size());
     size_t index = 0;
     const auto* node = m_testsData.head();
     for (; node; node = node->next, index++) {
@@ -42,7 +42,7 @@ Array<TestInfo> TestsManager::list() const {
     return info;
 }
 
-TestResult TestsManager::run(uint32_t id) {
+Ioctl::TestResult TestsManager::run(uint32_t id) {
     TestData* test = ListUtils::find(m_testsData, 
                                      id, 
                                      [](const TestData& data, uint32_t id) { return data.info.id == id;  });

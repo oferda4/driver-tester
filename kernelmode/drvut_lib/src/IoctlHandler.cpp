@@ -20,7 +20,7 @@ template <typename OutputType>
 auto validateOutputBuffer(BufferView buffer) { return validateParameterBuffer<OutputType, STATUS_INVALID_PARAMETER_4>(buffer); }
 
 auto validateListTestsInput(BufferView buffer) { return validateInputBuffer<Ioctl::ListTestsInput>(buffer); }
-NTSTATUS validateListTestsOutput(BufferView buffer, uint64_t numberOfTests) { return validateParameterBuffer<STATUS_INVALID_PARAMETER_4>(buffer, numberOfTests * sizeof(TestInfo)); }
+NTSTATUS validateListTestsOutput(BufferView buffer, uint64_t numberOfTests) { return validateParameterBuffer<STATUS_INVALID_PARAMETER_4>(buffer, numberOfTests * sizeof(Ioctl::TestInfo)); }
 auto validateGetNumberOfTestsInput(BufferView buffer) { return validateInputBuffer<Ioctl::GetNumberOfTestsInput>(buffer); }
 auto validateGetNumberOfTestsOutput(BufferView buffer) { return validateOutputBuffer<Ioctl::GetNumberOfTestsOutput>(buffer); }
 auto validateRunTestInput(BufferView buffer) { return validateInputBuffer<Ioctl::RunTestInput>(buffer); }
@@ -60,7 +60,7 @@ NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView out
 
     auto* listTestsOutput = static_cast<Ioctl::ListTestsOutput*>(output.data);
     for (uint32_t i = 0; i < tests.size(); i++) {
-        memcpy(&listTestsOutput[i], &tests.at(i), sizeof(TestInfo));
+        memcpy(&listTestsOutput[i], &tests.at(i), sizeof(Ioctl::TestInfo));
     }
 
     return STATUS_SUCCESS;

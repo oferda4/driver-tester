@@ -87,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)common\Ioctl.h" />
-    <ClInclude Include="$(SolutionDir)common\UserDriverMessages.h" />
     <ClInclude Include="Array.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Concepts.h" />

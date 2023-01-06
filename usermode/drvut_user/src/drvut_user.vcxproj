@@ -29,7 +29,6 @@
     <ClInclude Include="Handle.h" />
     <ClInclude Include="InternalMessages.h" />
     <ClInclude Include="IoctlApi.h" />
-    <ClInclude Include="$(SolutionDir)common\UserDriverMessages.h" />
     <ClInclude Include="runner_user_messages.pb.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ProtobufParser.h" />

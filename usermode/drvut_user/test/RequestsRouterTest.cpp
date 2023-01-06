@@ -24,7 +24,7 @@ TEST(RequestsRouterTest, RoutingListTests) {
 
     EXPECT_CALL(handler.getMock(), listTests(_))
         .WillOnce(
-            Return(ListTestsOutput()));
+            Return(InternalMessages::ListTestsOutput()));
 
     RequestsRouterImpl router(std::move(handler), std::move(parser));
     ASSERT_NO_THROW((void)router.route(fakeBuffer));
@@ -46,7 +46,7 @@ TEST(RequestsRouterTest, RoutingRunTest) {
 
     EXPECT_CALL(handler.getMock(), runTest(_))
         .WillOnce(
-            Return(RunTestOutput()));
+            Return(InternalMessages::RunTestOutput()));
 
     RequestsRouterImpl router(std::move(handler), std::move(parser));
     ASSERT_NO_THROW((void)router.route(fakeBuffer));

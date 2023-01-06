@@ -1,9 +1,9 @@
 #pragma once
 
-#include "UserDriverMessages.h"
 #include "Array.h"
 #include "Memory.h"
 #include "List.h"
+#include "Ioctl.h"
 
 namespace drvut {
 namespace internal {
@@ -28,7 +28,7 @@ private:
 class Test {
 public:
     virtual ~Test() = default;
-    virtual TestResult run() = 0;
+    virtual Ioctl::TestResult run() = 0;
 };
 
 class RegularTest final : public Test {
@@ -39,14 +39,14 @@ public:
     template <typename T>
     RegularTest& operator=(T func);
 
-    TestResult run() override;
+    Ioctl::TestResult run() override;
 
 private:
     std::unique_ptr<TestFunc> m_testFunc;
 };
 
 struct TestData {
-    TestInfo info{};
+    Ioctl::TestInfo info{};
     std::unique_ptr<Test> test;
 };
 
@@ -56,8 +56,8 @@ public:
     static void destroy();
 
     uint64_t getNumberOfTests() const;
-    Array<TestInfo> list() const;
-    TestResult run(uint32_t id);
+    Array<Ioctl::TestInfo> list() const;
+    Ioctl::TestResult run(uint32_t id);
     template <uint32_t nameSize>
     void add(std::unique_ptr<Test> test, char const (&name)[nameSize]);
 

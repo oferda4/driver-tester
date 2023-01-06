@@ -22,7 +22,7 @@ ParsedRequest ProtobufParser::parseRequest(const Buffer& data) {
     return result;
 }
 
-Buffer ProtobufParser::serializeListTestsOutput(const ListTestsOutput& output) {
+Buffer ProtobufParser::serializeListTestsOutput(const InternalMessages::ListTestsOutput& output) {
     ListTestsResponse response;
     for (auto& test : output.tests) {
         auto* info = response.add_tests();
@@ -32,7 +32,7 @@ Buffer ProtobufParser::serializeListTestsOutput(const ListTestsOutput& output) {
     return ProtobufUtils::serialize(response);
 }
 
-Buffer ProtobufParser::serializeRunTestOutput(const RunTestOutput& output) {
+Buffer ProtobufParser::serializeRunTestOutput(const InternalMessages::RunTestOutput& output) {
     RunTestResponse response;
     response.set_status(output.result.status);
     return ProtobufUtils::serialize(response);

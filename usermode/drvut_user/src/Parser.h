@@ -13,16 +13,16 @@ enum class RequestType : uint32_t {
 struct ParsedRequest {
     RequestType type;
     union {
-        ListTestsInput listTestsInput;
-        RunTestInput runTestInput;
+        InternalMessages::ListTestsInput listTestsInput;
+        InternalMessages::RunTestInput runTestInput;
     } input;
 };
 
 template<typename T>
 concept Parser = requires(T& parser, 
                           const Buffer& data, 
-                          const ListTestsOutput& listTestsOutput,
-                          const RunTestOutput& runTestOutput) {
+                          const InternalMessages::ListTestsOutput& listTestsOutput,
+                          const InternalMessages::RunTestOutput& runTestOutput) {
     { parser.parseRequest(data) } -> std::same_as<ParsedRequest>;
     { parser.serializeListTestsOutput(listTestsOutput) } -> std::same_as<Buffer>;
     { parser.serializeRunTestOutput(runTestOutput) } -> std::same_as<Buffer>;
