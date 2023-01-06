@@ -13,22 +13,27 @@ RequestsHandlerImpl<FileApiType, IoctlApiType>::RequestsHandlerImpl(const std::w
 }
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
-ListTestsOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::listTests(const ListTestsInput& input) {
+InternalMessages::ListTestsOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::listTests(const InternalMessages::ListTestsInput& input) {
     const auto numberOfTests = getNumberOfTests();
 
     Buffer ioctlInputBuffer(sizeof(Ioctl::ListTestsInput), 0);
     auto* ioctlInput = reinterpret_cast<Ioctl::ListTestsInput*>(ioctlInputBuffer.data());
-    Buffer ioctlOutputBuffer(sizeof(TestInfo) * numberOfTests, 0);
+    Buffer ioctlOutputBuffer(sizeof(Ioctl::TestInfo) * numberOfTests, 0);
     auto* ioctlOutput = reinterpret_cast<Ioctl::ListTestsOutput*>(ioctlOutputBuffer.data());
 
     *ioctlInput = Ioctl::ListTestsInput{};
     m_ioctlApi.send(m_device, Ioctl::LIST_TESTS, ioctlInputBuffer, ioctlOutputBuffer);
 
-    return { std::vector<TestInfo>(ioctlOutput->info, ioctlOutput->info + numberOfTests) };
+    std::vector<InternalMessages::TestInfo> itnernalTestInfoFormat;
+    for (uint32_t i = 0; i < numberOfTests; i++) {
+        itnernalTestInfoFormat.push_back({ ioctlOutput->info[i].id, ioctlOutput->info[i].name });
+    }
+
+    return { std::move(itnernalTestInfoFormat) };
 }
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
-RunTestOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::runTest(const RunTestInput& input) {
+InternalMessages::RunTestOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::runTest(const InternalMessages::RunTestInput& input) {
     Buffer ioctlInputBuffer(sizeof(Ioctl::RunTestInput), 0);
     auto* ioctlInput = reinterpret_cast<Ioctl::RunTestInput*>(ioctlInputBuffer.data());
     Buffer ioctlOutputBuffer(sizeof(Ioctl::RunTestOutput), 0);
