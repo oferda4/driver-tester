@@ -32,22 +32,15 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    trace("AAAAA");
     WsaTcpSocketServer server(argv[1], getPortFromArg(argv[2]));
-    trace("11111");
     WinFileCreationApi creationApi;
-    trace("22222");
     RequestsHandlerImpl<WinFileApi, WinIoctlApi> handler(DEVICE_NAME, creationApi);
-    trace("33333");
     RequestsRouterImpl router(std::move(handler), ProtobufParser());
-    trace("444444");
-
+    
     Communication communication(CommunicationSetupImpl<WsaTcpSocketServer>(std::move(server)), 
                                 CommunicationLogicImpl<StreamImpl<WsaTcpConnection>, decltype(router)>(std::move(router)));
-    trace("55555");
     communication.run();
-    trace("66666");
-
+    
     return 0;
 }
 
