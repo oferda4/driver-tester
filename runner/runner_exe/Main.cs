@@ -22,6 +22,8 @@ namespace Runner {
                 var runner = new RunnerImpl(new ProtobufParser(), 
                                         new MessagesConnectionImpl(client.GetStream()));
                 var tests = runner.listTests();
+                var res1 = runner.runTest(tests[0].id);
+                var res2 = runner.runTest(tests[1].id);
                 pause();
             } finally {
                 client.GetStream().Close();
