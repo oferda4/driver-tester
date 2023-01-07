@@ -60,7 +60,7 @@ NTSTATUS handleListTests(TestsManager& manager, BufferView input, BufferView out
 
     auto* listTestsOutput = static_cast<Ioctl::ListTestsOutput*>(output.data);
     for (uint32_t i = 0; i < tests.size(); i++) {
-        memcpy(&listTestsOutput[i], &tests.at(i), sizeof(Ioctl::TestInfo));
+        memcpy(&listTestsOutput->info[i], &tests.at(i), sizeof(Ioctl::TestInfo));
     }
 
     return STATUS_SUCCESS;
