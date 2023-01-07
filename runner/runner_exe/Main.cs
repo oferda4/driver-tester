@@ -15,7 +15,7 @@ namespace Runner {
 
             Console.WriteLine("Connecting to server");
             // TcpClient client = new TcpClient(args[1], int.Parse(args[2]));
-            TcpClient client = new TcpClient("169.254.36.50", 33333);
+            TcpClient client = new TcpClient("127.0.0.1", 33333);
 
             try {
                 var parser = new ProtobufParser();
