@@ -401,3 +401,5 @@ FodyWeavers.xsd
 *.pb.cc
 *.pb.h
 runner/runner/src/RunnerUserMessages.cs
+
+docker/machine/*
