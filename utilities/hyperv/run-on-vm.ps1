@@ -10,7 +10,7 @@ $username = "User"
 $password = ConvertTo-SecureString "Password1!" -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ($username, $password)
 
-Start-VM -Name $VM_NAME
+Start-VM -Name "$VM_NAME"
 
 # remove the old service if exists 
 Invoke-Command -VMName "$VM_NAME" -Credential $cred -ScriptBlock { 
