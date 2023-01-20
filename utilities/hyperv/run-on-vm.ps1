@@ -14,11 +14,10 @@ Start-VM -Name $VM_NAME
 
 # remove the old service if exists 
 Invoke-Command -VMName "$VM_NAME" -Credential $cred -ScriptBlock { 
-    $testService=Get-WmiObject -Class Win32_Service -Filter "Name='$Using:TEST_SERVICE_NAME'"
-    echo "$testService"
-    if ($null -ne $testServie) {
-        $testService.stop()
-        $testService.delete()
+    $testService = Get-Service $Using:TEST_SERVICE_NAME
+    if ($null -ne $testService) {
+        sc.exe stop $Using:TEST_SERVICE_NAME
+        sc.exe delete $Using:TEST_SERVICE_NAME
     }
 }
 
@@ -28,5 +27,5 @@ Copy-VMFile "$VM_NAME" -SourcePath "$LOCAL_USERMODE_ADAPTER_PATH" -DestinationPa
 Invoke-Command -VMName "$VM_NAME" -Credential $cred -ScriptBlock {
     sc.exe create $Using:TEST_SERVICE_NAME type= kernel binPath= $Using:TEST_DIR\drvut_test_driver.sys
     sc.exe start $Using:TEST_SERVICE_NAME
-    Start-Process -Wait -FilePath $Using:TEST_DIR\drvut_udermode.exe -ArgumentList "0.0.0.0 $DRVUT_TEST_PORT"
+    Invoke-Expression -Command "$Using:TEST_DIR\drvut_udermode.exe 0.0.0.0 $Using:DRVUT_TEST_PORT"
 }
