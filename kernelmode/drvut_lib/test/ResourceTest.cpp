@@ -29,7 +29,7 @@ TEST(ResourceTest, MoveCtor) {
     ASSERT_NO_THROW(guardAfterMove.get());
 }
 
-TEST(ResourceTest, MoveAssignment) {
+TEST(ResourceTest, MoveAssignment_ToNonInitialized) {
     MoveableMockResource resource;
     MoveableMockResource resourceBeforeMove;
     EXPECT_CALL(resource.getMock(), initialize()).Times(1);
@@ -42,6 +42,24 @@ TEST(ResourceTest, MoveAssignment) {
     guardAfterMove = std::move(guard);
 
     ASSERT_TRUE(NT_SUCCESS(guardAfterMove.init()));
+    ASSERT_ANY_THROW(guard.get());
+    ASSERT_NO_THROW(guardAfterMove.get());
+}
+
+TEST(ResourceTest, MoveAssignment_ToInitialized) {
+    MoveableMockResource resource;
+    MoveableMockResource resourceBeforeMove;
+    EXPECT_CALL(resource.getMock(), initialize()).Times(1);
+    EXPECT_CALL(resource.getMock(), destroy()).Times(1);
+    EXPECT_CALL(resourceBeforeMove.getMock(), initialize()).Times(1);
+    EXPECT_CALL(resourceBeforeMove.getMock(), destroy()).Times(1);
+
+    ResourceGuard<MoveableMockResource> guard(std::move(resource));
+    ResourceGuard<MoveableMockResource> guardAfterMove(std::move(resourceBeforeMove));
+    guardAfterMove.init();
+    guardAfterMove = std::move(guard);
+
+    ASSERT_NO_THROW(guardAfterMove.init());
     ASSERT_ANY_THROW(guard.get());
     ASSERT_NO_THROW(guardAfterMove.get());
 }

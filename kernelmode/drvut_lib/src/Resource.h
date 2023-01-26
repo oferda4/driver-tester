@@ -32,6 +32,8 @@ public:
     void leak();
 
 private:
+    void destroyIfValid();
+
     T m_resource;
     bool m_isValid;
 };

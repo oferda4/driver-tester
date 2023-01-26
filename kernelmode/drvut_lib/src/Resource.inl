@@ -14,10 +14,7 @@ ResourceGuard<T>::ResourceGuard(T resource, bool isValid) :
 
 template <Resource T>
 ResourceGuard<T>::~ResourceGuard() {
-    if (m_isValid) {
-        // TODO: Trace errors
-        m_resource.destroy();
-    }
+    destroyIfValid();
 }
 
 template <Resource T>
@@ -29,6 +26,12 @@ ResourceGuard<T>::ResourceGuard(ResourceGuard&& other) noexcept :
 
 template <Resource T>
 ResourceGuard<T>& ResourceGuard<T>::operator=(ResourceGuard&& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    destroyIfValid();
+
     m_resource = std::move(other.m_resource);
     m_isValid = std::exchange(other.m_isValid, false);
     return *this;
@@ -65,6 +68,14 @@ const T& ResourceGuard<T>::get() const {
 template <Resource T>
 void ResourceGuard<T>::leak() {
     m_isValid = false;
+}
+
+template <Resource T>
+void ResourceGuard<T>::destroyIfValid() {
+    if (m_isValid) {
+        m_resource.destroy();
+        m_isValid = false;
+    }
 }
 
 }
