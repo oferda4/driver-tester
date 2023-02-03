@@ -81,6 +81,7 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Exception.cpp" />
     <ClCompile Include="IoctlHandler.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Test.cpp" />

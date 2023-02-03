@@ -7,6 +7,11 @@ void* __cdecl operator new(size_t size);
 void* __cdecl operator new(size_t, void* p);
 void __cdecl operator delete(void* p, size_t);
 
+extern "C" EXCEPTION_DISPOSITION __CxxFrameHandler3(PEXCEPTION_RECORD ExceptionRecord,
+                                                    PVOID EstablisherFrame,
+                                                    PCONTEXT ContextRecord,
+                                                    PVOID DispatcherContext);
+
 using uint32_t = unsigned int;
 using uint64_t = unsigned long long;
 
