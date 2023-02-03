@@ -4,7 +4,7 @@
 #include "CastUtils.h"
 
 template <Connection ConnectionType>
-StreamImpl<ConnectionType>::StreamImpl(ConnectionType connection) 
+StreamImpl<ConnectionType>::StreamImpl(ConnectionType connection)
     : m_connection(std::move(connection)) {
     // Left blank intentionally
 }

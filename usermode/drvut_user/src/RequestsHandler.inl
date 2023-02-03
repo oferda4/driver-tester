@@ -5,15 +5,15 @@
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
 template <FileCreationApi FileCreationApiType>
-RequestsHandlerImpl<FileApiType, IoctlApiType>::RequestsHandlerImpl(const std::wstring& deviceName, 
-                                                                    FileCreationApiType& creationApi,
-                                                                    IoctlApiType ioctlApi)
+RequestsHandlerImpl<FileApiType, IoctlApiType>::RequestsHandlerImpl(
+    const std::wstring& deviceName, FileCreationApiType& creationApi, IoctlApiType ioctlApi)
     : m_device(creationApi.open(deviceName)), m_ioctlApi(std::move(ioctlApi)) {
     // intentionally left blank
 }
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
-InternalMessages::ListTestsOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::listTests(const InternalMessages::ListTestsInput& input) {
+InternalMessages::ListTestsOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::listTests(
+    const InternalMessages::ListTestsInput& input) {
     const auto numberOfTests = getNumberOfTests();
 
     Buffer ioctlInputBuffer(sizeof(Ioctl::ListTestsInput), 0);
@@ -33,7 +33,8 @@ InternalMessages::ListTestsOutput RequestsHandlerImpl<FileApiType, IoctlApiType>
 }
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>
-InternalMessages::RunTestOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::runTest(const InternalMessages::RunTestInput& input) {
+InternalMessages::RunTestOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::runTest(
+    const InternalMessages::RunTestInput& input) {
     Buffer ioctlInputBuffer(sizeof(Ioctl::RunTestInput), 0);
     auto* ioctlInput = reinterpret_cast<Ioctl::RunTestInput*>(ioctlInputBuffer.data());
     Buffer ioctlOutputBuffer(sizeof(Ioctl::RunTestOutput), 0);
@@ -51,10 +52,9 @@ uint64_t RequestsHandlerImpl<FileApiType, IoctlApiType>::getNumberOfTests() {
     auto* ioctlInput = reinterpret_cast<Ioctl::GetNumberOfTestsInput*>(ioctlInputBuffer.data());
     Buffer ioctlOutputBuffer(sizeof(Ioctl::GetNumberOfTestsOutput), 0);
     auto* ioctlOutput = reinterpret_cast<Ioctl::GetNumberOfTestsOutput*>(ioctlOutputBuffer.data());
-    
+
     *ioctlInput = Ioctl::GetNumberOfTestsInput{};
     m_ioctlApi.send(m_device, Ioctl::GET_NUMBER_OF_TESTS, ioctlInputBuffer, ioctlOutputBuffer);
-    
-    return ioctlOutput->numberOfTests;
 
+    return ioctlOutput->numberOfTests;
 }
