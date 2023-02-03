@@ -107,8 +107,8 @@ template <class To, class From>
 inline constexpr bool is_nothrow_assignable_v = is_nothrow_assignable<To, From>::value;
 
 template <class T>
-struct is_nothrow_move_constructible
-    : is_nothrow_constructible<T, typename add_rvalue_reference<T>::type> {};
+struct is_nothrow_move_constructible :
+    is_nothrow_constructible<T, typename add_rvalue_reference<T>::type> {};
 
 template <class T>
 struct remove_reference {
@@ -135,8 +135,8 @@ using pre_is_base_of = decltype(is_base_of_test<Base>(declval<Derived*>()));
 template <typename Base, typename Derived, typename = void>
 struct pre_is_base_of2 : public true_type {};
 template <typename Base, typename Derived>
-struct pre_is_base_of2<Base, Derived, std::void_t<pre_is_base_of<Base, Derived>>>
-    : public pre_is_base_of<Base, Derived> {};
+struct pre_is_base_of2<Base, Derived, std::void_t<pre_is_base_of<Base, Derived>>> :
+    public pre_is_base_of<Base, Derived> {};
 }
 
 template <typename Base, typename Derived>

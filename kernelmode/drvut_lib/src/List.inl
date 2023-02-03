@@ -6,7 +6,7 @@ namespace drvut {
 namespace internal {
 
 namespace impl {
-template<typename T>
+template <typename T>
 Node<T>* findLast(Node<T>* node);
 }
 
@@ -20,7 +20,7 @@ List<T>::~List() {
     }
 }
 
-template<typename T>
+template <typename T>
 Node<T>::Node(T value) : value(std::move(value)) {
     // Left blank intentionally
 }
@@ -35,7 +35,7 @@ const Node<T>* List<T>::head() const {
     return m_head;
 }
 
-template<typename T>
+template <typename T>
 void List<T>::push_back(T obj) {
     auto newNode = new Node<T>(std::move(obj));
     if (m_head) {
@@ -46,7 +46,7 @@ void List<T>::push_back(T obj) {
     }
 }
 
-template<typename T>
+template <typename T>
 size_t List<T>::size() const {
     size_t count = 0;
     for (auto* node = head(); node; node = node->next) {
@@ -58,12 +58,14 @@ size_t List<T>::size() const {
 template <typename Key, typename ListType, typename Func>
     requires(Comparator<typename ListType::Type, Key, Func>)
 typename ListType::Type* ListUtils::find(ListType& list, const typename Key& key, Func func) {
-    return const_cast<ListType::Type*>(ListUtils::find(static_cast<const ListType&>(list), key, func));
+    return const_cast<ListType::Type*>(
+        ListUtils::find(static_cast<const ListType&>(list), key, func));
 }
 
 template <typename Key, typename ListType, typename Func>
     requires(Comparator<typename ListType::Type, Key, Func>)
-const typename ListType::Type* ListUtils::find(const ListType& list, const typename Key& key, Func func) {
+const typename ListType::Type* ListUtils::find(const ListType& list, const typename Key& key,
+                                               Func func) {
     for (auto* node = list.head(); node; node = node->next) {
         if (func(node->value, key)) {
             return &node->value;

@@ -6,7 +6,7 @@
 namespace drvut {
 namespace internal {
 
-template<typename T>
+template <typename T>
 Array<T>::Array(size_t size) : m_data(new T[size]), m_size(size) {
     // Left blank intentionally
 }
@@ -19,9 +19,8 @@ Array<T>::~Array() {
 }
 
 template <typename T>
-Array<T>::Array(Array&& other) noexcept 
-    : m_data(std::exchange(other.m_data, nullptr)),
-      m_size(std::exchange(other.m_size, 0)) {
+Array<T>::Array(Array&& other) noexcept
+    : m_data(std::exchange(other.m_data, nullptr)), m_size(std::exchange(other.m_size, 0)) {
     // intentionally left blank
 }
 

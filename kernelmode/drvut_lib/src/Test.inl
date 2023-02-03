@@ -7,7 +7,7 @@ namespace internal {
 
 template <uint32_t nameSize>
 void TestsManager::add(std::unique_ptr<Test> test, char const (&name)[nameSize]) {
-        static_assert(nameSize <= Ioctl::MAX_NAME_SIZE);
+    static_assert(nameSize <= Ioctl::MAX_NAME_SIZE);
     Ioctl::TestInfo info{};
     info.id = m_freeId++;
     memcpy(info.name, name, nameSize);
@@ -26,13 +26,13 @@ RegularTest& RegularTest::operator=(T func) {
 }
 
 template <typename T>
-TestFuncImpl<T>::TestFuncImpl(T func) : m_func(std::move(func)) { 
+TestFuncImpl<T>::TestFuncImpl(T func) : m_func(std::move(func)) {
     // left blank intentionally
 }
 
 template <typename T>
-NTSTATUS TestFuncImpl<T>::operator()() { 
-    return m_func(); 
+NTSTATUS TestFuncImpl<T>::operator()() {
+    return m_func();
 }
 
 }
@@ -41,7 +41,8 @@ template <uint32_t nameSize>
 internal::RegularTest& test(char const (&name)[nameSize]) {
     auto testPtr = new internal::RegularTest();
     auto& testObjRef = *testPtr;
-    internal::TestsManager::instance().add(internal::std::unique_ptr<internal::Test>(testPtr), name);
+    internal::TestsManager::instance().add(internal::std::unique_ptr<internal::Test>(testPtr),
+                                           name);
     return testObjRef;
 }
 

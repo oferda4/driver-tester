@@ -6,9 +6,8 @@ namespace drvut {
 namespace internal {
 
 template <Resource T>
-ResourceGuard<T>::ResourceGuard(T resource, bool isValid) :
-    m_resource(std::move(resource)),
-    m_isValid(isValid) {
+ResourceGuard<T>::ResourceGuard(T resource, bool isValid)
+    : m_resource(std::move(resource)), m_isValid(isValid) {
     // Left blank intenrionally
 }
 
@@ -18,9 +17,8 @@ ResourceGuard<T>::~ResourceGuard() {
 }
 
 template <Resource T>
-ResourceGuard<T>::ResourceGuard(ResourceGuard&& other) noexcept :
-    m_resource(std::move(other.m_resource)),
-    m_isValid(std::exchange(other.m_isValid, false)) {
+ResourceGuard<T>::ResourceGuard(ResourceGuard&& other) noexcept
+    : m_resource(std::move(other.m_resource)), m_isValid(std::exchange(other.m_isValid, false)) {
     // Left blank intenrionally
 }
 

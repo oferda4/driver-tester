@@ -6,8 +6,8 @@ namespace drvut {
 namespace internal {
 namespace std {
 
-template<typename T>
-template<typename U, typename>
+template <typename T>
+template <typename U, typename>
 unique_ptr<T>::unique_ptr(U* ptr) : m_ptr(ptr) {
     // Left blank intentionally
 }
