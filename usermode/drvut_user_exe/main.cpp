@@ -34,20 +34,16 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    trace("Creating Server");
     WsaTcpSocketServer server(argv[1], getPortFromArg(argv[2]));
     WinFileCreationApi creationApi;
-    trace("Creating Handler");
     RequestsHandlerImpl<WinFileApi, WinIoctlApi> handler(DEVICE_NAME, creationApi);
-    trace("Creating Router");
     RequestsRouterImpl router(std::move(handler), ProtobufParser());
 
-    trace("Creating Communication");
     Communication communication(
         CommunicationSetupImpl<WsaTcpSocketServer>(std::move(server)),
         CommunicationLogicImpl<StreamImpl<WsaTcpConnection>, decltype(router)>(std::move(router)));
 
-    trace("Creating Running");
+    trace("Starting Server");
     communication.run();
 
     return 0;
