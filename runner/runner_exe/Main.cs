@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace Runner {
     internal class RunnerMain {
-        static int Main(string[] args) {
-            // if (args.Length != 3) {
-            //     printUsages();
-            //    return 1;
-            // }
+        private const int SERVER_PORT = 33333;
+        private const string SERVER_IP_ENVIRONMENT_VARABLE_NAME = "TEST_MACHINE_IP";
 
-            Console.WriteLine("Connecting to server");
-            // TcpClient client = new TcpClient(args[1], int.Parse(args[2]));
-            TcpClient client = new TcpClient("169.254.97.64", 33333);
+        static int Main(string[] args) {
+            TcpClient client = new TcpClient(Environment.GetEnvironmentVariable(SERVER_IP_ENVIRONMENT_VARABLE_NAME), 
+                                             SERVER_PORT);
 
             try {
                 var parser = new ProtobufParser();
@@ -24,7 +21,6 @@ namespace Runner {
                 var tests = runner.listTests();
                 var res1 = runner.runTest(tests[0].id);
                 var res2 = runner.runTest(tests[1].id);
-                pause();
             } finally {
                 client.GetStream().Close();
                 client.Close();
