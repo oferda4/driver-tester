@@ -15,8 +15,8 @@ using uint64_t = unsigned long long;
 #include <exception>
 
 // Windows kernel specific definitions
-#define ExRaiseStatus(status) throw ::std::exception("exception raised",  status)
-#define NTSTATUS    int32_t
+#define ExRaiseStatus(status) throw ::std::exception("exception raised", status)
+#define NTSTATUS int32_t
 #define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
 #define STATUS_SUCCESS ((NTSTATUS)0x00000000L)
 #define STATUS_INVALID_STATE_TRANSITION ((NTSTATUS)0xC000A003L)
@@ -35,24 +35,24 @@ using exception = ::std::exception;
 
 #include "Utility.h"
 
-#define NOCOPY(className)                 \
-    className(const className&) = delete; \
+#define NOCOPY(className)                                                                          \
+    className(const className&) = delete;                                                          \
     className& operator=(const className&) = delete
-#define MOVEABLE(className)                    \
-    className(className&&) noexcept = default; \
+#define MOVEABLE(className)                                                                        \
+    className(className&&) noexcept = default;                                                     \
     className& operator=(className&&) noexcept = default
-#define NOMOVE(className)                     \
-    className(className&&) noexcept = delete; \
+#define NOMOVE(className)                                                                          \
+    className(className&&) noexcept = delete;                                                      \
     className& operator=(className&&) noexcept = delete
 
-#define CHECK_AND_RETHROW(status)   \
-    if (!NT_SUCCESS(status)) {      \
-        return status;              \
+#define CHECK_AND_RETHROW(status)                                                                  \
+    if (!NT_SUCCESS(status)) {                                                                     \
+        return status;                                                                             \
     }
 
 #if DBG
-#define TRACE(_x_)            \
-    DbgPrint("TestDriver: "); \
+#define TRACE(_x_)                                                                                 \
+    DbgPrint("TestDriver: ");                                                                      \
     DbgPrint(_x_);
 
 #else

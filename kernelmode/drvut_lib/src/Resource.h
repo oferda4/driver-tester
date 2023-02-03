@@ -8,9 +8,9 @@ namespace internal {
 
 template <typename T>
 concept Resource = requires(T& resource) {
-    { resource.initialize() } -> std::same_as<NTSTATUS>;
-    { resource.destroy() } -> std::same_as<NTSTATUS>;
-};
+                       { resource.initialize() } -> std::same_as<NTSTATUS>;
+                       { resource.destroy() } -> std::same_as<NTSTATUS>;
+                   };
 
 template <Resource T>
 class ResourceGuard final {
@@ -22,8 +22,8 @@ public:
     NOCOPY(ResourceGuard);
 
     /**
-     * These function throws if we're in a bad state as we prefer a deterministic
-     * failure then undefined behavior.
+     * These function throws if we're in a bad state as we prefer a
+     * deterministic failure then undefined behavior.
      */
     NTSTATUS init();
     T& get();

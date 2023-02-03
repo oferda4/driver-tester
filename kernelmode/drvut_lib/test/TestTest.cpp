@@ -11,10 +11,10 @@ TEST(RegulatTestTest, Sanity) {
     uint32_t callCount = 0;
     const NTSTATUS arbitraryResultStatus = 101;
 
-    const auto result = RegularTest([&callCount, &arbitraryResultStatus]() { 
-        callCount++;
-        return arbitraryResultStatus; }
-    ).run();
+    const auto result = RegularTest([&callCount, &arbitraryResultStatus]() {
+                            callCount++;
+                            return arbitraryResultStatus;
+                        }).run();
     ASSERT_EQ(result.status, arbitraryResultStatus);
     ASSERT_EQ(callCount, 1);
 }
@@ -24,9 +24,9 @@ TEST(RegulatTestTest, AssignOperator) {
     const NTSTATUS arbitraryResultStatus = 65;
 
     RegularTest test;
-    test = [&callCount, &arbitraryResultStatus]() { 
+    test = [&callCount, &arbitraryResultStatus]() {
         callCount++;
-        return arbitraryResultStatus; 
+        return arbitraryResultStatus;
     };
     const auto result = test.run();
 
@@ -40,12 +40,14 @@ TEST(TestsManagerTest, AddRetainsUniqueness) {
     const uint32_t numberOfTestsToAdd = 1024;
 
     for (uint32_t i = 0; i < numberOfTestsToAdd; i++) {
-        ASSERT_NO_THROW(TestsManager::instance()
-            .add(std::unique_ptr<::drvut::internal::Test>(new RegularTest(arbitraryTestMethod)), "arbitrary"));
+        ASSERT_NO_THROW(TestsManager::instance().add(
+            std::unique_ptr<::drvut::internal::Test>(new RegularTest(arbitraryTestMethod)),
+            "arbitrary"));
     }
 
     const auto tests = TestsManager::instance().list();
-    // Not the most generic but the simplest way to check uniqueness is to assume the implementation detail
+    // Not the most generic but the simplest way to check uniqueness is to
+    // assume the implementation detail
     for (uint32_t i = 0; i < tests.size(); i++) {
         ASSERT_EQ(tests.at(i).id, i);
     }
@@ -55,13 +57,13 @@ TEST(TestsManagerTest, AddDifferentNames) {
     TestsManager::destroy();
     auto& manager = TestsManager::instance();
     auto arbitraryTestMethod = []() -> NTSTATUS { return 0; };
-    
-    ASSERT_NO_THROW(manager.add(std::unique_ptr<::drvut::internal::Test>(
-        new RegularTest(arbitraryTestMethod)), "test0"));
-    ASSERT_NO_THROW(manager.add(std::unique_ptr<::drvut::internal::Test>(
-        new RegularTest(arbitraryTestMethod)), "test1"));
-    ASSERT_NO_THROW(manager.add(std::unique_ptr<::drvut::internal::Test>(
-        new RegularTest(arbitraryTestMethod)), "test2"));
+
+    ASSERT_NO_THROW(manager.add(
+        std::unique_ptr<::drvut::internal::Test>(new RegularTest(arbitraryTestMethod)), "test0"));
+    ASSERT_NO_THROW(manager.add(
+        std::unique_ptr<::drvut::internal::Test>(new RegularTest(arbitraryTestMethod)), "test1"));
+    ASSERT_NO_THROW(manager.add(
+        std::unique_ptr<::drvut::internal::Test>(new RegularTest(arbitraryTestMethod)), "test2"));
 
     const auto tests = manager.list();
     ASSERT_EQ(tests.at(0).name, ::std::string("test0"));
@@ -76,21 +78,23 @@ TEST(TestsManagerTest, RunCorrectTest) {
 
     uint32_t shouldNotRunCallCount = 0;
     uint32_t shouldRunCallCount = 0;
-    auto shouldNotRunMethod = [&shouldNotRunCallCount]() -> NTSTATUS { 
-        shouldNotRunCallCount++; 
-        return arbitraryResultStatus; 
+    auto shouldNotRunMethod = [&shouldNotRunCallCount]() -> NTSTATUS {
+        shouldNotRunCallCount++;
+        return arbitraryResultStatus;
     };
-    auto shouldRunMethod = [&shouldRunCallCount]() -> NTSTATUS { 
+    auto shouldRunMethod = [&shouldRunCallCount]() -> NTSTATUS {
         shouldRunCallCount++;
-        return arbitraryResultStatus; 
+        return arbitraryResultStatus;
     };
 
-    ASSERT_NO_THROW(manager.add(std::unique_ptr<::drvut::internal::Test>(
-        new RegularTest(shouldNotRunMethod)), "should not run"));
-    ASSERT_NO_THROW(manager.add(std::unique_ptr<::drvut::internal::Test>(
-        new RegularTest(shouldNotRunMethod)), "should not run2"));
-    ASSERT_NO_THROW(manager.add(std::unique_ptr<::drvut::internal::Test>(
-        new RegularTest(shouldRunMethod)), "should run"));
+    ASSERT_NO_THROW(
+        manager.add(std::unique_ptr<::drvut::internal::Test>(new RegularTest(shouldNotRunMethod)),
+                    "should not run"));
+    ASSERT_NO_THROW(
+        manager.add(std::unique_ptr<::drvut::internal::Test>(new RegularTest(shouldNotRunMethod)),
+                    "should not run2"));
+    ASSERT_NO_THROW(manager.add(
+        std::unique_ptr<::drvut::internal::Test>(new RegularTest(shouldRunMethod)), "should run"));
 
     const auto result = manager.run(manager.list().at(2).id);
     ASSERT_EQ(arbitraryResultStatus, static_cast<NTSTATUS>(result.status));
@@ -110,7 +114,7 @@ namespace drvut {
 TEST(TestSyntax, CreateRegularTest) {
     internal::TestsManager::destroy();
     auto& manager = internal::TestsManager::instance();
-    
+
     const char arbitraryName[] = "Some Name";
     bool didRun = false;
     NTSTATUS arbitraryResult = 2001;

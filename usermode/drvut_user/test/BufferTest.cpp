@@ -3,7 +3,7 @@
 #include "Buffer.h"
 
 namespace {
-template<std::integral T>
+template <std::integral T>
 void testNumberConversion();
 }
 
@@ -15,7 +15,7 @@ TEST(BufferTest, NumberConversion) {
 
 TEST(BufferTest, ToNumberBadSize) {
     using ArbitraryNumType = uint32_t;
-    ASSERT_THROW(BufferUtils::toNumber<ArbitraryNumType>(Buffer(sizeof(ArbitraryNumType) - 1, 0)), 
+    ASSERT_THROW(BufferUtils::toNumber<ArbitraryNumType>(Buffer(sizeof(ArbitraryNumType) - 1, 0)),
                  InvalidBufferSize);
 }
 

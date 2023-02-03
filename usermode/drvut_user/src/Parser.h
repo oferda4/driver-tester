@@ -4,11 +4,7 @@
 #include "Buffer.h"
 #include "InternalMessages.h"
 
-enum class RequestType : uint32_t {
-    INVALID,
-    LIST_TESTS,
-    RUN_TEST
-};
+enum class RequestType : uint32_t { INVALID, LIST_TESTS, RUN_TEST };
 
 struct ParsedRequest {
     RequestType type;
@@ -18,12 +14,11 @@ struct ParsedRequest {
     } input;
 };
 
-template<typename T>
-concept Parser = requires(T& parser, 
-                          const Buffer& data, 
+template <typename T>
+concept Parser = requires(T& parser, const Buffer& data,
                           const InternalMessages::ListTestsOutput& listTestsOutput,
                           const InternalMessages::RunTestOutput& runTestOutput) {
-    { parser.parseRequest(data) } -> std::same_as<ParsedRequest>;
-    { parser.serializeListTestsOutput(listTestsOutput) } -> std::same_as<Buffer>;
-    { parser.serializeRunTestOutput(runTestOutput) } -> std::same_as<Buffer>;
-};
+                     { parser.parseRequest(data) } -> std::same_as<ParsedRequest>;
+                     { parser.serializeListTestsOutput(listTestsOutput) } -> std::same_as<Buffer>;
+                     { parser.serializeRunTestOutput(runTestOutput) } -> std::same_as<Buffer>;
+                 };

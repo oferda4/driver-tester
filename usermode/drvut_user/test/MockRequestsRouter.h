@@ -12,7 +12,8 @@ public:
 class MoveableMockRequestsRouter {
 public:
     MoveableMockRequestsRouter()
-        : m_mock(std::make_unique<testing::StrictMock<MockRequestsRouter>>()) {}
+        : m_mock(std::make_unique<testing::StrictMock<MockRequestsRouter>>()) {
+    }
 
     Buffer route(const Buffer& data) {
         return m_mock->route(data);

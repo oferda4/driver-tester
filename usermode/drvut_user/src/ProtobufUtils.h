@@ -17,7 +17,7 @@ public:
     ProtobufUtils() = delete;
 
     static Buffer serialize(const google::protobuf::Message& msg);
-    template<typename MessageType>
+    template <typename MessageType>
         requires std::derived_from<MessageType, google::protobuf::Message>
     static MessageType deserialize(const Buffer& buffer);
 };

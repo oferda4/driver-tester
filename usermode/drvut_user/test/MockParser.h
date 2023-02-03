@@ -13,8 +13,8 @@ public:
 
 class MoveableMockParser {
 public:
-    MoveableMockParser()
-        : m_mock(std::make_unique<testing::StrictMock<MockParser>>()) {}
+    MoveableMockParser() : m_mock(std::make_unique<testing::StrictMock<MockParser>>()) {
+    }
 
     ParsedRequest parseRequest(const Buffer& data) {
         return m_mock->parseRequest(data);

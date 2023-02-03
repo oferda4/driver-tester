@@ -3,10 +3,10 @@
 #include "Parser.h"
 #include "RequestsHandler.h"
 
-template<typename T>
+template <typename T>
 concept RequestsRouter = requires(T& t, const Buffer& data) {
-    { t.route(data) } -> std::same_as<Buffer>;
-};
+                             { t.route(data) } -> std::same_as<Buffer>;
+                         };
 
 template <RequestsHandler RequestsHandlerType, Parser ParserType>
 class RequestsRouterImpl {

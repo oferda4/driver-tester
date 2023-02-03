@@ -43,9 +43,8 @@ Array<Ioctl::TestInfo> TestsManager::list() const {
 }
 
 Ioctl::TestResult TestsManager::run(uint32_t id) {
-    TestData* test = ListUtils::find(m_testsData, 
-                                     id, 
-                                     [](const TestData& data, uint32_t id) { return data.info.id == id;  });
+    TestData* test = ListUtils::find(
+        m_testsData, id, [](const TestData& data, uint32_t id) { return data.info.id == id; });
     if (!test) {
         ExRaiseStatus(STATUS_INVALID_PARAMETER);
     }

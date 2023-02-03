@@ -21,7 +21,7 @@ TEST(ResourceTest, MoveCtor) {
     MoveableMockResource resource;
     EXPECT_CALL(resource.getMock(), initialize()).Times(1);
     EXPECT_CALL(resource.getMock(), destroy()).Times(1);
-    
+
     ResourceGuard<MoveableMockResource> guard(std::move(resource));
     ASSERT_TRUE(NT_SUCCESS(guard.init()));
     ResourceGuard<MoveableMockResource> guardAfterMove(std::move(guard));
@@ -68,9 +68,7 @@ TEST(ResourceTest, GuardingWhenAlreadyInitialized) {
     MoveableMockResource resource;
     EXPECT_CALL(resource.getMock(), initialize()).Times(0);
     EXPECT_CALL(resource.getMock(), destroy()).Times(1);
-    {
-        ResourceGuard<MoveableMockResource> guard(std::move(resource), true);
-    }
+    { ResourceGuard<MoveableMockResource> guard(std::move(resource), true); }
 }
 
 TEST(ResourceTest, CannotInitializeTwice) {
@@ -87,9 +85,7 @@ TEST(ResourceTest, DoNotDestroyIfNotInitialized) {
     MoveableMockResource resource;
     EXPECT_CALL(resource.getMock(), initialize()).Times(0);
     EXPECT_CALL(resource.getMock(), destroy()).Times(0);
-    {
-        ResourceGuard<MoveableMockResource> guard(std::move(resource));
-    }
+    { ResourceGuard<MoveableMockResource> guard(std::move(resource)); }
 }
 
 }

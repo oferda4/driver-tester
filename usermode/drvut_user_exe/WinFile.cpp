@@ -9,13 +9,9 @@ void WinFileApi::close(HANDLE handle) {
 }
 
 HANDLE WinFileCreationApi::open(const std::wstring& path) {
-    const HANDLE fileHandle = CreateFile(path.c_str(), 
-                                         GENERIC_READ | GENERIC_WRITE, 
-                                         FILE_SHARE_READ | FILE_SHARE_WRITE, 
-                                         nullptr, 
-                                         OPEN_EXISTING, 
-                                         FILE_ATTRIBUTE_NORMAL, 
-                                         nullptr);
+    const HANDLE fileHandle =
+        CreateFile(path.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE,
+                   nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
     if (fileHandle == INVALID_HANDLE_VALUE) {
         throw Win32Exception();
     }

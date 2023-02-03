@@ -13,7 +13,7 @@
 #include "Communication.h"
 
 namespace {
-struct BadArgument  : std::exception {
+struct BadArgument : std::exception {
     // left blank intentionally
 };
 
@@ -41,14 +41,15 @@ int main(int argc, char* argv[]) {
     RequestsHandlerImpl<WinFileApi, WinIoctlApi> handler(DEVICE_NAME, creationApi);
     trace("Creating Router");
     RequestsRouterImpl router(std::move(handler), ProtobufParser());
-    
+
     trace("Creating Communication");
-    Communication communication(CommunicationSetupImpl<WsaTcpSocketServer>(std::move(server)), 
-                                CommunicationLogicImpl<StreamImpl<WsaTcpConnection>, decltype(router)>(std::move(router)));
+    Communication communication(
+        CommunicationSetupImpl<WsaTcpSocketServer>(std::move(server)),
+        CommunicationLogicImpl<StreamImpl<WsaTcpConnection>, decltype(router)>(std::move(router)));
 
     trace("Creating Running");
     communication.run();
-    
+
     return 0;
 }
 

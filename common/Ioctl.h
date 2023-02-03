@@ -37,7 +37,7 @@ public:
         TestInfo info[];
 #pragma warning(pop)
     };
-    
+
     struct RunTestInput {
         uint32_t testId;
     };
@@ -47,7 +47,10 @@ public:
     };
 #pragma pack(pop)
 
-    static constexpr uint32_t GET_NUMBER_OF_TESTS = CTL_CODE(FILE_DEVICE_UNKNOWN, 0x800, METHOD_BUFFERED, FILE_READ_DATA);
-    static constexpr uint32_t LIST_TESTS = CTL_CODE(FILE_DEVICE_UNKNOWN, 0x801, METHOD_BUFFERED, FILE_READ_DATA);
-    static constexpr uint32_t RUN_TEST = CTL_CODE(FILE_DEVICE_UNKNOWN, 0x802, METHOD_BUFFERED, FILE_WRITE_DATA);
+    static constexpr uint32_t GET_NUMBER_OF_TESTS =
+        CTL_CODE(FILE_DEVICE_UNKNOWN, 0x800, METHOD_BUFFERED, FILE_READ_DATA);
+    static constexpr uint32_t LIST_TESTS =
+        CTL_CODE(FILE_DEVICE_UNKNOWN, 0x801, METHOD_BUFFERED, FILE_READ_DATA);
+    static constexpr uint32_t RUN_TEST =
+        CTL_CODE(FILE_DEVICE_UNKNOWN, 0x802, METHOD_BUFFERED, FILE_WRITE_DATA);
 };

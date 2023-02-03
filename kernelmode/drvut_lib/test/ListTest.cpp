@@ -48,7 +48,8 @@ TEST(ListUtilsTest, FindExistingElement) {
 
     const uint32_t arbitraryExistingElement = 8;
     auto result = ListUtils::find(list, arbitraryExistingElement, trivialCompare);
-    const auto constResult = ListUtils::find(static_cast<const List<uint32_t>&>(list), arbitraryExistingElement, trivialCompare);
+    const auto constResult = ListUtils::find(static_cast<const List<uint32_t>&>(list),
+                                             arbitraryExistingElement, trivialCompare);
     ASSERT_TRUE(result != nullptr);
     ASSERT_EQ(*result, arbitraryExistingElement);
     ASSERT_TRUE(constResult != nullptr);
@@ -64,7 +65,8 @@ TEST(ListUtilsTest, FindNonExistingElement) {
 
     const uint32_t arbitraryNonExistingElement = 11;
     auto result = ListUtils::find(list, arbitraryNonExistingElement, trivialCompare);
-    const auto constResult = ListUtils::find(static_cast<const List<uint32_t>&>(list), arbitraryNonExistingElement, trivialCompare);
+    const auto constResult = ListUtils::find(static_cast<const List<uint32_t>&>(list),
+                                             arbitraryNonExistingElement, trivialCompare);
     ASSERT_TRUE(result == nullptr);
     ASSERT_TRUE(constResult == nullptr);
 }
@@ -74,14 +76,14 @@ namespace {
 void insertAndAssert(List<int>& list, ::std::list<int>& prototype, int value) {
     list.push_back(value);
     prototype.push_back(value);
-    
+
     ASSERT_EQ(list.size(), prototype.size());
     ASSERT_EQ(list.head()->value, *prototype.begin());
     ASSERT_EQ(static_cast<const List<int>&>(list).head()->value, *prototype.begin());
 
     auto* node = list.head();
     auto expected = prototype.begin();
-    for (; node != nullptr && expected != prototype.end() ; node = node->next, expected++) {
+    for (; node != nullptr && expected != prototype.end(); node = node->next, expected++) {
         ASSERT_EQ(node->value, *expected);
     }
     ASSERT_EQ(node, nullptr);

@@ -83,10 +83,9 @@ NTSTATUS performIoctl(PIRP irp) {
     auto inputBuffer = irp->AssociatedIrp.SystemBuffer;
     auto outputBuffer = irp->AssociatedIrp.SystemBuffer;
 
-    const auto result = IoctlHandler::handle(TestsManager::instance(),
-                                irpSp->Parameters.DeviceIoControl.IoControlCode, 
-                                BufferView(inputBuffer, inputBufferLength),
-                                BufferView(outputBuffer, outputBufferLength));
+    const auto result = IoctlHandler::handle(
+        TestsManager::instance(), irpSp->Parameters.DeviceIoControl.IoControlCode,
+        BufferView(inputBuffer, inputBufferLength), BufferView(outputBuffer, outputBufferLength));
 
     if (NT_SUCCESS(result)) {
         irp->IoStatus.Information = outputBufferLength;

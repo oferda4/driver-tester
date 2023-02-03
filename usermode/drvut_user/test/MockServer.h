@@ -16,8 +16,8 @@ class MoveableMockServer {
 public:
     using ConnectionType = MockServer::ConnectionType;
 
-    MoveableMockServer()
-        : m_mock(std::make_unique<testing::StrictMock<MockServer>>()) {}
+    MoveableMockServer() : m_mock(std::make_unique<testing::StrictMock<MockServer>>()) {
+    }
 
     ConnectionType waitForConnection() {
         return m_mock->waitForConnection();

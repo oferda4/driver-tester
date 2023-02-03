@@ -19,7 +19,7 @@ TEST(ProtobufParserTest, BadRequest) {
 
 TEST(ProtobufParserTest, ListTestsRequest) {
     Request request;
-    auto *specificRequest = request.mutable_list_tests();
+    auto* specificRequest = request.mutable_list_tests();
     const auto parsedRequest = serializeAndParse(request);
 
     ASSERT_EQ(parsedRequest.type, RequestType::LIST_TESTS);
@@ -37,11 +37,9 @@ TEST(ProtobufParserTest, RunTestRequest) {
 }
 
 TEST(ProtobufParserTest, ListTestsOutput) {
-    const std::vector<InternalMessages::TestInfo> tests = {
-        { 21, "this is a test" },
-        { 3, "NiceTest" },
-        { 15, "Excellent Test!" }
-    };
+    const std::vector<InternalMessages::TestInfo> tests = { { 21, "this is a test" },
+                                                            { 3, "NiceTest" },
+                                                            { 15, "Excellent Test!" } };
     const InternalMessages::ListTestsOutput output = { tests };
 
     const auto response = ProtobufUtils::deserialize<ListTestsResponse>(

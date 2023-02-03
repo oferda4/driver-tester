@@ -7,11 +7,10 @@ struct InvalidHandle : std::exception {
 };
 
 template <typename T>
-concept HandleTraits = requires(T& traits, 
-                                typename T::Type handle) {
-    sizeof(typename T::Type) == sizeof(size_t);
-    { traits.close(handle) } -> std::same_as<void>;
-};
+concept HandleTraits = requires(T& traits, typename T::Type handle) {
+                           sizeof(typename T::Type) == sizeof(size_t);
+                           { traits.close(handle) } -> std::same_as<void>;
+                       };
 
 template <HandleTraits HandleTraitsType>
 class HandleGuard {

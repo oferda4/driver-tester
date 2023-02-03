@@ -11,7 +11,9 @@ struct FakeExceptionForMockPosixSocket : std::exception {
 class FakePosixSocketApi {
 public:
     using ExceptionType = FakeExceptionForMockPosixSocket;
-    int close(SOCKET) { return 0; }
+    int close(SOCKET) {
+        return 0;
+    }
 };
 
 class MockPosixTcpSocketAllApi {
@@ -30,10 +32,11 @@ public:
     using ExceptionType = FakePosixSocketApi::ExceptionType;
 
     MoveableMockPosixTcpSocketAllApi()
-        : m_mock(std::make_unique<testing::StrictMock<MockPosixTcpSocketAllApi>>()) {}
+        : m_mock(std::make_unique<testing::StrictMock<MockPosixTcpSocketAllApi>>()) {
+    }
 
     SOCKET create(int af, int type, int protocol) {
-        return m_mock->create(af,type, protocol);
+        return m_mock->create(af, type, protocol);
     }
 
     int close(SOCKET socket) {

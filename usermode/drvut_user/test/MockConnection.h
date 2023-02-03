@@ -12,8 +12,8 @@ public:
 
 class MoveableMockConnection {
 public:
-    MoveableMockConnection() 
-        : m_mock(std::make_unique<testing::StrictMock<MockConnection>>()) {}
+    MoveableMockConnection() : m_mock(std::make_unique<testing::StrictMock<MockConnection>>()) {
+    }
 
     Buffer recv(size_t size) {
         return m_mock->recv(size);

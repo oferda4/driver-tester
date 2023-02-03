@@ -11,40 +11,28 @@ struct BadIpAddress : std::exception {
 };
 
 template <typename T>
-concept PosixSocketApi = requires(T& api, 
-                                  SOCKET socket) {
-    typename T::ExceptionType;
-    std::derived_from<typename T::ExceptionType, std::exception>;
-    { api.close(socket) } -> std::same_as<int>;
-};
+concept PosixSocketApi = requires(T& api, SOCKET socket) {
+                             typename T::ExceptionType;
+                             std::derived_from<typename T::ExceptionType, std::exception>;
+                             { api.close(socket) } -> std::same_as<int>;
+                         };
 
 template <typename T>
-concept PosixTcpServerApi = requires(T& api,
-                                     SOCKET socket,
-                                     int af,
-                                     int type,
-                                     int protocol,
-                                     const sockaddr* addr, 
-                                     int namelen,
-                                     int backlog,
-                                     sockaddr* outAddr,
-                                     int* outAddrLen) {
-    { api.create(af, type, protocol) } -> std::same_as<SOCKET>;
-    { api.bind(socket, addr, namelen) } -> std::same_as<int>;
-    { api.listen(socket, backlog) } -> std::same_as<int>;
-    { api.accept(socket, outAddr, outAddrLen) } -> std::same_as<SOCKET>;
-};
+concept PosixTcpServerApi =
+    requires(T& api, SOCKET socket, int af, int type, int protocol, const sockaddr* addr,
+             int namelen, int backlog, sockaddr* outAddr, int* outAddrLen) {
+        { api.create(af, type, protocol) } -> std::same_as<SOCKET>;
+        { api.bind(socket, addr, namelen) } -> std::same_as<int>;
+        { api.listen(socket, backlog) } -> std::same_as<int>;
+        { api.accept(socket, outAddr, outAddrLen) } -> std::same_as<SOCKET>;
+    };
 
 template <typename T>
-concept PosixTcpConnectionApi = requires(T& api, 
-                                         SOCKET socket,
-                                         char *buf,
-                                         const char *bufToSend,
-                                         int len, 
-                                         int flags) {
-    { api.recv(socket, buf, len, flags) } -> std::same_as<int>;
-    { api.send(socket, bufToSend, len, flags) } -> std::same_as<int>;
-};
+concept PosixTcpConnectionApi =
+    requires(T& api, SOCKET socket, char* buf, const char* bufToSend, int len, int flags) {
+        { api.recv(socket, buf, len, flags) } -> std::same_as<int>;
+        { api.send(socket, bufToSend, len, flags) } -> std::same_as<int>;
+    };
 
 template <PosixSocketApi TcpSocketApi>
 class SocketHandleTraits final {
@@ -60,7 +48,7 @@ template <PosixSocketApi TcpSocketApi>
 using SocketGuard = HandleGuard<SocketHandleTraits<TcpSocketApi>>;
 
 template <typename Api>
-    requires(PosixSocketApi<Api> && PosixTcpConnectionApi<Api>) 
+    requires(PosixSocketApi<Api> && PosixTcpConnectionApi<Api>)
 class TcpSocketConnection final {
 public:
     template <typename = std::enable_if_t<std::is_default_constructible_v<Api>>>
@@ -76,7 +64,7 @@ private:
 };
 
 template <typename Api>
-    requires(PosixSocketApi<Api> && PosixTcpServerApi<Api> && PosixTcpConnectionApi<Api>) 
+    requires(PosixSocketApi<Api> && PosixTcpServerApi<Api> && PosixTcpConnectionApi<Api>)
 class TcpSocketServer final {
 public:
     using ConnectionType = TcpSocketConnection<Api>;

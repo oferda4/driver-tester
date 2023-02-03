@@ -10,13 +10,12 @@ struct MockHandleTraits {
 struct MoveableMockHandleTraits {
     using Type = MockHandleTraits::Type;
 
-    MoveableMockHandleTraits()
-        : m_mock(std::make_unique<testing::NiceMock<MockHandleTraits>>()) {}
+    MoveableMockHandleTraits() : m_mock(std::make_unique<testing::NiceMock<MockHandleTraits>>()) {
+    }
 
     void close(Type handle) {
         m_mock->close(handle);
     }
-
 
     testing::NiceMock<MockHandleTraits>& getMock() {
         return *m_mock;

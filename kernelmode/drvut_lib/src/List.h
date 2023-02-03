@@ -7,7 +7,7 @@
 namespace drvut {
 namespace internal {
 
-template<typename T>
+template <typename T>
 struct Node {
     Node(T value);
 
@@ -17,10 +17,10 @@ struct Node {
 
 template <typename T, typename Key, typename Func>
 concept Comparator = requires(const T& obj, Key key, Func func) {
-    { func(obj, key) } -> std::same_as<bool>;
-};
+                         { func(obj, key) } -> std::same_as<bool>;
+                     };
 
-template<typename T>
+template <typename T>
 class List final {
 public:
     using Type = T;

@@ -7,7 +7,8 @@ using testing::_;
 namespace {
 constexpr MoveableMockHandleTraits::Type NOT_INTERESTING_HANDLE_VALUE = 0;
 
-void assertGuardInnerValue(HandleGuard<MoveableMockHandleTraits>& guard, MoveableMockHandleTraits::Type value);
+void assertGuardInnerValue(HandleGuard<MoveableMockHandleTraits>& guard,
+                           MoveableMockHandleTraits::Type value);
 void assertInvalidWhenGettingInnerValue(HandleGuard<MoveableMockHandleTraits>& guard);
 }
 
@@ -48,7 +49,8 @@ TEST(HandleGuardTest, MoveAssignment) {
 TEST(HandleGuardTest, InvalidateAfterMoveCtor) {
     MoveableMockHandleTraits traits;
     EXPECT_CALL(traits.getMock(), close(_)).Times(1);
-    HandleGuard<MoveableMockHandleTraits> movedGuard(std::move(traits), NOT_INTERESTING_HANDLE_VALUE);
+    HandleGuard<MoveableMockHandleTraits> movedGuard(std::move(traits),
+                                                     NOT_INTERESTING_HANDLE_VALUE);
     HandleGuard<MoveableMockHandleTraits> ignored(std::move(movedGuard));
 
     assertInvalidWhenGettingInnerValue(movedGuard);
@@ -57,7 +59,8 @@ TEST(HandleGuardTest, InvalidateAfterMoveCtor) {
 TEST(HandleGuardTest, InvalidateAfterMoveAssignment) {
     MoveableMockHandleTraits traits;
     EXPECT_CALL(traits.getMock(), close(_)).Times(1);
-    HandleGuard<MoveableMockHandleTraits> movedGuard(std::move(traits), NOT_INTERESTING_HANDLE_VALUE);
+    HandleGuard<MoveableMockHandleTraits> movedGuard(std::move(traits),
+                                                     NOT_INTERESTING_HANDLE_VALUE);
     HandleGuard<MoveableMockHandleTraits> ignored(NOT_INTERESTING_HANDLE_VALUE);
     ignored = std::move(movedGuard);
 
@@ -65,13 +68,15 @@ TEST(HandleGuardTest, InvalidateAfterMoveAssignment) {
 }
 
 namespace {
-void assertGuardInnerValue(HandleGuard<MoveableMockHandleTraits>& guard, MoveableMockHandleTraits::Type value) {
+void assertGuardInnerValue(HandleGuard<MoveableMockHandleTraits>& guard,
+                           MoveableMockHandleTraits::Type value) {
     ASSERT_EQ(value, *guard);
     ASSERT_EQ(value, *(static_cast<const HandleGuard<MoveableMockHandleTraits>&>(guard)));
 }
 
 void assertInvalidWhenGettingInnerValue(HandleGuard<MoveableMockHandleTraits>& guard) {
     ASSERT_THROW(*guard, InvalidHandle);
-    ASSERT_THROW(*(static_cast<const HandleGuard<MoveableMockHandleTraits>&>(guard)), InvalidHandle);
+    ASSERT_THROW(*(static_cast<const HandleGuard<MoveableMockHandleTraits>&>(guard)),
+                 InvalidHandle);
 }
 }

@@ -14,10 +14,11 @@ public:
 
 class MoveableMockIoctlApi {
 public:
-    MoveableMockIoctlApi()
-        : m_mock(std::make_unique<testing::StrictMock<MockIoctlApi>>()) {}
-    
-    void send(FileHandleGuard<FakeFileApi>& handle, uint32_t code, const Buffer& input, Buffer& output) {
+    MoveableMockIoctlApi() : m_mock(std::make_unique<testing::StrictMock<MockIoctlApi>>()) {
+    }
+
+    void send(FileHandleGuard<FakeFileApi>& handle, uint32_t code, const Buffer& input,
+              Buffer& output) {
         m_mock->send(handle, code, input, output);
     }
 

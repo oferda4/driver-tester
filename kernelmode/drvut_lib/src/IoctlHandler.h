@@ -10,7 +10,8 @@ namespace drvut::internal {
 class IoctlHandler final {
 public:
     IoctlHandler() = delete;
-    static NTSTATUS handle(TestsManager& manager, uint32_t code, BufferView input, BufferView output);
+    static NTSTATUS handle(TestsManager& manager, uint32_t code, BufferView input,
+                           BufferView output);
 };
 
 }

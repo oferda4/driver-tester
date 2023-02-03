@@ -12,8 +12,8 @@ public:
 
 class MoveableMockStream {
 public:
-    MoveableMockStream()
-        : m_mock(std::make_unique<testing::StrictMock<MockStream>>()) {}
+    MoveableMockStream() : m_mock(std::make_unique<testing::StrictMock<MockStream>>()) {
+    }
 
     Buffer recv() {
         return m_mock->recv();

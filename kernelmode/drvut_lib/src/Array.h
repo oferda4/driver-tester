@@ -5,7 +5,7 @@
 namespace drvut {
 namespace internal {
 
-template<typename T>
+template <typename T>
 class Array final {
 public:
     Array(size_t size);

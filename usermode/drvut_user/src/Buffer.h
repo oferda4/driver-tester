@@ -12,7 +12,7 @@ class BufferUtils {
 public:
     BufferUtils() = delete;
 
-    template<std::integral NumType>
+    template <std::integral NumType>
     static NumType toNumber(const Buffer& buffer);
     template <std::integral NumType>
     static Buffer fromNumber(NumType num);

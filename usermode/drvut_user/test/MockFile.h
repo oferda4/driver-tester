@@ -7,7 +7,8 @@
 
 class FakeFileApi final {
 public:
-    void close(HANDLE) {}
+    void close(HANDLE) {
+    }
 };
 
 class MockFileCreationApi {
@@ -20,7 +21,8 @@ public:
 class MoveableMockFileCreationApi {
 public:
     MoveableMockFileCreationApi()
-        : m_mock(std::make_unique<testing::NiceMock<MockFileCreationApi>>()) {}
+        : m_mock(std::make_unique<testing::NiceMock<MockFileCreationApi>>()) {
+    }
     virtual ~MoveableMockFileCreationApi() = default;
 
     HANDLE open(const std::wstring& path) {

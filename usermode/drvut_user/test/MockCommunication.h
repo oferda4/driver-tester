@@ -14,7 +14,8 @@ public:
 class MoveableMockCommunicationSetup {
 public:
     MoveableMockCommunicationSetup()
-        : m_mock(std::make_unique<testing::StrictMock<MockCommunicationSetup>>()) {}
+        : m_mock(std::make_unique<testing::StrictMock<MockCommunicationSetup>>()) {
+    }
 
     MoveableMockStream run() {
         return m_mock->run();
@@ -36,7 +37,8 @@ public:
 class MoveableMockCommunicationLogic {
 public:
     MoveableMockCommunicationLogic()
-        : m_mock(std::make_unique<testing::StrictMock<MockCommunicationLogic>>()) {}
+        : m_mock(std::make_unique<testing::StrictMock<MockCommunicationLogic>>()) {
+    }
 
     void run(MoveableMockStream& stream) {
         m_mock->run(stream);

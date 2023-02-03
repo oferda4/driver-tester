@@ -27,11 +27,11 @@ TEST(ArrayTest, Functionality) {
 TEST(ArrayTest, OutOfBound) {
     const size_t arbitrarySize = 5;
     Array<uint32_t> array(arbitrarySize);
-    
+
     ASSERT_ANY_THROW(array.at(arbitrarySize));
-    ASSERT_ANY_THROW(array.at(arbitrarySize+1));
+    ASSERT_ANY_THROW(array.at(arbitrarySize + 1));
     ASSERT_ANY_THROW(static_cast<const Array<uint32_t>&>(array).at(arbitrarySize));
-    ASSERT_ANY_THROW(static_cast<const Array<uint32_t>&>(array).at(arbitrarySize+1));
+    ASSERT_ANY_THROW(static_cast<const Array<uint32_t>&>(array).at(arbitrarySize + 1));
 }
 
 uint32_t indexToArrayValue(uint32_t index) {

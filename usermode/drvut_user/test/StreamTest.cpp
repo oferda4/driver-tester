@@ -16,7 +16,8 @@ constexpr uint32_t ARBITRARY_CHUNK_SIZE = 1024;
 static_assert(ARBITRARY_BUFFER_SIZE > ARBITRARY_CHUNK_SIZE);
 static_assert(ARBITRARY_BUFFER_SIZE % ARBITRARY_CHUNK_SIZE == 0);
 
-constexpr uint32_t SIZE_BUFFER_SIZE = static_cast<uint32_t>(sizeof(StreamImpl<MoveableMockConnection>::SizeType));
+constexpr uint32_t SIZE_BUFFER_SIZE =
+    static_cast<uint32_t>(sizeof(StreamImpl<MoveableMockConnection>::SizeType));
 }
 
 TEST(StreamTest, Send) {
@@ -34,7 +35,8 @@ TEST(StreamTest, Recv) {
     MoveableMockConnection connection;
     EXPECT_CALL(connection.getMock(), recv(_))
         .Times(ARBITRARY_BUFFER_SIZE / ARBITRARY_CHUNK_SIZE + 1)
-        .WillOnce(Return(BufferUtils::fromNumber(static_cast<StreamImpl<MoveableMockConnection>::SizeType>(ARBITRARY_BUFFER_SIZE))))
+        .WillOnce(Return(BufferUtils::fromNumber(
+            static_cast<StreamImpl<MoveableMockConnection>::SizeType>(ARBITRARY_BUFFER_SIZE))))
         .WillRepeatedly(Return(getFakeBuffer(ARBITRARY_CHUNK_SIZE)));
 
     StreamImpl stream(std::move(connection));
@@ -49,7 +51,8 @@ TEST(StreamTest, SendInterruptedWhileSendingSize) {
         .WillOnce(Return(0));
 
     StreamImpl stream(std::move(connection));
-    ASSERT_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)), ConnectionTerminatedInTheMiddle);
+    ASSERT_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)),
+                 ConnectionTerminatedInTheMiddle);
 }
 
 TEST(StreamTest, SendInterruptedWhileSendingData) {
@@ -61,7 +64,8 @@ TEST(StreamTest, SendInterruptedWhileSendingData) {
         .WillOnce(Return(0));
 
     StreamImpl stream(std::move(connection));
-    ASSERT_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)), ConnectionTerminatedInTheMiddle);
+    ASSERT_THROW(stream.send(getFakeBuffer(ARBITRARY_BUFFER_SIZE)),
+                 ConnectionTerminatedInTheMiddle);
 }
 
 TEST(StreamTest, RecvInterruptedInTheMiddleOfReceivingSize) {
@@ -79,7 +83,8 @@ TEST(StreamTest, RecvInterruptedInTheMiddleOfReceivingData) {
     MoveableMockConnection connection;
     EXPECT_CALL(connection.getMock(), recv(_))
         .Times(3)
-        .WillOnce(Return(BufferUtils::fromNumber(static_cast<StreamImpl<MoveableMockConnection>::SizeType>(ARBITRARY_BUFFER_SIZE))))
+        .WillOnce(Return(BufferUtils::fromNumber(
+            static_cast<StreamImpl<MoveableMockConnection>::SizeType>(ARBITRARY_BUFFER_SIZE))))
         .WillOnce(Return(getFakeBuffer(ARBITRARY_CHUNK_SIZE)))
         .WillOnce(Return(Buffer()));
 

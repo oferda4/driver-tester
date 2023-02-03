@@ -12,8 +12,8 @@ public:
 
 class MoveableMockResource {
 public:
-    MoveableMockResource()
-        : m_mock(std::make_unique<testing::StrictMock<MockResource>>()) {}
+    MoveableMockResource() : m_mock(std::make_unique<testing::StrictMock<MockResource>>()) {
+    }
 
     NTSTATUS initialize() {
         return m_mock->initialize();

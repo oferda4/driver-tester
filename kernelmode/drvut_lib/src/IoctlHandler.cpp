@@ -15,19 +15,37 @@ template <NTSTATUS INVALID_PARAMETER_ERROR_CODE>
 NTSTATUS validateParameterBuffer(BufferView buffer, uint64_t parameterSize);
 
 template <typename InputType>
-auto validateInputBuffer(BufferView buffer) { return validateParameterBuffer<InputType, STATUS_INVALID_PARAMETER_3>(buffer); }
+auto validateInputBuffer(BufferView buffer) {
+    return validateParameterBuffer<InputType, STATUS_INVALID_PARAMETER_3>(buffer);
+}
 template <typename OutputType>
-auto validateOutputBuffer(BufferView buffer) { return validateParameterBuffer<OutputType, STATUS_INVALID_PARAMETER_4>(buffer); }
-
-auto validateListTestsInput(BufferView buffer) { return validateInputBuffer<Ioctl::ListTestsInput>(buffer); }
-NTSTATUS validateListTestsOutput(BufferView buffer, uint64_t numberOfTests) { return validateParameterBuffer<STATUS_INVALID_PARAMETER_4>(buffer, numberOfTests * sizeof(Ioctl::TestInfo)); }
-auto validateGetNumberOfTestsInput(BufferView buffer) { return validateInputBuffer<Ioctl::GetNumberOfTestsInput>(buffer); }
-auto validateGetNumberOfTestsOutput(BufferView buffer) { return validateOutputBuffer<Ioctl::GetNumberOfTestsOutput>(buffer); }
-auto validateRunTestInput(BufferView buffer) { return validateInputBuffer<Ioctl::RunTestInput>(buffer); }
-auto validateRunTestOutput(BufferView buffer) { return validateOutputBuffer<Ioctl::RunTestOutput>(buffer); }
+auto validateOutputBuffer(BufferView buffer) {
+    return validateParameterBuffer<OutputType, STATUS_INVALID_PARAMETER_4>(buffer);
 }
 
-NTSTATUS IoctlHandler::handle(TestsManager& manager, uint32_t code, BufferView input, BufferView output) {
+auto validateListTestsInput(BufferView buffer) {
+    return validateInputBuffer<Ioctl::ListTestsInput>(buffer);
+}
+NTSTATUS validateListTestsOutput(BufferView buffer, uint64_t numberOfTests) {
+    return validateParameterBuffer<STATUS_INVALID_PARAMETER_4>(buffer, numberOfTests *
+                                                                           sizeof(Ioctl::TestInfo));
+}
+auto validateGetNumberOfTestsInput(BufferView buffer) {
+    return validateInputBuffer<Ioctl::GetNumberOfTestsInput>(buffer);
+}
+auto validateGetNumberOfTestsOutput(BufferView buffer) {
+    return validateOutputBuffer<Ioctl::GetNumberOfTestsOutput>(buffer);
+}
+auto validateRunTestInput(BufferView buffer) {
+    return validateInputBuffer<Ioctl::RunTestInput>(buffer);
+}
+auto validateRunTestOutput(BufferView buffer) {
+    return validateOutputBuffer<Ioctl::RunTestOutput>(buffer);
+}
+}
+
+NTSTATUS IoctlHandler::handle(TestsManager& manager, uint32_t code, BufferView input,
+                              BufferView output) {
     switch (code) {
     case Ioctl::GET_NUMBER_OF_TESTS:
         return handleGetNumberOfTests(manager, input, output);

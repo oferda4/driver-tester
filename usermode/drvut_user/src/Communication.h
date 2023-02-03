@@ -7,10 +7,10 @@
 
 template <typename T>
 concept CommunicationSetup = requires(T& setup) {
-    { setup.run() } -> Stream;
-};
+                                 { setup.run() } -> Stream;
+                             };
 
-template <Server ServerType> 
+template <Server ServerType>
 class CommunicationSetupImpl final {
 public:
     explicit CommunicationSetupImpl(ServerType server);
@@ -23,9 +23,9 @@ private:
 
 template <typename T, typename StreamType>
 concept CommunicationLogic = requires(T& logic, StreamType& stream) {
-    Stream<StreamType>;
-    { logic.run(stream) } -> std::same_as<void>;
-};
+                                 Stream<StreamType>;
+                                 { logic.run(stream) } -> std::same_as<void>;
+                             };
 
 template <Stream StreamType, RequestsRouter RouterType>
 class CommunicationLogicImpl final {
@@ -41,8 +41,9 @@ private:
 template <CommunicationSetup CommunicationSetupType>
 using CommunicationSetupStreamType = decltype(std::declval<CommunicationSetupType>().run());
 
-template <CommunicationSetup CommunicationSetupType, 
-          CommunicationLogic<CommunicationSetupStreamType<CommunicationSetupType>> CommunicationLogicType>
+template <
+    CommunicationSetup CommunicationSetupType,
+    CommunicationLogic<CommunicationSetupStreamType<CommunicationSetupType>> CommunicationLogicType>
 class Communication final {
 public:
     Communication(CommunicationSetupType setup, CommunicationLogicType logic);
