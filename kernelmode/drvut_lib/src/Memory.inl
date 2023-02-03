@@ -22,6 +22,8 @@ unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>&& other) {
     if (this == &other) {
         return *this;
     }
+
+    delete m_ptr;
     m_ptr = other.release();
     return *this;
 }

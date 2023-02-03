@@ -49,11 +49,24 @@ TEST(MemoryTest, MoveCtor) {
     ASSERT_EQ(ptr, nullptr);
 }
 
-TEST(MemoryTest, MoveAssingnment) {
+TEST(MemoryTest, MoveAssingnment_ToEmpty) {
     auto ptr = std::unique_ptr<LeakCounter>(new LeakCounter());
     auto* raw = ptr.get();
     {
         auto ptrAfterMoved = std::unique_ptr<LeakCounter>(static_cast<LeakCounter*>(nullptr));
+        ptrAfterMoved = std::move(ptr);
+        ASSERT_EQ(ptrAfterMoved.get(), raw);
+        ASSERT_EQ(LeakCounter::leaked, 1);
+    }
+    ASSERT_EQ(LeakCounter::leaked, 0);
+    ASSERT_EQ(ptr, nullptr);
+}
+
+TEST(MemoryTest, MoveAssingnment_ToNotEmpty) {
+    auto ptr = std::unique_ptr<LeakCounter>(new LeakCounter());
+    auto* raw = ptr.get();
+    {
+        auto ptrAfterMoved = std::unique_ptr<LeakCounter>(new LeakCounter());
         ptrAfterMoved = std::move(ptr);
         ASSERT_EQ(ptrAfterMoved.get(), raw);
         ASSERT_EQ(LeakCounter::leaked, 1);
