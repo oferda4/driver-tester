@@ -20,6 +20,7 @@ namespace Runner {
                                         new MessagesConnectionImpl(client.GetStream()));
                 var tests = runner.listTests();
                 var res1 = runner.runTest(tests[0].id);
+                var res3 = runner.runTest(tests[2].id);
                 var res2 = runner.runTest(tests[1].id);
             } finally {
                 client.GetStream().Close();

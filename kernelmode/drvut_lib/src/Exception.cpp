@@ -1,116 +1,76 @@
 #include "Defs.h"
 
-using DWORD = uint32_t;
-using PDWORD = DWORD*;
-using WORD = unsigned short;
-using BYTE = unsigned char;
+typedef const struct _s_FuncInfo {
+    unsigned int magicNumber : 29;
+    unsigned int bbtFlags : 3;
+    int maxState;
 
-typedef struct _RUNTIME_FUNCTION {
-    DWORD BeginAddress;
-    DWORD EndAddress;
-    DWORD UnwindData;
-} RUNTIME_FUNCTION, *PRUNTIME_FUNCTION;
+    int dispUnwindMap;
+    unsigned int nTryBlocks;
+    int dispTryBlockMap;
+    unsigned int nIPMapEntries;
+    int dispIPtoStateMap;
+    int dispUwindHelp;
+    int dispESTypeList;
 
-typedef struct _UNWIND_HISTORY_TABLE_ENTRY {
-    DWORD64 ImageBase;
-    PRUNTIME_FUNCTION FunctionEntry;
-} UNWIND_HISTORY_TABLE_ENTRY, *PUNWIND_HISTORY_TABLE_ENTRY;
+    int EHFlags;
+} FuncInfo;
 
-typedef struct _UNWIND_HISTORY_TABLE {
-    DWORD Count;
-    BYTE LocalHint;
-    BYTE GlobalHint;
-    BYTE Search;
-    BYTE Once;
-    DWORD64 LowAddress;
-    DWORD64 HighAddress;
-    UNWIND_HISTORY_TABLE_ENTRY Entry[1];
-} UNWIND_HISTORY_TABLE, *PUNWIND_HISTORY_TABLE;
+typedef struct IptoStateMapEntry {
+    unsigned int Ip;
+    int State;
+} IptoStateMapEntry;
 
-#define UNW_FLAG_NHANDLER 0
+typedef const struct _s_UnwindMapEntry {
+    int toState;
+    void(__cdecl* action)(void);
+} UnwindMapEntry;
 
-extern "C" PRUNTIME_FUNCTION __stdcall RtlLookupFunctionEntry(DWORD64 ControlPc, PDWORD64 ImageBase,
-                                                              PUNWIND_HISTORY_TABLE HistoryTable);
-extern "C" PEXCEPTION_ROUTINE __stdcall RtlVirtualUnwind(
-    _In_ DWORD HandlerType, 
-                                                       _In_ DWORD64 ImageBase, 
-                                                       _In_ DWORD64 ControlPc,
-                                                       _In_ PRUNTIME_FUNCTION FunctionEntry, 
-                                                       _Inout_ PCONTEXT ContextRecord,
-                                                       _Out_ PVOID* HandlerData, 
-                                                       _Out_ PDWORD64 EstablisherFrame,
-                                                       _Inout_opt_ PVOID ContextPointers);
+static int stateFromIp(FuncInfo& funcInfo, DISPATCHER_CONTEXT& dispatcherContext) {
+    uint32_t index = 0;
+    auto* ipToStateMap = reinterpret_cast<IptoStateMapEntry*>(dispatcherContext.ImageBase + funcInfo.dispIPtoStateMap);
 
-//#include <winnt.h>
-
-
-EXCEPTION_DISPOSITION __CxxFrameHandler3([[maybe_unused]] PEXCEPTION_RECORD ExceptionRecord, [[maybe_unused]] PVOID EstablisherFrame,
-                                         PCONTEXT ContextRecord, PVOID DispatcherContext) {
-    UNWIND_HISTORY_TABLE HistoryTable;
-    PUNWIND_HISTORY_TABLE_ENTRY pHistoryTableEntry;
-    PRUNTIME_FUNCTION pRuntimeFunction;
-    DWORD64 ImageBase;
-    DWORD64 ControlPc;
-    DWORD64 FunctionStart;
-    DWORD64 TargetPc;
-    PVOID HandlerData = nullptr;
-    DWORD64 EstablisherFramePointer = 0;
-    DWORD64 TempStackPointer = 0;
-    BOOLEAN HandlerFound = FALSE;
-    EXCEPTION_DISPOSITION Disposition = ExceptionContinueSearch;
-
-    // Retrieve the ImageBase and ControlPc from the DispatcherContext
-    ImageBase = (DWORD64)DispatcherContext;
-    ControlPc = (DWORD64)ContextRecord->Rip;
-
-    // Initialize the history table
-    HistoryTable.Count = 0;
-    HistoryTable.LocalHint = 0;
-    HistoryTable.GlobalHint = 0;
-    HistoryTable.Search = 0;
-    HistoryTable.Once = 0;
-    HistoryTable.LowAddress = 0;
-    HistoryTable.HighAddress = 0;
-
-    // Loop through each function in the call chain
-    while (ControlPc) {
-        // Get the runtime function for the current control PC
-        pRuntimeFunction = RtlLookupFunctionEntry(ControlPc, &ImageBase, &HistoryTable);
-
-        // Make sure a runtime function was found
-        if (!pRuntimeFunction) {
+    for (; index < funcInfo.nIPMapEntries; index++) {
+        const IptoStateMapEntry& pIPtoStateMap = ipToStateMap[index];
+        if (dispatcherContext.ControlPc < (dispatcherContext.ImageBase + pIPtoStateMap.Ip)) {
             break;
         }
+    }
 
-        // Check if the function has an exception handler
-        if (*(PDWORD)HandlerData != UNW_FLAG_NHANDLER) {
-            // Check if the exception handler is a C++ exception handler
-            if ((*(PDWORD)HandlerData & 1) == 0) {
-                // Exception handler found, unwind the stack
-                RtlVirtualUnwind(0x1 /* UNW_FLAG_EHANDLER */, 
-                                 ImageBase, 
-                                 ControlPc, 
-                                 pRuntimeFunction,
-                                 ContextRecord, 
-                                 &HandlerData, 
-                                 &EstablisherFramePointer,
-                                 &TempStackPointer);
+    if (index == 0) {
+        return -1;
+    }
 
-                // Set the disposition to continue executing the exception handler
-                Disposition = ExceptionContinueExecution;
-                HandlerFound = TRUE;
-                break;
-            }
+    return ipToStateMap[index-1].State;
+}
+
+EXCEPTION_DISPOSITION __CxxFrameHandler4([[maybe_unused]] EXCEPTION_RECORD* pExcept,
+                                         [[maybe_unused]] EXCEPTION_REGISTRATION_RECORD* pRegistration,
+                                         [[maybe_unused]] CONTEXT* pContext, 
+                                         PDISPATCHER_CONTEXT pDispContext) {
+    __debugbreak();
+
+    auto* funcInfo = reinterpret_cast<FuncInfo*>(pDispContext->ImageBase + *reinterpret_cast<PULONG>(pDispContext->HandlerData));
+    if (!funcInfo) {
+        // TODO: Handle
+        return ExceptionContinueSearch;
+    }
+
+    auto* unwindMap = reinterpret_cast<UnwindMapEntry*>(pDispContext->ImageBase + funcInfo->dispUnwindMap);
+
+    auto state = stateFromIp(*funcInfo, *pDispContext);
+    
+    while (state != -1) {
+        if (state < 0 || state >= funcInfo->maxState) {
+            // TODO: Handle
+            return ExceptionContinueSearch;
         }
 
-        // Move to the next function in the call chain
-        ControlPc = EstablisherFramePointer + 8;
+        // calling the dtor
+        unwindMap[state].action();
+
+        state = unwindMap[state].toState;
     }
 
-
-    // Return the disposition
-    if (!HandlerFound) {
-        Disposition = ExceptionContinueSearch;
-    }
-    return Disposition;
+    return ExceptionContinueSearch;
 }
