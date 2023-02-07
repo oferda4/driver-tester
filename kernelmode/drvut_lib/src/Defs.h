@@ -7,24 +7,10 @@ void* __cdecl operator new(size_t size);
 void* __cdecl operator new(size_t, void* p);
 void __cdecl operator delete(void* p, size_t);
 
-typedef struct _DISPATCHER_CONTEXT {
-    DWORD64 ControlPc;
-    DWORD64 ImageBase;
-    PVOID FunctionEntry;
-    DWORD64 EstablisherFrame;
-    DWORD64 TargetIp;
-    PCONTEXT ContextRecord;
-    PEXCEPTION_ROUTINE LanguageHandler;
-    PVOID HandlerData;
-    struct _UNWIND_HISTORY_TABLE* HistoryTable;
-    // uint32_t ScopeIndex;
-    // uint32_t Fill0;
-} DISPATCHER_CONTEXT, *PDISPATCHER_CONTEXT;
-
-extern "C" EXCEPTION_DISPOSITION __CxxFrameHandler4(EXCEPTION_RECORD* pExcept,
-                                                    EXCEPTION_REGISTRATION_RECORD* pRegistration,
-                                                    CONTEXT* pContext,
-                                                    PDISPATCHER_CONTEXT pDispContext);
+extern "C" EXCEPTION_DISPOSITION __CxxFrameHandler4(PVOID pExcept,
+                                                    PVOID pRegistration,
+                                                    PVOID pContext,
+                                                    PVOID pDispContext);
 
 using uint32_t = unsigned int;
 using uint64_t = unsigned long long;
