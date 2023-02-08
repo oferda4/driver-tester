@@ -59,5 +59,8 @@
     <ClInclude Include="LeakCounter.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="MockFixture.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,8 @@
 #include "Defs.h"
 #include "Test.h"
 
+#include "MockFixture.h"
+
 namespace drvut::internal {
 
 TEST(RegulatTestTest, Sanity) {

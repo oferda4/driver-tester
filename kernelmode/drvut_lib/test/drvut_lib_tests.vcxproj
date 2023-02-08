@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LeakCounter.h" />
+    <ClInclude Include="MockFixture.h" />
     <ClInclude Include="MockResource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
+    <ClInclude Include="Fixture.h" />
     <ClInclude Include="IoctlHandler.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Memory.h" />
