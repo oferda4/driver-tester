@@ -13,9 +13,7 @@ Array<T>::Array(size_t size) : m_data(new T[size]), m_size(size) {
 
 template <typename T>
 Array<T>::~Array() {
-    if (m_data) {
-        delete[] m_data;
-    }
+    destroyIfValid();
 }
 
 template <typename T>
@@ -26,11 +24,16 @@ Array<T>::Array(Array&& other) noexcept
 
 template <typename T>
 Array<T>& Array<T>::operator=(Array&& other) noexcept {
-    if (this != &other) {
-        m_data = std::exchange(other.m_data, nullptr);
-        m_size = std::exchange(other.m_size, 0);
+    if (this == &other) {
+        return *this;
     }
-    return *this;
+
+    destroyIfValid();
+
+    m_data = std::exchange(other.m_data, nullptr);
+    m_size = std::exchange(other.m_size, 0);
+
+     return *this;
 }
 
 template <typename T>
@@ -49,6 +52,14 @@ const T& Array<T>::at(size_t index) const {
         ExRaiseStatus(STATUS_ACCESS_VIOLATION);
     }
     return m_data[index];
+}
+
+template <typename T>
+void Array<T>::destroyIfValid() {
+    if (m_data) {
+        delete[] m_data;
+        m_data = nullptr;
+    }
 }
 
 }

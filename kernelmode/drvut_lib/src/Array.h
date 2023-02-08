@@ -20,6 +20,8 @@ public:
     const T& at(size_t index) const;
 
 private:
+    void destroyIfValid();
+
     T* m_data;
     size_t m_size;
 };
