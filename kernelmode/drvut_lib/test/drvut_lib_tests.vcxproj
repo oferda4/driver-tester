@@ -41,6 +41,7 @@
     <ClCompile Include="MemoryTest.cpp" />
     <ClCompile Include="ResourceTest.cpp" />
     <ClCompile Include="TestTest.cpp" />
+    <ClCompile Include="TupleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

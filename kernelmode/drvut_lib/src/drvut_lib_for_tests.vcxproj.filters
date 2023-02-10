@@ -51,6 +51,9 @@
     <ClInclude Include="Fixture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Array.inl">

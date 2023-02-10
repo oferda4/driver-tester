@@ -100,6 +100,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Traits.h" />
+    <ClInclude Include="Tuple.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
