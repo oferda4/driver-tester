@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Utility.h"
+
 namespace drvut {
 namespace internal {
 
@@ -14,6 +16,7 @@ public:
     }
 
     T tail;
+    static constexpr size_t size = sizeof...(Ts) + 1;
 };
 
 class TupleUtils final {
@@ -29,6 +32,23 @@ public:
         } else {
             return t.tail;
         }
+    }
+
+    template <typename T, typename... Ts>
+    static size_t sizeOf(Tuple<T, Ts...>& t) {
+        return sizeof...(Ts) + 1;
+    }
+
+private:
+    template <typename F, typename TupleType, size_t... INDEXES>
+    static decltype(auto) applyImpl(F&& f, TupleType t, std::index_sequence<INDEXES...>) {
+        return f(get<INDEXES>(t)...);
+    }
+
+public:
+    template <typename F, typename TupleType>
+    static decltype(auto) apply(F&& f, TupleType t) {
+        return applyImpl(f, std::move(t), std::make_index_sequence<TupleType::size>());
     }
 };
 

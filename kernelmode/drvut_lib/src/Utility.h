@@ -21,6 +21,21 @@ constexpr T exchange(T& val, Other&& newVal) noexcept(
     return oldVal;
 }
 
+template <size_t... INDEXES> struct index_sequence {};
+
+namespace impl {
+template <size_t N, size_t... INDEXES>
+struct make_index_sequence_impl : make_index_sequence_impl<N - 1, N - 1, INDEXES...> {};
+
+template <size_t... INDEXES>
+struct make_index_sequence_impl<0, INDEXES...> {
+    using type = index_sequence<INDEXES...>;
+};
+}
+
+template <size_t N>
+using make_index_sequence = typename impl::make_index_sequence_impl<N>::type;
+
 }
 
 }
