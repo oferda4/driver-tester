@@ -4,6 +4,7 @@
 #include "Memory.h"
 #include "List.h"
 #include "Ioctl.h"
+#include "FunctionUtils.h"
 
 namespace drvut {
 namespace internal {
@@ -16,8 +17,10 @@ public:
 
 template <typename T>
 class TestFuncImpl final : public TestFunc {
+    using Traits = LambdaTraits<T>;
+    static_assert(std::is_same_v<typename Traits::ReturnType, void>, "test function should return void");
+
 public:
-    // TODO: add trait to test the function is of the proper form
     TestFuncImpl(T func);
     NTSTATUS operator()() override;
 

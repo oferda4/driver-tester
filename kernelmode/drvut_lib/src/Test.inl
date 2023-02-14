@@ -32,7 +32,8 @@ TestFuncImpl<T>::TestFuncImpl(T func) : m_func(std::move(func)) {
 
 template <typename T>
 NTSTATUS TestFuncImpl<T>::operator()() {
-    return m_func();
+    m_func();
+    return STATUS_SUCCESS;
 }
 
 }
