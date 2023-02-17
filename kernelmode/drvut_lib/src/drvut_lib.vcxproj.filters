@@ -31,6 +31,9 @@
     <ClCompile Include="Exception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.h">
@@ -78,6 +81,12 @@
     <ClInclude Include="FunctionUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Assertion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource.inl">
@@ -93,6 +102,9 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="Test.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="String.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

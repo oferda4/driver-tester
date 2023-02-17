@@ -85,11 +85,13 @@
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="IoctlHandler.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="String.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)common\Ioctl.h" />
     <ClInclude Include="Array.h" />
+    <ClInclude Include="Assertion.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
@@ -99,6 +101,7 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="String.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Traits.h" />
     <ClInclude Include="Tuple.h" />
@@ -109,6 +112,7 @@
     <None Include="List.inl" />
     <None Include="Memory.inl" />
     <None Include="Resource.inl" />
+    <None Include="String.inl" />
     <None Include="Test.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

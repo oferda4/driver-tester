@@ -7,6 +7,8 @@ namespace internal {
 
 struct Assertion final {
     Assertion() = delete;
+
+
 };
 
 }
