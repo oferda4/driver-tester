@@ -43,7 +43,7 @@ InternalMessages::RunTestOutput RequestsHandlerImpl<FileApiType, IoctlApiType>::
     ioctlInput->testId = input.testId;
     m_ioctlApi.send(m_device, Ioctl::RUN_TEST, ioctlInputBuffer, ioctlOutputBuffer);
 
-    return { .result = { .status = ioctlOutput->result } };
+    return { { ioctlOutput->result.passed, ioctlOutput->result.msg } };
 }
 
 template <FileApi FileApiType, IoctlApi<FileApiType> IoctlApiType>

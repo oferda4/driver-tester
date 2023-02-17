@@ -63,7 +63,7 @@ TEST(RequestsHandlerTest, RunTest) {
     MoveableMockIoctlApi ioctlApi;
 
     const uint32_t arbitraryTestId = 1001;
-    const NTSTATUS arbitraryResult = 37002;
+    const Ioctl::TestResult arbitraryResult = { false, "some result string" };
 
     EXPECT_CALL(ioctlApi.getMock(), send(::testing::_, ::testing::_, ::testing::_, ::testing::_))
         .WillOnce([&arbitraryTestId, &arbitraryResult](FileHandleGuard<FakeFileApi>&, uint32_t code,
@@ -81,7 +81,8 @@ TEST(RequestsHandlerTest, RunTest) {
 
     const auto output =
         handler.runTest(InternalMessages::RunTestInput{ .testId = arbitraryTestId });
-    ASSERT_EQ(output.result.status, arbitraryResult);
+    ASSERT_EQ(output.result.passed, arbitraryResult.passed);
+    ASSERT_EQ(output.result.msg, arbitraryResult.msg);
 }
 
 namespace {

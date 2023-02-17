@@ -17,7 +17,8 @@ message RunTestRequest {
 }
 
 message RunTestResponse {
-    int64 status = 1;
+    bool passed = 1;
+    string msg = 2;
 }
 
 message Request {

@@ -16,7 +16,8 @@ public:
     };
 
     struct TestResult {
-        int32_t status;
+        bool passed;
+        std::string msg;
     };
 
     struct ListTestsInput {

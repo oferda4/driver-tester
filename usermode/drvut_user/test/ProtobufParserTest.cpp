@@ -52,13 +52,17 @@ TEST(ProtobufParserTest, ListTestsOutput) {
 }
 
 TEST(ProtobufParserTest, RunTestOutput) {
-    const uint64_t arbitraryTestResult = 1001;
-    const InternalMessages::RunTestOutput output = { { arbitraryTestResult } };
+    const bool arbitraryTestPassed = false;
+    const std::string arbitraryTestMessage = "ASDF123";
+
+    const InternalMessages::RunTestOutput output = { { arbitraryTestPassed,
+                                                       arbitraryTestMessage } };
 
     const auto response = ProtobufUtils::deserialize<RunTestResponse>(
         ProtobufParser().serializeRunTestOutput(output));
 
-    ASSERT_EQ(arbitraryTestResult, response.status());
+    ASSERT_EQ(arbitraryTestPassed, response.passed());
+    ASSERT_EQ(arbitraryTestMessage, response.msg());
 }
 
 namespace {

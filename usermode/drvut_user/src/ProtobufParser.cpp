@@ -34,6 +34,7 @@ Buffer ProtobufParser::serializeListTestsOutput(const InternalMessages::ListTest
 
 Buffer ProtobufParser::serializeRunTestOutput(const InternalMessages::RunTestOutput& output) {
     RunTestResponse response;
-    response.set_status(output.result.status);
+    response.set_passed(output.result.passed);
+    response.set_msg(output.result.msg);
     return ProtobufUtils::serialize(response);
 }

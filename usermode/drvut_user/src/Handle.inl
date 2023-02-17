@@ -32,11 +32,14 @@ HandleGuard<HandleTraitsType>::HandleGuard(HandleGuard&& other) noexcept
 template <HandleTraits HandleTraitsType>
 HandleGuard<HandleTraitsType>&
 HandleGuard<HandleTraitsType>::operator=(HandleGuard&& other) noexcept {
-    if (this != &other) {
-        m_traits = std::move(other.m_traits);
-        m_handle = other.m_handle;
-        m_isValid = std::exchange(other.m_isValid, false);
+    if (this == &other) {
+        return *this;
     }
+
+    m_traits = std::move(other.m_traits);
+    m_handle = other.m_handle;
+    m_isValid = std::exchange(other.m_isValid, false);
+
     return *this;
 }
 
