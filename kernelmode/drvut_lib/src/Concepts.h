@@ -21,7 +21,15 @@ concept integral =
     p + t;                  // Exclude everything not yet excluded but integral types
 };
 
-}
+template <class T, class U>
+concept equality_comparable =
+    requires(const T& t, const U& u) {
+        { t == u } -> std::same_as<bool>;
+        { t != u } -> std::same_as<bool>;
+        { u == t } -> std::same_as<bool>;
+        { u != t } -> std::same_as<bool>;
+};
 
+}
 }
 }

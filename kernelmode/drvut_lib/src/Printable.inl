@@ -4,6 +4,17 @@
 
 namespace drvut {
 
+namespace detail {
+template <typename T>
+String printableOrUnknown(const T& obj) {
+    if constexpr (Printable<T>) {
+        return obj.toString();
+    } else {
+        return String("unknown");
+    }
+}
+}
+
 template <internal::std::integral T>
 I<T>::I(T num) : m_num(num) {
     // left blank itnentionally
@@ -36,6 +47,27 @@ String I<T>::toString() const {
     }
 
     return currNumPrintable;
+}
+
+template <typename T, typename U>
+    requires(internal::std::equality_comparable<T, U>)
+AreEqual<T, U>::AreEqual(T left, U right) : m_left(left), m_right(right) {
+    // left blank intentionally
+}
+
+template <typename T, typename U>
+          requires(internal::std::equality_comparable<T, U>)
+AreEqual<T, U>::operator bool() const {
+    return m_left == m_right;
+}
+
+template <typename T, typename U>
+    requires(internal::std::equality_comparable<T, U>)
+String AreEqual<T, U>::toString() const {
+    String result = detail::printableOrUnknown(m_left);
+    result = internal::StringUtils::concat(result, " == ");
+    result = internal::StringUtils::concat(result, detail::printableOrUnknown(m_left));
+    return result;
 }
 
 }
