@@ -7,9 +7,9 @@ namespace internal {
 
 class String final {
 public:
-    String();
+    String(size_t len);
     template <size_t N>
-    String(char data[N]);
+    String(char const(&data)[N]);
 
     ~String();
 
@@ -20,7 +20,7 @@ public:
 
     char* data();
     const char* data() const;
-    size_t size();
+    size_t size() const;
 
 private:
     void destroy();
@@ -29,7 +29,14 @@ private:
     size_t m_len;
 };
 
+class StringUtils final {
+public:
+    StringUtils() = delete;
+
+    static String concat(const String& str1, const String& str2);
+};
+
 }
 }
 
-#include "String.inl"
+#include "StringUtils.inl"

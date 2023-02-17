@@ -57,7 +57,7 @@
     <ClInclude Include="FunctionUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="String.h">
+    <ClInclude Include="StringUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,7 +77,7 @@
     <None Include="Memory.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="String.inl">
+    <None Include="StringUtils.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
@@ -88,7 +88,7 @@
     <ClCompile Include="IoctlHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="String.cpp">
+    <ClCompile Include="StringUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

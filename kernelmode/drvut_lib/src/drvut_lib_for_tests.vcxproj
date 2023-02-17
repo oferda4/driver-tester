@@ -29,7 +29,7 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="String.h" />
+    <ClInclude Include="StringUtils.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Traits.h" />
     <ClInclude Include="Tuple.h" />
@@ -40,12 +40,12 @@
     <None Include="List.inl" />
     <None Include="Memory.inl" />
     <None Include="Resource.inl" />
-    <None Include="String.inl" />
+    <None Include="StringUtils.inl" />
     <None Include="Test.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IoctlHandler.cpp" />
-    <ClCompile Include="String.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
