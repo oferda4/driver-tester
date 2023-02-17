@@ -13,7 +13,8 @@ RegularTest::RegularTest() : RegularTest([]() {}) {
 }
 
 Ioctl::TestResult RegularTest::run() {
-    return { (*m_testFunc)() };
+    (*m_testFunc)();
+    return { .passed = true };
 }
 
 TestsManager& TestsManager::instance() {

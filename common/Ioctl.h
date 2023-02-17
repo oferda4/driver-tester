@@ -6,7 +6,8 @@ class Ioctl {
 public:
     Ioctl() = delete;
 
-    static constexpr unsigned int MAX_NAME_SIZE = 20;
+    static constexpr unsigned int MAX_NAME_SIZE = 128;
+    static constexpr unsigned int MAX_MESSAGE_SIZE = 512;
 
 #pragma pack(push)
 #pragma pack(1)
@@ -16,7 +17,8 @@ public:
     };
 
     struct TestResult {
-        long status;
+        bool passed;
+        char msg[MAX_MESSAGE_SIZE];
     };
 
     struct GetNumberOfTestsInput {
@@ -43,7 +45,7 @@ public:
     };
 
     struct RunTestOutput {
-        NTSTATUS result;
+        TestResult result;
     };
 #pragma pack(pop)
 

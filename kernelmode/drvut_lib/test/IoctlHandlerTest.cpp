@@ -130,19 +130,16 @@ TEST(IoctlHandlerTest, ListTests_BadOutput) {
 TEST(IoctlHandlerTest, RunTest_Sanity) {
     TestsManager::destroy();
     auto& manager = TestsManager::instance();
-    const NTSTATUS arbitraryResultStatus = 1461;
-
+    
     uint32_t expectNotCalledTestCallCount = 0;
     std::unique_ptr<drvut::internal::Test> expectNotCalledTest(
-        new RegularTest([&expectNotCalledTestCallCount, &arbitraryResultStatus]() {
+        new RegularTest([&expectNotCalledTestCallCount]() {
             expectNotCalledTestCallCount++;
-            // return arbitraryResultStatus;
         }));
     uint32_t expectCalledTestCallCount = 0;
     std::unique_ptr<drvut::internal::Test> expectCalledTest(
-        new RegularTest([&expectCalledTestCallCount, &arbitraryResultStatus]() {
+        new RegularTest([&expectCalledTestCallCount]() {
             expectCalledTestCallCount++;
-            // return arbitraryResultStatus;
         }));
 
     manager.add(std::move(expectNotCalledTest), "ExpectNotCalled");
@@ -157,7 +154,6 @@ TEST(IoctlHandlerTest, RunTest_Sanity) {
                                    BufferView(&output, sizeof(output))),
               STATUS_SUCCESS);
 
-    ASSERT_EQ(output.result, arbitraryResultStatus);
     ASSERT_EQ(expectNotCalledTestCallCount, 0);
     ASSERT_EQ(expectCalledTestCallCount, 1);
 }

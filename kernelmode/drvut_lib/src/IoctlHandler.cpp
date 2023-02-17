@@ -91,7 +91,7 @@ NTSTATUS handleRunTest(TestsManager& manager, BufferView input, BufferView outpu
     auto* runTestInput = static_cast<Ioctl::RunTestInput*>(input.data);
     auto* runTestsOutput = static_cast<Ioctl::RunTestOutput*>(output.data);
 
-    runTestsOutput->result = manager.run(runTestInput->testId).status;
+    runTestsOutput->result = manager.run(runTestInput->testId);
 
     return STATUS_SUCCESS;
 }
