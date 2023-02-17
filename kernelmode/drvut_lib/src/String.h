@@ -18,6 +18,10 @@ public:
 
     NOCOPY(String);
 
+    char* data();
+    const char* data() const;
+    size_t size();
+
 private:
     void destroy();
 

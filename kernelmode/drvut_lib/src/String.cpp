@@ -37,5 +37,17 @@ void String::destroy() {
     }
 }
 
+char* String::data() {
+    return m_data;
+}
+
+const char* String::data() const {
+    return m_data;
+}
+
+size_t String::size() {
+    return m_len;
+}
+
 }
 }
