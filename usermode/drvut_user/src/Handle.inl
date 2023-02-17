@@ -17,9 +17,7 @@ HandleGuard<HandleTraitsType>::HandleGuard(HandleTraitsType::Type handle)
 
 template <HandleTraits HandleTraitsType>
 HandleGuard<HandleTraitsType>::~HandleGuard() {
-    if (m_isValid) {
-        m_traits.close(m_handle);
-    }
+    destroyIfValid();
 }
 
 template <HandleTraits HandleTraitsType>
@@ -35,6 +33,8 @@ HandleGuard<HandleTraitsType>::operator=(HandleGuard&& other) noexcept {
     if (this == &other) {
         return *this;
     }
+
+    destroyIfValid();
 
     m_traits = std::move(other.m_traits);
     m_handle = other.m_handle;
@@ -59,5 +59,12 @@ template <HandleTraits HandleTraitsType>
 void HandleGuard<HandleTraitsType>::validate() const {
     if (!m_isValid) {
         throw InvalidHandle();
+    }
+}
+
+template <HandleTraits HandleTraitsType>
+void HandleGuard<HandleTraitsType>::destroyIfValid() {
+    if (m_isValid) {
+        m_traits.close(m_handle);
     }
 }

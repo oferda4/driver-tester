@@ -29,6 +29,7 @@ public:
 
 private:
     void validate() const;
+    void destroyIfValid();
 
     HandleTraitsType m_traits;
     typename HandleTraitsType::Type m_handle;
