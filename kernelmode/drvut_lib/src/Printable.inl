@@ -10,6 +10,11 @@ I<T>::I(T num) : m_num(num) {
 }
 
 template <internal::std::integral T>
+I<T>::operator T() const {
+    return m_num;
+}
+
+template <internal::std::integral T>
 String I<T>::toString() const {
     T num = m_num;
     String currNumPrintable = "";

@@ -16,6 +16,7 @@ class I final {
 public:
     I(T num);
 
+    operator T() const;
     String toString() const;
 
 private:
@@ -26,6 +27,7 @@ class B final {
 public:
     B(bool boolean);
 
+    operator bool() const;
     String toString() const;
 
 private:
