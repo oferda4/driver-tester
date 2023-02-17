@@ -15,7 +15,7 @@ TEST(RegulatTestTest, Sanity) {
 
     const auto result = RegularTest([&callCount, &arbitraryResultStatus]() {
                             callCount++;
-                            return arbitraryResultStatus;
+                            // return arbitraryResultStatus;
                         }).run();
     ASSERT_EQ(result.status, arbitraryResultStatus);
     ASSERT_EQ(callCount, 1);
@@ -28,7 +28,7 @@ TEST(RegulatTestTest, AssignOperator) {
     RegularTest test;
     test = [&callCount, &arbitraryResultStatus]() {
         callCount++;
-        return arbitraryResultStatus;
+        // return arbitraryResultStatus;
     };
     const auto result = test.run();
 
@@ -38,7 +38,8 @@ TEST(RegulatTestTest, AssignOperator) {
 
 TEST(TestsManagerTest, AddRetainsUniqueness) {
     TestsManager::destroy();
-    auto arbitraryTestMethod = []() -> NTSTATUS { return 0; };
+    // auto arbitraryTestMethod = []() -> NTSTATUS { return 0; };
+    auto arbitraryTestMethod = []() {};
     const uint32_t numberOfTestsToAdd = 1024;
 
     for (uint32_t i = 0; i < numberOfTestsToAdd; i++) {
@@ -58,7 +59,8 @@ TEST(TestsManagerTest, AddRetainsUniqueness) {
 TEST(TestsManagerTest, AddDifferentNames) {
     TestsManager::destroy();
     auto& manager = TestsManager::instance();
-    auto arbitraryTestMethod = []() -> NTSTATUS { return 0; };
+    // auto arbitraryTestMethod = []() -> NTSTATUS { return 0; };
+    auto arbitraryTestMethod = []() {};
 
     ASSERT_NO_THROW(manager.add(
         std::unique_ptr<::drvut::internal::Test>(new RegularTest(arbitraryTestMethod)), "test0"));
@@ -80,13 +82,13 @@ TEST(TestsManagerTest, RunCorrectTest) {
 
     uint32_t shouldNotRunCallCount = 0;
     uint32_t shouldRunCallCount = 0;
-    auto shouldNotRunMethod = [&shouldNotRunCallCount]() -> NTSTATUS {
+    auto shouldNotRunMethod = [&shouldNotRunCallCount]() {
         shouldNotRunCallCount++;
-        return arbitraryResultStatus;
+        // return arbitraryResultStatus;
     };
-    auto shouldRunMethod = [&shouldRunCallCount]() -> NTSTATUS {
+    auto shouldRunMethod = [&shouldRunCallCount]() {
         shouldRunCallCount++;
-        return arbitraryResultStatus;
+        // return arbitraryResultStatus;
     };
 
     ASSERT_NO_THROW(
@@ -123,7 +125,7 @@ TEST(TestSyntax, CreateRegularTest) {
 
     test(arbitraryName) = [&didRun, &arbitraryResult]() {
         didRun = true;
-        return arbitraryResult;
+        // return arbitraryResult;
     };
 
     auto tests = manager.list();

@@ -136,13 +136,13 @@ TEST(IoctlHandlerTest, RunTest_Sanity) {
     std::unique_ptr<drvut::internal::Test> expectNotCalledTest(
         new RegularTest([&expectNotCalledTestCallCount, &arbitraryResultStatus]() {
             expectNotCalledTestCallCount++;
-            return arbitraryResultStatus;
+            // return arbitraryResultStatus;
         }));
     uint32_t expectCalledTestCallCount = 0;
     std::unique_ptr<drvut::internal::Test> expectCalledTest(
         new RegularTest([&expectCalledTestCallCount, &arbitraryResultStatus]() {
             expectCalledTestCallCount++;
-            return arbitraryResultStatus;
+            // return arbitraryResultStatus;
         }));
 
     manager.add(std::move(expectNotCalledTest), "ExpectNotCalled");
