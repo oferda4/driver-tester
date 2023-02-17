@@ -13,7 +13,11 @@ RegularTest::RegularTest() : RegularTest([]() {}) {
 }
 
 Ioctl::TestResult RegularTest::run() {
-    (*m_testFunc)();
+    __try {
+        (*m_testFunc)();
+    } __except (EXCEPTION_EXECUTE_HANDLER) {
+        return { .passed = false };
+    }
     return { .passed = true };
 }
 
