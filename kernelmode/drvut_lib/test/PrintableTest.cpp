@@ -10,4 +10,9 @@ TEST(PrintableTest, Integral) {
     EXPECT_EQ(std::string(I(0).toString().data()), "0");
 }
 
+TEST(PrintableTest, Boolean) {
+    EXPECT_EQ(std::string(B(true).toString().data()), "true");
+    EXPECT_EQ(std::string(B(false).toString().data()), "false");
+}
+
 }

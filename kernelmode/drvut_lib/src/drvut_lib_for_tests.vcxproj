@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IoctlHandler.cpp" />
+    <ClCompile Include="Printable.cpp" />
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>

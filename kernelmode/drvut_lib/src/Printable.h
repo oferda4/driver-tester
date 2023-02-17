@@ -22,6 +22,16 @@ private:
     T m_num;
 };
 
+class B final {
+public:
+    B(bool boolean);
+
+    String toString() const;
+
+private:
+    bool m_boolean;
+};
+
 }
 
 #include "Printable.inl"
