@@ -3,7 +3,6 @@
 #include "Defs.h"
 
 namespace drvut {
-namespace internal {
 
 class String final {
 public:
@@ -28,6 +27,8 @@ private:
     char* m_data;
     size_t m_len;
 };
+
+namespace internal {
 
 class StringUtils final {
 public:

@@ -28,6 +28,7 @@
     <ClInclude Include="IoctlHandler.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Memory.h" />
+    <ClInclude Include="Printable.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StringUtils.h" />
     <ClInclude Include="Test.h" />
@@ -39,6 +40,7 @@
     <None Include="Array.inl" />
     <None Include="List.inl" />
     <None Include="Memory.inl" />
+    <None Include="Printable.inl" />
     <None Include="Resource.inl" />
     <None Include="StringUtils.inl" />
     <None Include="Test.inl" />

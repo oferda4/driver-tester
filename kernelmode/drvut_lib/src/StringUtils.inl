@@ -3,7 +3,6 @@
 #include "StringUtils.h"
 
 namespace drvut {
-namespace internal {
 
 template <size_t N>
 String::String(char const (&data)[N]) : String(N - 1) {
@@ -11,5 +10,4 @@ String::String(char const (&data)[N]) : String(N - 1) {
     memcpy(m_data, data, N);
 }
 
-}
 }

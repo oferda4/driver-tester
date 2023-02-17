@@ -12,6 +12,7 @@ extern "C" EXCEPTION_DISPOSITION __CxxFrameHandler4(PVOID pExcept,
                                                     PVOID pContext,
                                                     PVOID pDispContext);
 
+using uint8_t = unsigned char;
 using uint32_t = unsigned int;
 using uint64_t = unsigned long long;
 

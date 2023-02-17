@@ -2,7 +2,6 @@
 
 
 namespace drvut {
-namespace internal {
 
 String::String(size_t len) : m_data(new char[len + 1]), m_len(len) {
     // left blank intentioanlly
@@ -13,8 +12,8 @@ String::~String() {
 }
 
 String::String(String&& other) noexcept
-    : m_data(std::exchange(other.m_data, nullptr)), 
-      m_len(std::exchange(other.m_len, 0)) {
+    : m_data(internal::std::exchange(other.m_data, nullptr)), 
+      m_len(internal::std::exchange(other.m_len, 0)) {
     // left blank intentionally
 }
 
@@ -25,8 +24,8 @@ String& String::operator=(String&& other) noexcept {
 
     destroy();
 
-    m_data = std::exchange(other.m_data, nullptr);
-    m_len = std::exchange(other.m_len, 0);
+    m_data = internal::std::exchange(other.m_data, nullptr);
+    m_len = internal::std::exchange(other.m_len, 0);
 
     return *this;
 }
@@ -48,6 +47,8 @@ const char* String::data() const {
 size_t String::size() const {
     return m_len;
 }
+
+namespace internal {
 
 String StringUtils::concat(const String& str1, const String& str2) {
     String newStr(str1.size() + str2.size());

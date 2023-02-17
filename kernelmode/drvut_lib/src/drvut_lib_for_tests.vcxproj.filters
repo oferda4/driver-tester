@@ -60,6 +60,9 @@
     <ClInclude Include="StringUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Printable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Array.inl">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="StringUtils.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Printable.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

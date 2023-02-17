@@ -13,6 +13,14 @@ concept SameHelper = std::is_same_v<T, U>;
 
 template <class T, class U>
 concept same_as = detail::SameHelper<T, U> && detail::SameHelper<U, T>;
+
+template <class T>
+concept integral = 
+    requires(T t, T* p, void (*f)(T)) { // T* parameter excludes reference types
+    f(0);                   // Exclude enumeration types
+    p + t;                  // Exclude everything not yet excluded but integral types
+};
+
 }
 
 }

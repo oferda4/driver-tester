@@ -40,6 +40,7 @@
     <ClCompile Include="ListTest.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MemoryTest.cpp" />
+    <ClCompile Include="PrintableTest.cpp" />
     <ClCompile Include="ResourceTest.cpp" />
     <ClCompile Include="StringUtilsTest.cpp" />
     <ClCompile Include="TestTest.cpp" />
