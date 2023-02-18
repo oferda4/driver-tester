@@ -30,4 +30,11 @@ TEST(PrintableTest, AreEqual_ToString) {
     EXPECT_EQ(std::string(AreEqual(0, I(0)).toString().data()), "unknown == 0");
 }
 
+TEST(PrintableTest, AreEqual_Conversion) {
+    EXPECT_TRUE(AreEqual(0, 0));
+    EXPECT_TRUE(AreEqual(I(0), 0));
+    EXPECT_FALSE(AreEqual(1, 0));
+    EXPECT_FALSE(AreEqual(I(0), I(1)));
+}
+
 }
