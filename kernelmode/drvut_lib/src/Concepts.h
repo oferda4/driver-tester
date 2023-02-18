@@ -30,6 +30,30 @@ concept equality_comparable =
         { u != t } -> std::same_as<bool>;
 };
 
+template <class T, class U>
+concept greater_comparable =
+    requires(const T& t, const U& u) {
+        { t > u } -> std::same_as<bool>;
+};
+
+template <class T, class U>
+concept greater_or_equal_comparable =
+    requires(const T& t, const U& u) {
+        { t >= u } -> std::same_as<bool>;
+};
+
+template <class T, class U>
+concept lower_comparable =
+    requires(const T& t, const U& u) {
+        { t < u } -> std::same_as<bool>;
+};
+
+template <class T, class U>
+concept lower_or_equal_comparable =
+    requires(const T& t, const U& u) {
+        { t <= u } -> std::same_as<bool>;
+};
+
 }
 }
 }

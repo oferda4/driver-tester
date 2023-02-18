@@ -82,6 +82,78 @@ String AreNotEqual<T, U>::toString() const {
 }
 
 template <typename T, typename U>
+    requires(internal::std::greater_comparable<T, U>)
+Greater<T, U>::Greater(T left, U right) : m_left(left), m_right(right) {
+    // left blank intentionally
+}
+
+template <typename T, typename U>
+    requires(internal::std::greater_comparable<T, U>)
+Greater<T, U>::operator bool() const {
+    return m_left > m_right;
+}
+
+template <typename T, typename U>
+    requires(internal::std::greater_comparable<T, U>)
+String Greater<T, U>::toString() const {
+    return detail::printWithOperator(m_left, m_right, ">");
+}
+
+template <typename T, typename U>
+    requires(internal::std::greater_or_equal_comparable<T, U>)
+GreaterOrEqual<T, U>::GreaterOrEqual(T left, U right) : m_left(left), m_right(right) {
+    // left blank intentionally
+}
+
+template <typename T, typename U>
+    requires(internal::std::greater_or_equal_comparable<T, U>)
+GreaterOrEqual<T, U>::operator bool() const {
+    return m_left >= m_right;
+}
+
+template <typename T, typename U>
+    requires(internal::std::greater_or_equal_comparable<T, U>)
+String GreaterOrEqual<T, U>::toString() const {
+    return detail::printWithOperator(m_left, m_right, ">=");
+}
+
+template <typename T, typename U>
+    requires(internal::std::lower_comparable<T, U>)
+Lower<T, U>::Lower(T left, U right) : m_left(left), m_right(right) {
+    // left blank intentionally
+}
+
+template <typename T, typename U>
+    requires(internal::std::lower_comparable<T, U>)
+Lower<T, U>::operator bool() const {
+    return m_left < m_right;
+}
+
+template <typename T, typename U>
+    requires(internal::std::lower_comparable<T, U>)
+String Lower<T, U>::toString() const {
+    return detail::printWithOperator(m_left, m_right, "<");
+}
+
+template <typename T, typename U>
+    requires(internal::std::lower_or_equal_comparable<T, U>)
+LowerOrEqual<T, U>::LowerOrEqual(T left, U right) : m_left(left), m_right(right) {
+    // left blank intentionally
+}
+
+template <typename T, typename U>
+    requires(internal::std::lower_or_equal_comparable<T, U>)
+LowerOrEqual<T, U>::operator bool() const {
+    return m_left <= m_right;
+}
+
+template <typename T, typename U>
+    requires(internal::std::lower_or_equal_comparable<T, U>)
+String LowerOrEqual<T, U>::toString() const {
+    return detail::printWithOperator(m_left, m_right, "<=");
+}
+
+template <typename T, typename U>
 String detail::printWithOperator(const T& left, const U& right, const String& op) {
     String result = detail::printableOrUnknown(left);
     result = internal::StringUtils::concat(result, " ");

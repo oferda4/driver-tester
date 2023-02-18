@@ -62,6 +62,62 @@ public:
     U m_right;
 };
 
+template <typename T, typename U>
+    requires(internal::std::greater_comparable<T, U>)
+class Greater final {
+public:
+    Greater(T left, U right);
+
+    operator bool() const;
+    String toString() const;
+
+public:
+    T m_left;
+    U m_right;
+};
+
+template <typename T, typename U>
+    requires(internal::std::greater_or_equal_comparable<T, U>)
+class GreaterOrEqual final {
+public:
+    GreaterOrEqual(T left, U right);
+
+    operator bool() const;
+    String toString() const;
+
+public:
+    T m_left;
+    U m_right;
+};
+
+template <typename T, typename U>
+    requires(internal::std::lower_comparable<T, U>)
+class Lower final {
+public:
+    Lower(T left, U right);
+
+    operator bool() const;
+    String toString() const;
+
+public:
+    T m_left;
+    U m_right;
+};
+
+template <typename T, typename U>
+    requires(internal::std::lower_or_equal_comparable<T, U>)
+class LowerOrEqual final {
+public:
+    LowerOrEqual(T left, U right);
+
+    operator bool() const;
+    String toString() const;
+
+public:
+    T m_left;
+    U m_right;
+};
+
 }
 
 #include "Printable.inl"
