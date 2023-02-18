@@ -66,7 +66,7 @@ template <typename T, typename U>
 String AreEqual<T, U>::toString() const {
     String result = detail::printableOrUnknown(m_left);
     result = internal::StringUtils::concat(result, " == ");
-    result = internal::StringUtils::concat(result, detail::printableOrUnknown(m_left));
+    result = internal::StringUtils::concat(result, detail::printableOrUnknown(m_right));
     return result;
 }
 

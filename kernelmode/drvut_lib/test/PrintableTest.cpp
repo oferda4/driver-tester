@@ -28,7 +28,6 @@ TEST(PrintableTest, AreEqual_ToString) {
     EXPECT_EQ(std::string(AreEqual(0, 0).toString().data()), "unknown == unknown");
     EXPECT_EQ(std::string(AreEqual(I(0), 0).toString().data()), "0 == unknown");
     EXPECT_EQ(std::string(AreEqual(0, I(0)).toString().data()), "unknown == 0");
-    EXPECT_EQ(std::string(AreEqual(0, 0).toString().data()), "0 == 0");
 }
 
 }
