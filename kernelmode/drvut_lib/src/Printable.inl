@@ -5,14 +5,10 @@
 namespace drvut {
 
 namespace detail {
+template <typename T, typename U>
+String printWithOperator(const T& left, const U& right, const String& op);
 template <typename T>
-String printableOrUnknown(const T& obj) {
-    if constexpr (Printable<T>) {
-        return obj.toString();
-    } else {
-        return String("unknown");
-    }
-}
+String printableOrUnknown(const T& obj);
 }
 
 template <internal::std::integral T>
@@ -64,10 +60,44 @@ AreEqual<T, U>::operator bool() const {
 template <typename T, typename U>
     requires(internal::std::equality_comparable<T, U>)
 String AreEqual<T, U>::toString() const {
-    String result = detail::printableOrUnknown(m_left);
-    result = internal::StringUtils::concat(result, " == ");
-    result = internal::StringUtils::concat(result, detail::printableOrUnknown(m_right));
+    return detail::printWithOperator(m_left, m_right, "==");
+}
+
+template <typename T, typename U>
+    requires(internal::std::equality_comparable<T, U>)
+AreNotEqual<T, U>::AreNotEqual(T left, U right) : m_left(left), m_right(right) {
+    // left blank intentionally
+}
+
+template <typename T, typename U>
+    requires(internal::std::equality_comparable<T, U>)
+AreNotEqual<T, U>::operator bool() const {
+    return m_left != m_right;
+}
+
+template <typename T, typename U>
+    requires(internal::std::equality_comparable<T, U>)
+String AreNotEqual<T, U>::toString() const {
+    return detail::printWithOperator(m_left, m_right, "!=");
+}
+
+template <typename T, typename U>
+String detail::printWithOperator(const T& left, const U& right, const String& op) {
+    String result = detail::printableOrUnknown(left);
+    result = internal::StringUtils::concat(result, " ");
+    result = internal::StringUtils::concat(result, op);
+    result = internal::StringUtils::concat(result, " ");
+    result = internal::StringUtils::concat(result, detail::printableOrUnknown(right));
     return result;
+}
+
+template <typename T>
+String detail::printableOrUnknown(const T& obj) {
+    if constexpr (Printable<T>) {
+        return obj.toString();
+    } else {
+        return String("unknown");
+    }
 }
 
 }

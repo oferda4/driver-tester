@@ -48,6 +48,20 @@ public:
     U m_right;
 };
 
+template <typename T, typename U>
+    requires(internal::std::equality_comparable<T, U>)
+class AreNotEqual final {
+public:
+    AreNotEqual(T left, U right);
+
+    operator bool() const;
+    String toString() const;
+
+public:
+    T m_left;
+    U m_right;
+};
+
 }
 
 #include "Printable.inl"

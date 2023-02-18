@@ -37,4 +37,17 @@ TEST(PrintableTest, AreEqual_Conversion) {
     EXPECT_FALSE(AreEqual(I(0), I(1)));
 }
 
+TEST(PrintableTest, AreNotEqual_ToString) {
+    EXPECT_EQ(std::string(AreNotEqual(1, 0).toString().data()), "unknown != unknown");
+    EXPECT_EQ(std::string(AreNotEqual(I(1), 0).toString().data()), "1 != unknown");
+    EXPECT_EQ(std::string(AreNotEqual(1, I(0)).toString().data()), "unknown != 0");
+}
+
+TEST(PrintableTest, AreNotEqual_Conversion) {
+    EXPECT_TRUE(AreNotEqual(1, 0));
+    EXPECT_TRUE(AreNotEqual(I(1), 0));
+    EXPECT_FALSE(AreNotEqual(1, 1));
+    EXPECT_FALSE(AreNotEqual(I(1), I(1)));
+}
+
 }
