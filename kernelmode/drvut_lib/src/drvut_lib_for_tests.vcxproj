@@ -44,6 +44,7 @@
     <None Include="Resource.inl" />
     <None Include="StringUtils.inl" />
     <None Include="Test.inl" />
+    <None Include="Tuple.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IoctlHandler.cpp" />

@@ -113,5 +113,8 @@
     <None Include="Printable.inl">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="Tuple.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

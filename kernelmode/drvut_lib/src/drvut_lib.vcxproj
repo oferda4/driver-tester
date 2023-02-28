@@ -116,6 +116,7 @@
     <None Include="Resource.inl" />
     <None Include="StringUtils.inl" />
     <None Include="Test.inl" />
+    <None Include="Tuple.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
