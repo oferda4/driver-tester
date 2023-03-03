@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Defs.h"
+
+#include "Traits.h"
 #include "Utility.h"
 
 namespace drvut {
@@ -11,6 +14,12 @@ class Tuple {};
 template <typename T, typename... Ts>
 class Tuple<T, Ts...> : public Tuple<Ts...> {
 public:
+    template <typename = std::enable_if_t<
+                            std::conjunction_v<
+                                std::is_default_constructible<Tuple<Ts...>>, 
+                                std::is_default_constructible<T>
+            >>>
+    Tuple();
     Tuple(T t, Ts... ts);
 
     T tail;

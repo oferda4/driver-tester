@@ -151,10 +151,15 @@ template <class>
 auto test_returnable(...) -> std::false_type;
 
 template <class From, class To>
-auto test_implicitly_convertible(int) -> decltype(void(::std::declval<void (&)(To)>()(::std::declval<From>())), std::true_type{});
+auto test_implicitly_convertible(int) -> decltype(void(declval<void (&)(To)>()(declval<From>())), std::true_type{});
 template <class, class>
 auto test_implicitly_convertible(...) -> std::false_type;
 }
+
+template <class T, class = void>
+struct is_default_constructible : std::false_type {};
+template <class T>
+struct is_default_constructible<T, std::void_t<decltype(T())>> : std::true_type {};
 
 }
 }
