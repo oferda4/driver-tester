@@ -124,6 +124,9 @@ TEST(TestSyntax, CreateRegularTest) {
 }
 
 TEST(TestSyntax, TestWithFixture) {
+    MockFixture::setupCallCount = 0;
+    MockFixture::teardownCallCount = 0;
+
     internal::TestsManager::destroy();
     auto& manager = internal::TestsManager::instance();
 
@@ -131,10 +134,12 @@ TEST(TestSyntax, TestWithFixture) {
     bool wasCalled = false;
     test(arbitraryName) = [&wasCalled](MockFixture& fixture1, MockFixture& fixture2) { 
         wasCalled = true;
+        ASSERT_EQ(2, MockFixture::setupCallCount);
     };
 
     auto tests = manager.list();
     ASSERT_TRUE(manager.run(tests.at(0).id).passed);
+    ASSERT_EQ(2, MockFixture::teardownCallCount);
 }
 
 }

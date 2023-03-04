@@ -51,7 +51,7 @@
     <ClCompile Include="IoctlHandlerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TupleTest.cpp">
+    <ClCompile Include="TupleUtilsTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FunctionUtilsTest.cpp">

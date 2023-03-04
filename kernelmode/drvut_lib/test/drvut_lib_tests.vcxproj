@@ -44,7 +44,7 @@
     <ClCompile Include="ResourceTest.cpp" />
     <ClCompile Include="StringUtilsTest.cpp" />
     <ClCompile Include="TestTest.cpp" />
-    <ClCompile Include="TupleTest.cpp" />
+    <ClCompile Include="TupleUtilsTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

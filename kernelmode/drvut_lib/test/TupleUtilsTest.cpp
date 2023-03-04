@@ -40,5 +40,17 @@ TEST(TupleUtilsTest, Apply) {
     EXPECT_EQ(1, callCount);
 }
 
+TEST(TupleUtilsTest, ForEach) {
+    Tuple<uint32_t, uint32_t, uint16_t> tuple(0, 1, 2);
+    uint16_t index = 0;
+    auto func = [&index](auto& num) {
+        EXPECT_EQ(index, num);
+        index++;
+    };
+
+    TupleUtils::forEach(tuple, func);
+    EXPECT_EQ(index, 3);
+}
+
 }
 }

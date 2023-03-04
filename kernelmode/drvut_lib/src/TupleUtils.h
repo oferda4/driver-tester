@@ -14,6 +14,14 @@ public:
     template <typename T, typename... Ts>
     static size_t sizeOf(Tuple<T, Ts...>& t);
 
+    template <size_t index = 0, typename F, typename... Ts>
+    static void forEach(Tuple<Ts...>& t, F func) {
+        if constexpr (index < sizeof...(Ts)) {
+            func(get<index>(t));
+            forEach<index + 1, F, Ts...>(t, func);
+        }
+    }
+
 private:
     template <typename F, typename TupleType, size_t... INDEXES>
     static void applyImpl(F&& f, TupleType t, std::index_sequence<INDEXES...>);

@@ -37,7 +37,12 @@ NTSTATUS TestFuncImpl<T>::operator()() {
         m_func();
     } else {
         typename Traits::ArgumentsTypes::NonReferenceTuple args;
+        // TODO: handle failure in setup
+        TupleUtils::forEach(args, [](auto& fixture) { fixture.setup(); });
+
         TupleUtils::apply(m_func, args);
+
+        TupleUtils::forEach(args, [](auto& fixture) { fixture.teardown(); });
     }
     return STATUS_SUCCESS;
 }
