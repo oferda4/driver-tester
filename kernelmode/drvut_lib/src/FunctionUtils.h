@@ -28,7 +28,7 @@ struct FunctionTraits<R(C::*)(Args...) const> {
 
 template <typename Lambda>
 struct LambdaTraits : FunctionTraits<decltype(&Lambda::operator())> {
-    // Left blank intentionally
+    // left blank intentionally
 };
 
 }

@@ -31,24 +31,6 @@ public:
     static constexpr size_t size = sizeof...(Ts) + 1;
 };
 
-class TupleUtils final {
-public:
-    TupleUtils() = delete;
-
-    template <size_t index, typename T, typename... Ts>
-    static auto& get(Tuple<T, Ts...>& t);
-    template <typename T, typename... Ts>
-    static size_t sizeOf(Tuple<T, Ts...>& t);
-
-private:
-    template <typename F, typename TupleType, size_t... INDEXES>
-    static decltype(auto) applyImpl(F&& f, TupleType t, std::index_sequence<INDEXES...>);
-
-public:
-    template <typename F, typename TupleType>
-    static decltype(auto) apply(F&& f, TupleType t);
-};
-
 }
 }
 

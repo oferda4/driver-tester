@@ -34,6 +34,7 @@
     <ClInclude Include="Test.h" />
     <ClInclude Include="Traits.h" />
     <ClInclude Include="Tuple.h" />
+    <ClInclude Include="TupleUtils.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +46,7 @@
     <None Include="StringUtils.inl" />
     <None Include="Test.inl" />
     <None Include="Tuple.inl" />
+    <None Include="TupleUtils.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IoctlHandler.cpp" />

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Test.h"
+#include "TupleUtils.h"
 
 namespace drvut {
 namespace internal {
@@ -35,7 +36,7 @@ NTSTATUS TestFuncImpl<T>::operator()() {
     if constexpr (Traits::ArgumentsTypes::size == 0) {
         m_func();
     } else {
-        typename Traits::ArgumentsTypes::NonReferenceTuple args;
+        typename Traits::ArgumentsTypes args;
         TupleUtils::apply(m_func, args);
     }
     return STATUS_SUCCESS;

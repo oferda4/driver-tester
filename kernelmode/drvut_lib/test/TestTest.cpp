@@ -119,8 +119,22 @@ TEST(TestSyntax, CreateRegularTest) {
     auto tests = manager.list();
     ASSERT_EQ(tests.size(), 1);
     ASSERT_EQ(std::string(tests.at(0).name), std::string(arbitraryName));
-    ASSERT_TRUE(manager.run(tests.at(0).id).passed, arbitraryResult);
+    ASSERT_TRUE(manager.run(tests.at(0).id).passed);
     ASSERT_TRUE(didRun);
+}
+
+TEST(TestSyntax, TestWithFixture) {
+    internal::TestsManager::destroy();
+    auto& manager = internal::TestsManager::instance();
+
+    const char arbitraryName[] = "TestWithFixture";
+    bool wasCalled = false;
+    test(arbitraryName) = [&wasCalled](MockFixture fixture) { 
+        wasCalled = true;
+    };
+
+    auto tests = manager.list();
+    ASSERT_TRUE(manager.run(tests.at(0).id).passed);
 }
 
 }
