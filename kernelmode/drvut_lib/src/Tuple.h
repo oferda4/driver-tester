@@ -25,7 +25,7 @@ public:
     Tuple();
     Tuple(T t, Ts... ts);
 
-    using NonReferenceTuple = Tuple<std::remove_reference<T>, std::remove_reference<Ts>...>;
+    using NonReferenceTuple = Tuple<std::remove_reference_t<T>, std::remove_reference_t<Ts>...>;
 
     T tail;
     static constexpr size_t size = sizeof...(Ts) + 1;

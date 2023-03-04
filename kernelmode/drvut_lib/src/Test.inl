@@ -36,7 +36,7 @@ NTSTATUS TestFuncImpl<T>::operator()() {
     if constexpr (Traits::ArgumentsTypes::size == 0) {
         m_func();
     } else {
-        typename Traits::ArgumentsTypes args;
+        typename Traits::ArgumentsTypes::NonReferenceTuple args;
         TupleUtils::apply(m_func, args);
     }
     return STATUS_SUCCESS;
