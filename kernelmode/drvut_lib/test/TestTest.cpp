@@ -129,7 +129,7 @@ TEST(TestSyntax, TestWithFixture) {
 
     const char arbitraryName[] = "TestWithFixture";
     bool wasCalled = false;
-    test(arbitraryName) = [&wasCalled](MockFixture& fixture) { 
+    test(arbitraryName) = [&wasCalled](MockFixture& fixture1, MockFixture& fixture2) { 
         wasCalled = true;
     };
 
