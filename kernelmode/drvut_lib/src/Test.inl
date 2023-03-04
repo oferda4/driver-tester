@@ -32,7 +32,12 @@ TestFuncImpl<T>::TestFuncImpl(T func) : m_func(std::move(func)) {
 
 template <typename T>
 NTSTATUS TestFuncImpl<T>::operator()() {
-    m_func();
+    if constexpr (Traits::ArgumentsTypes::size == 0) {
+        m_func();
+    } else {
+        typename Traits::ArgumentsTypes::NonReferenceTuple args;
+        TupleUtils::apply(m_func, args);
+    }
     return STATUS_SUCCESS;
 }
 

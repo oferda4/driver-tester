@@ -9,7 +9,10 @@ namespace drvut {
 namespace internal {
 
 template <typename... Ts>
-class Tuple {};
+class Tuple {
+public:
+    static constexpr size_t size = 0;
+};
 
 template <typename T, typename... Ts>
 class Tuple<T, Ts...> : public Tuple<Ts...> {
@@ -21,6 +24,8 @@ public:
             >>>
     Tuple();
     Tuple(T t, Ts... ts);
+
+    using NonReferenceTuple = Tuple<std::remove_reference<T>, std::remove_reference<Ts>...>;
 
     T tail;
     static constexpr size_t size = sizeof...(Ts) + 1;
