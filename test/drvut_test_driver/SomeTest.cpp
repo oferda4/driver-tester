@@ -19,20 +19,7 @@ void testHelper() {
     b++;
 }
 
-void dtorTest() {
-    __try {
-        testHelper();
-    } __except (EXCEPTION_EXECUTE_HANDLER) {
-        __debugbreak();
-    }
-}
-
 EXTERN_C void initializeTests() {
-    drvut::test("Failing Test") = []() { return STATUS_INVALID_PARAMETER; };
-    drvut::test("Successful Test") = []() { return STATUS_SUCCESS; };
-    
-    drvut::test("Dtors called") = []() { 
-        dtorTest();
-        return STATUS_SUCCESS; 
-    };
+    drvut::test("Failing Test") = []() {};
+    drvut::test("Successful Test") = []() {};
 }
