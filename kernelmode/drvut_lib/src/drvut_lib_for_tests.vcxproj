@@ -23,6 +23,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
+    <ClInclude Include="Error.h" />
     <ClInclude Include="Fixture.h" />
     <ClInclude Include="FunctionUtils.h" />
     <ClInclude Include="IoctlHandler.h" />
@@ -49,6 +50,7 @@
     <None Include="TupleUtils.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Error.cpp" />
     <ClCompile Include="IoctlHandler.cpp" />
     <ClCompile Include="Printable.cpp" />
     <ClCompile Include="StringUtils.cpp" />
