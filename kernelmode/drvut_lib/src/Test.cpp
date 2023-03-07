@@ -9,8 +9,6 @@ namespace {
 Ioctl::TestResult getErrorResult();
 }
 
-static constexpr auto POOL_TAG = 'tset';
-
 TestsManager* TestsManager::sm_manager = nullptr;
 
 RegularTest::RegularTest() : RegularTest([]() {}) {
