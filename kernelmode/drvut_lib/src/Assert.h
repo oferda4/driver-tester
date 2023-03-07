@@ -6,3 +6,5 @@ template <typename T>
 void assert(const T& cond);
 
 }
+
+#include "Assert.inl"

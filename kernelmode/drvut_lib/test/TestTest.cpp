@@ -130,9 +130,8 @@ TEST(TestSyntax, TestWithFixture) {
     internal::TestsManager::destroy();
     auto& manager = internal::TestsManager::instance();
 
-    const char arbitraryName[] = "TestWithFixture";
     bool wasCalled = false;
-    test(arbitraryName) = [&wasCalled](MockFixture& fixture1, MockFixture& fixture2) { 
+    test("TestWithFixtures") = [&wasCalled](MockFixture& fixture1, MockFixture& fixture2) { 
         wasCalled = true;
         ASSERT_EQ(2, MockFixture::setupCallCount);
     };

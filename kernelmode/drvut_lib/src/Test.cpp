@@ -15,15 +15,25 @@ RegularTest::RegularTest() : RegularTest([]() {}) {
 
 Ioctl::TestResult RegularTest::run() {
     Ioctl::TestResult result = { .passed = true, .msg = {} };
+    char msg[sizeof(Ioctl::TestResult::msg)] = {};
     ErrorMessage::reset();
 
     __try {
         (*m_testFunc)();
     } __except (EXCEPTION_EXECUTE_HANDLER) {
         result.passed = false;
-        const auto& errorMsg = ErrorMessage::view();
-        memcpy(result.msg, errorMsg.data(), min(sizeof(result.msg), errorMsg.size()));
+        auto& errorMsg = ErrorMessage::view();
+        const auto actualSize = min(sizeof(Ioctl::TestResult::msg), errorMsg.size());
+        memcpy(msg, 
+               errorMsg.data(), 
+               actualSize);
     }
+
+    *(result.msg+0) = 10;
+    *(result.msg+1) = 11;
+    *(result.msg+2) = 12;
+
+    memcpy(__builtin_addressof(result.msg), msg, sizeof(msg));
 
     return result;
 }
