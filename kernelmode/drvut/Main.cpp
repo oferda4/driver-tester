@@ -3,6 +3,7 @@
 #include "Device.h"
 #include "Test.h"
 #include "IoctlHandler.h"
+#include "Error.h"
 
 namespace drvut {
 namespace internal {
@@ -35,6 +36,7 @@ EXTERN_C NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING Regis
 
     symbolicLink.leak();
     device.leak();
+    ErrorMessage::initialize();
 
     initializeTests();
 
@@ -51,6 +53,7 @@ void unloadDriver(PDRIVER_OBJECT DriverObject) {
 
     TRACE("Unload Driver\n");
     TestsManager::destroy();
+    ErrorMessage::destroy();
     DeviceGuard device(Device(deviceObject), true);
     SymbolicLinkGuard symbolicLink(SymbolicLink(&DOS_DEVICE_NAME), true);
 }
