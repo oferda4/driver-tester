@@ -102,4 +102,9 @@ TEST(PrintableTest, LowerOrEqual_Conversion) {
     EXPECT_FALSE(LowerOrEqual(I(1), I(0)));
 }
 
+TEST(PrintableUtilsTest, PrintableOrUnknown) {
+    EXPECT_EQ(std::string(PrintableUtils::printableOrUnknown(I(11)).data()), "11");
+    EXPECT_EQ(std::string(PrintableUtils::printableOrUnknown(11).data()), "unknown");
+}
+
 }

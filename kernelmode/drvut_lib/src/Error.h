@@ -16,6 +16,7 @@ public:
 
 private:
     static void assertInitialized();
+    static bool isInitialized();
 
     static String* sm_msg;
 };

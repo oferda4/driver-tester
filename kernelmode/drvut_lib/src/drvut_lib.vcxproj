@@ -92,7 +92,7 @@
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)common\Ioctl.h" />
     <ClInclude Include="Array.h" />
-    <ClInclude Include="Assertion.h" />
+    <ClInclude Include="Assert.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Concepts.h" />
     <ClInclude Include="Defs.h" />
@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Array.inl" />
+    <None Include="Assert.inl" />
     <None Include="List.inl" />
     <None Include="Memory.inl" />
     <None Include="Printable.inl" />

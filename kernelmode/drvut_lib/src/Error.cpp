@@ -19,8 +19,9 @@ void ErrorMessage::append(const String& msg) {
 }
 
 void ErrorMessage::reset() {
-    assertInitialized();
-    *sm_msg = "";
+    if (isInitialized()) {
+        *sm_msg = "";
+    }
 }
 
 const String& ErrorMessage::view() {
@@ -29,9 +30,13 @@ const String& ErrorMessage::view() {
 }
 
 void ErrorMessage::assertInitialized() {
-    if (!sm_msg) {
+    if (!isInitialized()) {
         ExRaiseStatus(STATUS_ACCESS_VIOLATION);
     }
+}
+
+bool ErrorMessage::isInitialized() {
+    return sm_msg != nullptr;
 }
 
 ErrorMessageGuard::ErrorMessageGuard() {

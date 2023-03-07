@@ -7,8 +7,6 @@ namespace drvut {
 namespace detail {
 template <typename T, typename U>
 String printWithOperator(const T& left, const U& right, const String& op);
-template <typename T>
-String printableOrUnknown(const T& obj);
 }
 
 template <internal::std::integral T>
@@ -155,16 +153,16 @@ String LowerOrEqual<T, U>::toString() const {
 
 template <typename T, typename U>
 String detail::printWithOperator(const T& left, const U& right, const String& op) {
-    String result = detail::printableOrUnknown(left);
+    String result = PrintableUtils::printableOrUnknown(left);
     result = internal::StringUtils::concat(result, " ");
     result = internal::StringUtils::concat(result, op);
     result = internal::StringUtils::concat(result, " ");
-    result = internal::StringUtils::concat(result, detail::printableOrUnknown(right));
+    result = internal::StringUtils::concat(result, PrintableUtils::printableOrUnknown(right));
     return result;
 }
 
 template <typename T>
-String detail::printableOrUnknown(const T& obj) {
+String PrintableUtils::printableOrUnknown(const T& obj) {
     if constexpr (Printable<T>) {
         return obj.toString();
     } else {

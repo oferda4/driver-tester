@@ -11,6 +11,14 @@ concept Printable = requires(const T& printable) {
     { printable.toString() } -> internal::std::same_as<String>;
 };
 
+class PrintableUtils final {
+public:
+    PrintableUtils() = delete;
+
+    template <typename T>
+    static String printableOrUnknown(const T& obj);
+};
+
 template <internal::std::integral T>
 class I final {
 public:

@@ -161,5 +161,17 @@ struct is_default_constructible : std::false_type {};
 template <class T>
 struct is_default_constructible<T, std::void_t<decltype(T())>> : std::true_type {};
 
+template <class T>
+struct is_void : std::is_same<void, T> {};
+
+template <class From, class To>
+struct is_convertible :
+    std::integral_constant<bool,
+                           (decltype(detail::test_returnable<To>(0))::value &&
+                            decltype(detail::test_implicitly_convertible<From, To>(0))::value) ||
+                               (std::is_void<From>::value && std::is_void<To>::value)> {};
+template <class From, class To>
+inline constexpr bool is_convertible_v = is_convertible<From, To>::value;
+
 }
 }
