@@ -1,6 +1,7 @@
 #include "Test.h"
 
 #include "Defs.h"
+#include "Error.h"
 
 namespace drvut::internal {
 
@@ -13,12 +14,18 @@ RegularTest::RegularTest() : RegularTest([]() {}) {
 }
 
 Ioctl::TestResult RegularTest::run() {
+    Ioctl::TestResult result = { .passed = true, .msg = {} };
+    ErrorMessage::reset();
+
     __try {
         (*m_testFunc)();
     } __except (EXCEPTION_EXECUTE_HANDLER) {
-        return { .passed = false };
+        result.passed = false;
+        const auto& errorMsg = ErrorMessage::view();
+        memcpy(result.msg, errorMsg.data(), min(sizeof(result.msg), errorMsg.size()));
     }
-    return { .passed = true };
+
+    return result;
 }
 
 TestsManager& TestsManager::instance() {
