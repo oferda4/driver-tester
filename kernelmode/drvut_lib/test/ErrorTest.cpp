@@ -32,7 +32,7 @@ TEST(ErrorMessageTest, GuardDestroysOnDtor) {
         ErrorMessageGuard guard;
         ErrorMessage::append("AAA");
     }
-    ASSERT_ANY_THROW(ErrorMessage::append("AAA"));
+    ASSERT_ANY_THROW(ErrorMessage::view());
 }
 
 }
