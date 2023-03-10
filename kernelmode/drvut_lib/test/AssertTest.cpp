@@ -19,7 +19,7 @@ TEST(TestAssert, Sanity) {
     const auto result = manager.run(tests.at(0).id);
 
     ASSERT_FALSE(result.passed);
-    ASSERT_EQ(std::string(), "assert: unknown");
+    ASSERT_EQ(std::string(result.msg), "assert: unknown");
 }
 
 }
