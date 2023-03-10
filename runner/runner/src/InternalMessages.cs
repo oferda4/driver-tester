@@ -17,11 +17,13 @@ namespace Runner {
         };
 
         public struct TestResult {
-            public TestResult(long status) {
-                this.status = status;
+            public TestResult(bool passed, String msg) {
+                this.passed = passed;
+                this.msg = msg;
             }
 
-            public long status;
+            public bool passed;
+            public String msg;
         };
 
         public struct ListTestsInput {

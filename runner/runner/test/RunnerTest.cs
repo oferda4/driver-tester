@@ -40,7 +40,7 @@ namespace Runner.Tests {
             const uint fakeTestId = 11;
             byte[] fakeSerializedRunTestInput = { 9, 8, 7, 6 };
             byte[] fakeSerializedRunTestOutput = { 100, 200, 100, 200 };
-            var fakeTestResult = new InternalMessages.TestResult(1001);
+            var fakeTestResult = new InternalMessages.TestResult(false, "An Error");
             
             parser.Setup(p => p.serializeRunTestInput(It.IsAny<InternalMessages.RunTestInput>()))
                 .Returns((InternalMessages.RunTestInput input) => {
@@ -55,7 +55,8 @@ namespace Runner.Tests {
 
             var runner = new RunnerImpl(parser.Object, connection.Object);
             var result = runner.runTest(fakeTestId);
-            Assert.AreEqual(fakeTestResult.status, result.status);
+            Assert.AreEqual(fakeTestResult.passed, result.passed);
+            Assert.AreEqual(fakeTestResult.msg, result.msg);
         }
     }
 }

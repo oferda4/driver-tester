@@ -17,7 +17,7 @@ namespace Runner {
 
         public InternalMessages.RunTestOutput parseRunTestOutput(byte[] output) {
             var response = RunTestResponse.Parser.ParseFrom(output);
-            return new InternalMessages.RunTestOutput(new InternalMessages.TestResult(response.Status));
+            return new InternalMessages.RunTestOutput(new InternalMessages.TestResult(response.Passed, response.Msg));
         }
 
         public byte[] serializeListTestsInput(InternalMessages.ListTestsInput input) {

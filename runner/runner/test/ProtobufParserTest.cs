@@ -34,11 +34,13 @@ namespace Runner.Tests {
 
         [TestMethod()]
         public void parseRunTestOutputTest() {
-            var fakeTestResult = new InternalMessages.TestResult(56);
-            var fakeResponse = new RunTestResponse() { Status = fakeTestResult.status };
+            String fakeErrorMessage = "some error";
+            var fakeTestResult = new InternalMessages.TestResult(false, fakeErrorMessage);
+            var fakeResponse = new RunTestResponse() { Passed = false, Msg = fakeErrorMessage };
 
             var result = (new ProtobufParser()).parseRunTestOutput(fakeResponse.ToByteArray());
-            Assert.AreEqual(result.result.status, fakeTestResult.status);
+            Assert.AreEqual(result.result.passed, fakeTestResult.passed);
+            Assert.AreEqual(result.result.msg, fakeTestResult.msg);
         }
 
         [TestMethod()]
