@@ -18,10 +18,7 @@ namespace Runner {
                 var parser = new ProtobufParser();
                 var runner = new RunnerImpl(new ProtobufParser(), 
                                         new MessagesConnectionImpl(client.GetStream()));
-                var tests = runner.listTests();
-                var res1 = runner.runTest(tests[0].id);
-                var res3 = runner.runTest(tests[2].id);
-                var res2 = runner.runTest(tests[1].id);
+                runAll(runner);
             } finally {
                 client.GetStream().Close();
                 client.Close();
@@ -29,6 +26,19 @@ namespace Runner {
 
             pause();
             return 0;
+        }
+
+        static void runAll(Runner runner) {
+            var tests = runner.listTests();
+            foreach (var test in tests) {
+                var res = runner.runTest(test.id);
+                if (res.passed) {
+                    Console.WriteLine("[PASSED] {0}", test.name);
+                } else {
+                    Console.WriteLine("[FAILED] {0}\n" +
+                                        "\t{1}", test.name, res.msg);
+                }
+            }
         }
 
         static void printUsages() {
