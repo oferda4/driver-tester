@@ -145,15 +145,15 @@ template <class Base, class Derived>
 inline constexpr bool is_base_of_v = is_base_of<Base, Derived>::value;
 
 namespace detail {
-template <class T>
-auto test_returnable(int) -> decltype(void(static_cast<T (*)()>(nullptr)), std::true_type{});
 template <class>
 auto test_returnable(...) -> std::false_type;
+template <class T>
+auto test_returnable(int) -> decltype(void(static_cast<T (*)()>(nullptr)), std::true_type{});
 
-template <class From, class To>
-auto test_implicitly_convertible(int) -> decltype(void(declval<void (&)(To)>()(declval<From>())), std::true_type{});
 template <class, class>
 auto test_implicitly_convertible(...) -> std::false_type;
+template <class From, class To>
+auto test_implicitly_convertible(int) -> decltype(void(declval<void (&)(To)>()(declval<From>())), std::true_type{});
 }
 
 template <class T, class = void>
