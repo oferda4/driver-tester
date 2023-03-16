@@ -2,9 +2,14 @@
 
 #include "Test.h"
 #include "TupleUtils.h"
+#include "Error.h"
 
 namespace drvut {
 namespace internal {
+
+namespace impl {
+inline Ioctl::TestResult getErrorResult();
+}
 
 template <uint32_t nameSize>
 void TestsManager::add(std::unique_ptr<Test> test, char const (&name)[nameSize]) {
@@ -32,19 +37,36 @@ TestFuncImpl<T>::TestFuncImpl(T func) : m_func(std::move(func)) {
 }
 
 template <typename T>
-NTSTATUS TestFuncImpl<T>::operator()() {
+Ioctl::TestResult TestFuncImpl<T>::operator()() {
+    Ioctl::TestResult result = { .passed = true, .msg = {} };
+
     if constexpr (Traits::ArgumentsTypes::size == 0) {
-        m_func();
+        __try {
+            m_func();
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
+            result = impl::getErrorResult();
+        }
     } else {
         typename Traits::ArgumentsTypes::NonReferenceTuple args;
         // TODO: handle failure in setup
         TupleUtils::forEach(args, [](auto& fixture) { fixture.setup(); });
-
-        TupleUtils::apply(m_func, args);
-
+        __try {
+            TupleUtils::apply(m_func, args);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
+            result = impl::getErrorResult();
+        }
         TupleUtils::forEach(args, [](auto& fixture) { fixture.teardown(); });
     }
-    return STATUS_SUCCESS;
+
+    return result;
+}
+
+Ioctl::TestResult impl::getErrorResult() {
+     Ioctl::TestResult result = {};
+     result.passed = false;
+     auto& errorMsg = ErrorMessage::view();
+     memcpy(result.msg, errorMsg.data(), min(sizeof(Ioctl::TestResult::msg), errorMsg.size()));
+     return result;
 }
 
 }
@@ -57,5 +79,4 @@ internal::RegularTest& test(char const (&name)[nameSize]) {
                                            name);
     return testObjRef;
 }
-
 }

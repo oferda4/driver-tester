@@ -1,13 +1,8 @@
 #include "Test.h"
 
 #include "Defs.h"
-#include "Error.h"
 
 namespace drvut::internal {
-
-namespace {
-Ioctl::TestResult getErrorResult();
-}
 
 TestsManager* TestsManager::sm_manager = nullptr;
 
@@ -16,14 +11,7 @@ RegularTest::RegularTest() : RegularTest([]() {}) {
 }
 
 Ioctl::TestResult RegularTest::run() {
-    ErrorMessage::reset();
-    __try {
-        (*m_testFunc)();
-    } __except (EXCEPTION_EXECUTE_HANDLER) {
-        return getErrorResult();
-    }
-
-    return { .passed = true, .msg = {} };
+    return (*m_testFunc)();
 }
 
 TestsManager& TestsManager::instance() {
@@ -63,16 +51,6 @@ Ioctl::TestResult TestsManager::run(uint32_t id) {
 
 void TestsManager::initialize() {
     sm_manager = new TestsManager;
-}
-
-namespace {
-Ioctl::TestResult getErrorResult() {
-    Ioctl::TestResult result = {};
-    result.passed = false;
-    auto& errorMsg = ErrorMessage::view();
-    memcpy(result.msg, errorMsg.data(), min(sizeof(Ioctl::TestResult::msg), errorMsg.size()));
-    return result;
-}
 }
 
 }

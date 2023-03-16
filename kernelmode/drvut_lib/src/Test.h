@@ -12,7 +12,7 @@ namespace internal {
 class TestFunc {
 public:
     virtual ~TestFunc() = default;
-    virtual NTSTATUS operator()() = 0;
+    virtual Ioctl::TestResult operator()() = 0;
 };
 
 template <typename T>
@@ -22,7 +22,7 @@ class TestFuncImpl final : public TestFunc {
 
 public:
     TestFuncImpl(T func);
-    NTSTATUS operator()() override;
+    Ioctl::TestResult operator()() override;
 
 private:
     T m_func;
