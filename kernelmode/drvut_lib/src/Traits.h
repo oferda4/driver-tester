@@ -144,18 +144,6 @@ struct is_base_of : public detail::pre_is_base_of2<Base, Derived> {};
 template <class Base, class Derived>
 inline constexpr bool is_base_of_v = is_base_of<Base, Derived>::value;
 
-namespace detail {
-template <class>
-auto test_returnable(...) -> std::false_type;
-template <class T>
-auto test_returnable(int) -> decltype(void(static_cast<T (*)()>(nullptr)), std::true_type{});
-
-template <class, class>
-auto test_implicitly_convertible(...) -> std::false_type;
-template <class From, class To>
-auto test_implicitly_convertible(int) -> decltype(void(declval<void (&)(To)>()(declval<From>())), std::true_type{});
-}
-
 template <class T, class = void>
 struct is_default_constructible : std::false_type {};
 template <class T>
@@ -164,12 +152,9 @@ struct is_default_constructible<T, std::void_t<decltype(T())>> : std::true_type 
 template <class T>
 struct is_void : std::is_same<void, T> {};
 
-template <class From, class To>
-struct is_convertible :
-    std::integral_constant<bool,
-                           (decltype(detail::test_returnable<To>(0))::value &&
-                            decltype(detail::test_implicitly_convertible<From, To>(0))::value) ||
-                               (std::is_void<From>::value && std::is_void<To>::value)> {};
+template <class _From, class _To>
+struct is_convertible : bool_constant<__is_convertible_to(_From, _To)> {};
+
 template <class From, class To>
 inline constexpr bool is_convertible_v = is_convertible<From, To>::value;
 
