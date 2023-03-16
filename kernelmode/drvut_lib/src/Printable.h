@@ -25,6 +25,7 @@ public:
     explicit I(T num);
 
     operator T() const;
+    T get() const;
     String toString() const;
 
 private:

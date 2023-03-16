@@ -158,5 +158,40 @@ struct is_convertible : bool_constant<__is_convertible_to(_From, _To)> {};
 template <class From, class To>
 inline constexpr bool is_convertible_v = is_convertible<From, To>::value;
 
+template <class T>
+struct is_floating_point :
+    integral_constant<bool,
+                      disjunction_v<is_same<float, T>,
+                                    is_same<double, T>,
+                                    is_same<long double, T>>> {};
+
+template <class T>
+struct is_integral :
+    bool_constant <requires(T t, T* p, void (*f)(T)) {
+    reinterpret_cast<T>(t);
+    f(0);
+    p + t;
+}> {};
+
+template <class T>
+struct is_arithmetic :
+    integral_constant<bool, is_integral<T>::value || is_floating_point<T>::value> {};
+
+namespace detail {
+template <typename T>
+struct is_unsigned : integral_constant<bool, static_cast<T>(0) < static_cast<T>(-1)> {};
 }
+
+template <typename T>
+struct is_unsigned : detail::is_unsigned<T>::type {};
+template <class T>
+inline constexpr bool is_unsigned_v = is_unsigned<T>::value;
+
+}
+
+template <class T, template <class...> class Base>
+struct is_specialization : std::false_type {};
+template <template <class...> class Base, class... Args>
+struct is_specialization<Base<Args...>, Base> : std::true_type {};
+
 }

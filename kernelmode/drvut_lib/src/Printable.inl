@@ -20,19 +20,24 @@ I<T>::operator T() const {
 }
 
 template <internal::std::integral T>
+T I<T>::get() const {
+    return m_num;
+}
+
+template <internal::std::integral T>
 String I<T>::toString() const {
-    T num = m_num;
-    String currNumPrintable = "";
-    
-    if (num == 0) {
-        return String("0");
-    }
-    
-    if (num < 0) {
-        return internal::StringUtils::concat("-", I(-m_num).toString());
+    if constexpr (!internal::std::is_unsigned_v<T>) {
+        if (m_num < 0) {
+            return internal::StringUtils::concat("-", I(-m_num).toString());
+        }
     }
 
-    // positive
+    if (m_num == 0) {
+        return String("0");
+    }
+
+    T num = m_num;
+    String currNumPrintable = "";
     while (num > 0) {
         uint8_t currDigit = num % 10;
         char currDigitAsString[2] = { '0' + currDigit, '\x00' };

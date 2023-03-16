@@ -1,25 +1,40 @@
 #include "drvut.h"
 
 #include "Test.h"
+#include "Assert.h"
+#include "Printable.h"
 
-struct DtorTest {
-    uint32_t num;
 
-    ~DtorTest() {
-        __debugbreak();
+using drvut::test;
+using drvut::assert;
+using drvut::B;
+using drvut::I;
+using drvut::AreEqual;
+
+
+struct LeakCountFixture final {
+    NTSTATUS setup() {
+        leakCount++;
+        return STATUS_SUCCESS;
     }
-};
 
-void testHelper() {
-    __debugbreak();
-    DtorTest d0{ 0 };
-    DtorTest d1{ 1 };
-    volatile int a = 1;
-    uint32_t b = 1 / (a-1);
-    b++;
-}
+    void teardown() {
+        leakCount--;
+    }
+
+    static int leakCount;
+};
+int LeakCountFixture::leakCount = 0;
 
 EXTERN_C void initializeTests() {
-    drvut::test("Failing Test") = []() {};
-    drvut::test("Successful Test") = []() {};
+    test("Failing Test") = []() { assert(B(false)); };
+    test("Successful Test") = []() { assert(B(true)); };
+
+    test("Failing Test With Fixture") = [](LeakCountFixture& leakCount) {
+        UNREFERENCED_PARAMETER(leakCount);
+        assert(AreEqual(I(1), I(2))); 
+    };
+    test("Did Not Leak Fixture") = []() { 
+         assert(AreEqual(I(LeakCountFixture::leakCount), I(0))); 
+    };
 }
