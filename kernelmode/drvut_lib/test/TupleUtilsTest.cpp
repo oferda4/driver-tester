@@ -9,6 +9,11 @@ namespace internal {
 
 using ::std::string;
 
+namespace {
+template <bool isVoid>
+void testForEachSanity();
+}
+
 TEST(TupleUtilsTest, Get) {
     uint32_t intValue = 10;
     float floatValue = 24.6f;
@@ -40,16 +45,42 @@ TEST(TupleUtilsTest, Apply) {
     EXPECT_EQ(1, callCount);
 }
 
-TEST(TupleUtilsTest, ForEach) {
+TEST(TupleUtilsTest, ForEach_Sanity) {
+    testForEachSanity<false>();
+    testForEachSanity<true>();
+}
+
+TEST(TupleUtilsTest, ForEach_FailureInTheMiddle) {
+    Tuple<uint32_t, uint32_t> tuple(0, 1);
+    uint16_t index = 0;
+    auto func = [&index](auto& num) -> NTSTATUS {
+        EXPECT_EQ(index, num);
+        index++;
+        // only first will succeed
+        return num == 0 ? STATUS_SUCCESS : STATUS_INVALID_PARAMETER;
+    };
+
+    EXPECT_EQ(1, TupleUtils::forEach(tuple, func));
+    // after failure on second it should stop iterating
+    EXPECT_EQ(index, 2);
+}
+
+namespace {
+template <bool isVoid>
+static void testForEachSanity() {
     Tuple<uint32_t, uint32_t, uint16_t> tuple(0, 1, 2);
     uint16_t index = 0;
     auto func = [&index](auto& num) {
         EXPECT_EQ(index, num);
         index++;
+        if constexpr (!isVoid) {
+            return STATUS_SUCCESS;
+        }
     };
 
-    TupleUtils::forEach(tuple, func);
+    EXPECT_EQ(3, TupleUtils::forEach(tuple, func));
     EXPECT_EQ(index, 3);
+}
 }
 
 }

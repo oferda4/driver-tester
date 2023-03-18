@@ -15,12 +15,7 @@ public:
     static size_t sizeOf(Tuple<T, Ts...>& t);
 
     template <size_t index = 0, typename F, typename... Ts>
-    static void forEach(Tuple<Ts...>& t, F func) {
-        if constexpr (index < sizeof...(Ts)) {
-            func(get<index>(t));
-            forEach<index + 1, F, Ts...>(t, func);
-        }
-    }
+    static size_t forEach(Tuple<Ts...>& t, F func);
 
 private:
     template <typename F, typename TupleType, size_t... INDEXES>
