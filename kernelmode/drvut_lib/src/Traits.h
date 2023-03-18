@@ -188,10 +188,4 @@ template <class T>
 inline constexpr bool is_unsigned_v = is_unsigned<T>::value;
 
 }
-
-template <class T, template <class...> class Base>
-struct is_specialization : std::false_type {};
-template <template <class...> class Base, class... Args>
-struct is_specialization<Base<Args...>, Base> : std::true_type {};
-
 }
