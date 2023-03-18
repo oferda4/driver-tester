@@ -9,6 +9,7 @@ namespace internal {
 
 namespace impl {
 inline Ioctl::TestResult getErrorResult();
+inline Ioctl::TestResult failureInSetupResult();
 }
 
 template <uint32_t nameSize>
@@ -48,14 +49,22 @@ Ioctl::TestResult TestFuncImpl<T>::operator()() {
         }
     } else {
         typename Traits::ArgumentsTypes::NonReferenceTuple args;
-        // TODO: handle failure in setup
-        TupleUtils::forEach(args, [](auto& fixture) { fixture.setup(); });
-        __try {
-            TupleUtils::apply(m_func, args);
-        } __except (EXCEPTION_EXECUTE_HANDLER) {
-            result = impl::getErrorResult();
+
+        const auto successfulSetups = TupleUtils::forEach(args, [](auto& fixture) { return fixture.setup(); });
+
+        // only run test if all setups succeeded
+        if (successfulSetups == args.size) {
+            __try {
+                TupleUtils::apply(m_func, args);
+            } __except (EXCEPTION_EXECUTE_HANDLER) {
+                result = impl::getErrorResult();
+            }
+        } else {
+            result = impl::failureInSetupResult();
         }
-        TupleUtils::forEach(args, [](auto& fixture) { fixture.teardown(); });
+
+        TupleUtils::forEach(
+            args, [](auto& fixture) { fixture.teardown(); }, successfulSetups);
     }
 
     return result;
@@ -67,6 +76,10 @@ Ioctl::TestResult impl::getErrorResult() {
      auto& errorMsg = ErrorMessage::view();
      memcpy(result.msg, errorMsg.data(), min(sizeof(Ioctl::TestResult::msg), errorMsg.size()));
      return result;
+}
+
+Ioctl::TestResult impl::failureInSetupResult() {
+     return { .passed = false, .msg = "failure in setup" };
 }
 
 }

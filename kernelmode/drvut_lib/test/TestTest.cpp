@@ -141,4 +141,28 @@ TEST(TestSyntax, TestWithFixture) {
     ASSERT_EQ(2, MockFixture::teardownCallCount);
 }
 
+TEST(TestSyntax, TestWithFailingSetup) {
+    MockFixture::setupCallCount = 0;
+    MockFixture::teardownCallCount = 0;
+
+    internal::TestsManager::destroy();
+    auto& manager = internal::TestsManager::instance();
+
+    bool wasCalled = false;
+    test("TestWithFailingFixture") = [&wasCalled](MockFixture& fixture1,
+                                            FakeFailingOnSetupFixture& failingFixture, 
+                                            MockFixture& fixture2) {
+        GTEST_FAIL();
+    };
+
+    auto tests = manager.list();
+    const auto result = manager.run(tests.at(0).id);
+    ASSERT_FALSE(result.passed);
+    ASSERT_EQ("failure in setup", std::string(result.msg));
+
+    // the second should never be called
+    ASSERT_EQ(1, MockFixture::setupCallCount);
+    ASSERT_EQ(1, MockFixture::teardownCallCount);
+}
+
 }

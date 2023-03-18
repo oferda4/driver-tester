@@ -19,3 +19,13 @@ struct MockFixture final {
 
 uint32_t MockFixture::setupCallCount = 0;
 uint32_t MockFixture::teardownCallCount = 0;
+
+struct FakeFailingOnSetupFixture final {
+    NTSTATUS setup() {
+        return STATUS_INVALID_PARAMETER;
+    }
+
+    void teardown() {
+        // intentionally left blank
+    }
+};
