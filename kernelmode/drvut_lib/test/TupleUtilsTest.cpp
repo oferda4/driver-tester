@@ -10,7 +10,7 @@ namespace internal {
 using ::std::string;
 
 namespace {
-template <bool isVoid>
+template <bool isVoid, size_t elementsToExecute>
 void testForEachSanity();
 }
 
@@ -46,8 +46,14 @@ TEST(TupleUtilsTest, Apply) {
 }
 
 TEST(TupleUtilsTest, ForEach_Sanity) {
-    testForEachSanity<false>();
-    testForEachSanity<true>();
+    testForEachSanity<false, 0>();
+    testForEachSanity<true, 0>();
+    testForEachSanity<false, 1>();
+    testForEachSanity<true, 1>();
+    testForEachSanity<false, 3>();
+    testForEachSanity<true, 3>();
+    testForEachSanity<false, 5>();
+    testForEachSanity<true, 5>();
 }
 
 TEST(TupleUtilsTest, ForEach_FailureInTheMiddle) {
@@ -66,7 +72,7 @@ TEST(TupleUtilsTest, ForEach_FailureInTheMiddle) {
 }
 
 namespace {
-template <bool isVoid>
+template <bool isVoid, size_t maxIndex>
 static void testForEachSanity() {
     Tuple<uint32_t, uint32_t, uint16_t> tuple(0, 1, 2);
     uint16_t index = 0;
@@ -78,8 +84,9 @@ static void testForEachSanity() {
         }
     };
 
-    EXPECT_EQ(3, TupleUtils::forEach(tuple, func));
-    EXPECT_EQ(index, 3);
+    const auto actualExecuted = min(maxIndex, tuple.size);
+    EXPECT_EQ(actualExecuted, TupleUtils::forEach(tuple, func, maxIndex));
+    EXPECT_EQ(actualExecuted, index);
 }
 }
 

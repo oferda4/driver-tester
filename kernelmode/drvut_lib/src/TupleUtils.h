@@ -15,7 +15,7 @@ public:
     static size_t sizeOf(Tuple<T, Ts...>& t);
 
     template <size_t index = 0, typename F, typename... Ts>
-    static size_t forEach(Tuple<Ts...>& t, F func);
+    static size_t forEach(Tuple<Ts...>& t, F func, size_t maxIndex = sizeof...(Ts));
 
 private:
     template <typename F, typename TupleType, size_t... INDEXES>

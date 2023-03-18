@@ -23,8 +23,12 @@ size_t TupleUtils::sizeOf(Tuple<T, Ts...>& t) {
 }
 
 template <size_t index, typename F, typename... Ts>
-size_t TupleUtils::forEach(Tuple<Ts...>& t, F func) {
+size_t TupleUtils::forEach(Tuple<Ts...>& t, F func, size_t maxIndex) {
     if constexpr (index < sizeof...(Ts)) {
+        if (index >= maxIndex) {
+            return 0;
+        }
+
         auto& input = get<index>(t);
         using FuncReturnType = decltype(::std::declval<F>()(::std::declval<decltype(input)>()));
 
@@ -40,7 +44,7 @@ size_t TupleUtils::forEach(Tuple<Ts...>& t, F func) {
             } ();
         }
 
-        return 1 + forEach<index + 1, F, Ts...>(t, func);
+        return 1 + forEach<index + 1, F, Ts...>(t, func, maxIndex);
     } else {
         return 0;
     }
