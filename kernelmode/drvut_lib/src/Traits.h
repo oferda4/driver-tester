@@ -96,6 +96,14 @@ struct add_lvalue_reference : decltype(detail::try_add_lvalue_reference<T>(0)) {
 template <class T>
 struct add_rvalue_reference : decltype(detail::try_add_rvalue_reference<T>(0)) {};
 
+template <typename T>
+constexpr bool always_false = false;
+
+template <typename T>
+typename std::add_rvalue_reference<T>::type declval() noexcept {
+    static_assert(always_false<T>, "declval not allowed in an evaluated context");
+}
+
 template <class T, class... Args>
 struct is_nothrow_constructible : bool_constant<__is_nothrow_constructible(T, Args...)> {};
 template <class T, class... Args>

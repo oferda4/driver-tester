@@ -30,7 +30,7 @@ size_t TupleUtils::forEach(Tuple<Ts...>& t, F func, size_t maxIndex) {
         }
 
         auto& input = get<index>(t);
-        using FuncReturnType = decltype(::std::declval<F>()(::std::declval<decltype(input)>()));
+        using FuncReturnType = decltype(std::declval<F>()(std::declval<decltype(input)>()));
 
         if constexpr (std::is_same_v<FuncReturnType, NTSTATUS>) {
             if (!NT_SUCCESS(func(input))) {
