@@ -14,7 +14,7 @@ public:
                               std::disjunction_v<std::is_same<U, T>, std::is_base_of<T, U>>>>
     unique_ptr(U* ptr);
     unique_ptr(unique_ptr<T>&& other) noexcept;
-    unique_ptr& operator=(unique_ptr<T>&& other);
+    unique_ptr& operator=(unique_ptr<T>&& other) noexcept;
 
     NOCOPY(unique_ptr);
     ~unique_ptr();

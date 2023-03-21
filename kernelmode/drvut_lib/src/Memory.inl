@@ -18,7 +18,7 @@ unique_ptr<T>::unique_ptr(unique_ptr<T>&& other) noexcept : m_ptr(other.release(
 }
 
 template <typename T>
-unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>&& other) {
+unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>&& other) noexcept {
     if (this == &other) {
         return *this;
     }
