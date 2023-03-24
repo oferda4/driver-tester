@@ -29,6 +29,7 @@ We are currently supporting only *C++ Windows Kernel Drivers*, but the framework
 ```
 <Import Project="$(DRVUT_PATH)\props\drvut.props" />
 ```
+* Copy the file `utilities\run.bat.template` to your project. Remove the `.template` postfix. Edit the file and set the `TARGET` to your test driver path. 
 
 
 ## drvut 101 ##
@@ -110,3 +111,8 @@ EXTERN_C void initializeTests() {
     };
 }
 ```
+
+
+## Run ##
+* Run as *Administrator* the custom `run.bat` you made for your project.
+* Run `bin\x64\runner.exe` as *Administrator*.
