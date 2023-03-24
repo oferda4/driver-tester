@@ -1,4 +1,4 @@
-#include "Device.h"
+#include "drvut/internal/Device.h"
 
 #include "drvut/internal/Utility.h"
 

@@ -1,6 +1,6 @@
 #include "drvut/drvut.h"
 
-#include "Device.h"
+#include "drvut/internal/Device.h"
 #include "drvut/Test.h"
 #include "drvut/internal/IoctlHandler.h"
 #include "drvut/internal/Error.h"
