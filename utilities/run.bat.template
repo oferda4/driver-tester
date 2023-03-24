@@ -1,0 +1,5 @@
+set TARGET=<put test driver target path here>
+
+powershell.exe -ExecutionPolicy Bypass -Command "%DRVUT_PATH%\utilities\hyperv\run-on-vm.ps1 %TEST_MACHINE_NAME% %TARGET% %DRVUT_PATH%\bin\x64\drvut_user.exe"
+
+pause
