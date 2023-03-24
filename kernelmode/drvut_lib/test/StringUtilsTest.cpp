@@ -1,8 +1,8 @@
-#include <gtest/gtest.h>
+#include "drvut/internal/StringUtils.h"
 
 #include <string>
 
-#include "drvut/internal/StringUtils.h"
+#include <gtest/gtest.h>
 
 namespace drvut {
 

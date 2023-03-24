@@ -26,9 +26,7 @@ EXTERN_C void initializeTests() {
 
     test("Failing Test With Fixture") = [](LeakCountFixture& leakCount) {
         UNREFERENCED_PARAMETER(leakCount);
-        assert(AreEqual(I(1), I(2))); 
+        assert(AreEqual(I(1), I(2)));
     };
-    test("Did Not Leak Fixture") = []() { 
-         assert(AreEqual(I(LeakCountFixture::leakCount), I(0))); 
-    };
+    test("Did Not Leak Fixture") = []() { assert(AreEqual(I(LeakCountFixture::leakCount), I(0))); };
 }

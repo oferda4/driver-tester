@@ -1,9 +1,8 @@
-#include <gtest/gtest.h>
-
 #include "ProtobufParser.h"
 
-#include "ProtobufUtils.h"
+#include <gtest/gtest.h>
 
+#include "ProtobufUtils.h"
 #include "runner_user_messages.pb.h"
 
 using google::protobuf::Message;

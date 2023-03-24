@@ -1,8 +1,7 @@
 #pragma once
 
-#include "ProtobufUtils.h"
-
 #include "CastUtils.h"
+#include "ProtobufUtils.h"
 
 template <typename MessageType>
     requires std::derived_from<MessageType, google::protobuf::Message>

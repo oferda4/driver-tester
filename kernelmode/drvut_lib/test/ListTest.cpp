@@ -1,10 +1,9 @@
-#include "gtest/gtest.h"
+#include "drvut/internal/List.h"
 
 #include <list>
 
-#include "drvut/internal/List.h"
-
 #include "LeakCounter.h"
+#include "gtest/gtest.h"
 
 namespace drvut {
 namespace internal {

@@ -1,10 +1,11 @@
 #pragma once
 
+#include "Defs.h"
+
 #include <gmock/gmock.h>
 
-#include "Defs.h"
-#include "IoctlApi.h"
 #include "Buffer.h"
+#include "IoctlApi.h"
 #include "MockFile.h"
 
 class MockIoctlApi {

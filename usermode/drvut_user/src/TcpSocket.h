@@ -2,9 +2,9 @@
 
 #include "Defs.h"
 
-#include "Handle.h"
 #include "Buffer.h"
 #include "Connection.h"
+#include "Handle.h"
 
 struct BadIpAddress : std::exception {
     // intentionally left blank

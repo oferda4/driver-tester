@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Stream.h"
 #include "Connection.h"
-#include "Server.h"
 #include "RequestsRouter.h"
+#include "Server.h"
+#include "Stream.h"
 
 template <typename T>
 concept CommunicationSetup = requires(T& setup) {

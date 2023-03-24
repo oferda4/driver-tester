@@ -1,9 +1,9 @@
-#include <gtest/gtest.h>
-
 #include "RequestsRouter.h"
 
-#include "MockRequestsHandler.h"
+#include <gtest/gtest.h>
+
 #include "MockParser.h"
+#include "MockRequestsHandler.h"
 
 using testing::_;
 using testing::Return;

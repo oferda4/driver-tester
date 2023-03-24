@@ -1,7 +1,8 @@
+#include "drvut/Assert.h"
+
 #include <gtest/gtest.h>
 
 #include "drvut/Test.h"
-#include "drvut/Assert.h"
 #include "drvut/internal/Error.h"
 
 namespace drvut {
@@ -11,9 +12,7 @@ TEST(TestAssert, Sanity) {
     internal::TestsManager::destroy();
     auto& manager = internal::TestsManager::instance();
 
-    test("AboutToFailFromAssertion") = []() { 
-        assert(false); 
-    };
+    test("AboutToFailFromAssertion") = []() { assert(false); };
 
     auto tests = manager.list();
     const auto result = manager.run(tests.at(0).id);

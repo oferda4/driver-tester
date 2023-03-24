@@ -37,7 +37,21 @@ IndentWidth: 4
 MaxEmptyLinesToKeep: 10
 NamespaceIndentation: None
 PointerAlignment: Left
-SortIncludes: false
+
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '^\"Defs\.h\"'
+    Priority:        1
+  - Regex:           '^\"drvut/Defs\.h\"'
+    Priority:        1
+  - Regex:           '<([A-Za-z0-9\/-_])+>'
+    Priority:        2
+  - Regex:           '<([A-Za-z0-9.\/-_])+>'
+    Priority:        3
+  - Regex:           '"([A-Za-z0-9.\/-_])+"'
+    Priority:        4
+
 SortUsingDeclarations: false
 SpaceAfterCStyleCast: false
 SpaceBeforeAssignmentOperators: true

@@ -1,8 +1,8 @@
-#include <gtest/gtest.h>
+#include "drvut/internal/Error.h"
 
 #include <string>
 
-#include "drvut/internal/Error.h"
+#include <gtest/gtest.h>
 
 namespace drvut {
 namespace internal {
@@ -15,8 +15,7 @@ TEST(ErrorMessageTest, Append) {
     ErrorMessageGuard guard;
     ASSERT_NO_THROW(ErrorMessage::append("AAA"));
     ASSERT_NO_THROW(ErrorMessage::append("BBB"));
-    ASSERT_EQ(::std::string(ErrorMessage::view().data()),
-              "AAABBB");
+    ASSERT_EQ(::std::string(ErrorMessage::view().data()), "AAABBB");
 }
 
 TEST(ErrorMessageTest, Reset) {

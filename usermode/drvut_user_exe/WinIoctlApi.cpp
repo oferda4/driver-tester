@@ -1,7 +1,7 @@
 #include "WinIoctlApi.h"
 
-#include "WinExceptions.h"
 #include "CastUtils.h"
+#include "WinExceptions.h"
 
 void WinIoctlApi::send(FileHandleGuard<WinFileApi>& device, uint32_t code, const Buffer& input,
                        Buffer& output) {

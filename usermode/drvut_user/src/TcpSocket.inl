@@ -1,8 +1,7 @@
 #pragma once
 
-#include "TcpSocket.h"
-
 #include "CastUtils.h"
+#include "TcpSocket.h"
 
 namespace impl {
 template <typename Api>

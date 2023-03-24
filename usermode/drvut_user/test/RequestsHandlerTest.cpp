@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
-
 #include "RequestsHandler.h"
+
+#include <gtest/gtest.h>
 
 #include "MockFile.h"
 #include "MockIoctlApi.h"

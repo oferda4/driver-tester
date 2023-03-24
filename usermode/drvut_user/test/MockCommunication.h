@@ -3,7 +3,6 @@
 #include <gmock/gmock.h>
 
 #include "Communication.h"
-
 #include "MockStream.h"
 
 class MockCommunicationSetup {

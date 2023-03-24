@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Defs.h"
+
 #include "Handle.h"
 
 template <typename T>

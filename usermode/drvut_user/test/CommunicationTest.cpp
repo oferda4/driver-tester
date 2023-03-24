@@ -1,10 +1,10 @@
-#include <gtest/gtest.h>
-
 #include "Communication.h"
 
+#include <gtest/gtest.h>
+
 #include "MockCommunication.h"
-#include "MockServer.h"
 #include "MockRequestsRouter.h"
+#include "MockServer.h"
 
 using testing::_;
 using testing::Return;

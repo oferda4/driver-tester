@@ -1,9 +1,10 @@
-#include <gtest/gtest.h>
+#include "drvut/Test.h"
+
+#include "drvut/Defs.h"
 
 #include <string>
 
-#include "drvut/Defs.h"
-#include "drvut/Test.h"
+#include <gtest/gtest.h>
 
 #include "MockFixture.h"
 
@@ -11,21 +12,17 @@ namespace drvut::internal {
 
 TEST(RegulatTestTest, Sanity) {
     uint32_t callCount = 0;
-    
-    const auto result = RegularTest([&callCount]() {
-                            callCount++;
-                        }).run();
+
+    const auto result = RegularTest([&callCount]() { callCount++; }).run();
     ASSERT_TRUE(result.passed);
     ASSERT_EQ(callCount, 1);
 }
 
 TEST(RegulatTestTest, AssignOperator) {
     uint32_t callCount = 0;
-    
+
     RegularTest test;
-    test = [&callCount]() {
-        callCount++;
-    };
+    test = [&callCount]() { callCount++; };
     const auto result = test.run();
 
     ASSERT_TRUE(result.passed);
@@ -72,15 +69,11 @@ TEST(TestsManagerTest, AddDifferentNames) {
 TEST(TestsManagerTest, RunCorrectTest) {
     TestsManager::destroy();
     auto& manager = TestsManager::instance();
-    
+
     uint32_t shouldNotRunCallCount = 0;
     uint32_t shouldRunCallCount = 0;
-    auto shouldNotRunMethod = [&shouldNotRunCallCount]() {
-        shouldNotRunCallCount++;
-    };
-    auto shouldRunMethod = [&shouldRunCallCount]() {
-        shouldRunCallCount++;
-    };
+    auto shouldNotRunMethod = [&shouldNotRunCallCount]() { shouldNotRunCallCount++; };
+    auto shouldRunMethod = [&shouldRunCallCount]() { shouldRunCallCount++; };
 
     ASSERT_NO_THROW(
         manager.add(std::unique_ptr<::drvut::internal::Test>(new RegularTest(shouldNotRunMethod)),
@@ -111,10 +104,8 @@ TEST(TestSyntax, CreateRegularTest) {
 
     const char arbitraryName[] = "Some Name";
     bool didRun = false;
-    
-    test(arbitraryName) = [&didRun]() {
-        didRun = true;
-    };
+
+    test(arbitraryName) = [&didRun]() { didRun = true; };
 
     auto tests = manager.list();
     ASSERT_EQ(tests.size(), 1);
@@ -131,7 +122,7 @@ TEST(TestSyntax, TestWithFixture) {
     auto& manager = internal::TestsManager::instance();
 
     bool wasCalled = false;
-    test("TestWithFixtures") = [&wasCalled](MockFixture& fixture1, MockFixture& fixture2) { 
+    test("TestWithFixtures") = [&wasCalled](MockFixture& fixture1, MockFixture& fixture2) {
         wasCalled = true;
         ASSERT_EQ(2, MockFixture::setupCallCount);
     };
@@ -150,10 +141,8 @@ TEST(TestSyntax, TestWithFailingSetup) {
 
     bool wasCalled = false;
     test("TestWithFailingFixture") = [&wasCalled](MockFixture& fixture1,
-                                            FakeFailingOnSetupFixture& failingFixture, 
-                                            MockFixture& fixture2) {
-        GTEST_FAIL();
-    };
+                                                  FakeFailingOnSetupFixture& failingFixture,
+                                                  MockFixture& fixture2) { GTEST_FAIL(); };
 
     auto tests = manager.list();
     const auto result = manager.run(tests.at(0).id);

@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
-
 #include "TcpSocket.h"
+
+#include <gtest/gtest.h>
 
 #include "MockTcpSocket.h"
 

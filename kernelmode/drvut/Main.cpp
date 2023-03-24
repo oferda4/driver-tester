@@ -1,9 +1,8 @@
-#include "drvut/drvut.h"
-
-#include "drvut/internal/Device.h"
 #include "drvut/Test.h"
-#include "drvut/internal/IoctlHandler.h"
+#include "drvut/drvut.h"
+#include "drvut/internal/Device.h"
 #include "drvut/internal/Error.h"
+#include "drvut/internal/IoctlHandler.h"
 
 namespace drvut {
 namespace internal {

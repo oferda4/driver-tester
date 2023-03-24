@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Defs.h"
+
 #include <gmock/gmock.h>
 
-#include "Defs.h"
 #include "File.h"
 
 class FakeFileApi final {

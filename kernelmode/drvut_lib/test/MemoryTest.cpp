@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
-
 #include "drvut/internal/Memory.h"
+
+#include <gtest/gtest.h>
 
 #include "LeakCounter.h"
 

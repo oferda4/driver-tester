@@ -1,6 +1,5 @@
 #include "drvut/internal/StringUtils.h"
 
-
 namespace drvut {
 
 String::String(size_t len) : m_data(new char[len + 1]), m_len(len) {
@@ -12,7 +11,7 @@ String::~String() {
 }
 
 String::String(String&& other) noexcept
-    : m_data(internal::std::exchange(other.m_data, nullptr)), 
+    : m_data(internal::std::exchange(other.m_data, nullptr)),
       m_len(internal::std::exchange(other.m_len, 0)) {
     // intentionally left blank
 }

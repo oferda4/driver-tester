@@ -7,7 +7,7 @@ struct MockFixture final {
         setupCallCount++;
         return STATUS_SUCCESS;
     }
-    
+
     void teardown() {
         teardownCallCount++;
     }

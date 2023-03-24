@@ -1,8 +1,8 @@
-#include <gtest/gtest.h>
+#include "drvut/internal/TupleUtils.h"
 
 #include <string>
 
-#include "drvut/internal/TupleUtils.h"
+#include <gtest/gtest.h>
 
 namespace drvut {
 namespace internal {
@@ -33,7 +33,8 @@ TEST(TupleUtilsTest, Apply) {
     const double arbitraryReturnValue = 11.11;
 
     Tuple<uint32_t, float> tuple(intInput, floatInput);
-    auto func = [&intInput, &floatInput, &callCount, &arbitraryReturnValue](uint32_t i, float f) -> double { 
+    auto func = [&intInput, &floatInput, &callCount, &arbitraryReturnValue](uint32_t i,
+                                                                            float f) -> double {
         EXPECT_EQ(intInput, i);
         EXPECT_EQ(floatInput, f);
         callCount++;

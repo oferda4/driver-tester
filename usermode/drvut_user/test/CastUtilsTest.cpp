@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
-
 #include "CastUtils.h"
+
+#include <gtest/gtest.h>
 
 TEST(CastUtilsTest, ValidCast) {
     const uint32_t num = 1;

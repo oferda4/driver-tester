@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Defs.h"
+
 #include "Buffer.h"
 
 template <typename T>

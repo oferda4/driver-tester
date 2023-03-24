@@ -1,8 +1,8 @@
 #pragma once
 
-#include <gmock/gmock.h>
-
 #include "drvut/Defs.h"
+
+#include <gmock/gmock.h>
 
 class MockResource {
 public:

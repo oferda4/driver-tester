@@ -1,6 +1,6 @@
-#include <gmock/gmock.h>
-
 #include "Defs.h"
+
+#include <gmock/gmock.h>
 
 #include "TcpSocket.h"
 

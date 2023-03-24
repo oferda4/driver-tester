@@ -1,7 +1,9 @@
 #pragma once
 
 #ifdef AMD64
+// clang-format off
 #include <ntifs.h>
+// clang-format on
 
 void* __cdecl operator new(size_t size);
 void* __cdecl operator new(size_t, void* p);
@@ -12,7 +14,10 @@ using uint32_t = unsigned int;
 using uint64_t = unsigned long long;
 
 #else
+// clang-format off
 #include <Windows.h>
+// clang-format on
+
 #include <exception>
 
 // Windows kernel specific definitions

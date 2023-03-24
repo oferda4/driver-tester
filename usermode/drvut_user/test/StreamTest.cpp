@@ -1,8 +1,8 @@
+#include "Stream.h"
+
 #include <gtest/gtest.h>
 
-#include "Stream.h"
 #include "Buffer.h"
-
 #include "MockConnection.h"
 
 using testing::_;

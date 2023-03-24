@@ -1,16 +1,17 @@
 #pragma once
 
-// note: include order is important
+// clang-format off
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 #include <Windows.h>
+// clang-format on
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "onecore.lib")
 
-#include <vector>
 #include <concepts>
 #include <string>
+#include <vector>
 
 #define NO_COPY(cls)                                                                               \
     cls(const cls&) = delete;                                                                      \

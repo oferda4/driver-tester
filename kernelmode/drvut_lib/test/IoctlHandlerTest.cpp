@@ -1,9 +1,10 @@
-#include <gtest/gtest.h>
+#include "drvut/internal/IoctlHandler.h"
 
 #include <memory>
 #include <string>
 
-#include "drvut/internal/IoctlHandler.h"
+#include <gtest/gtest.h>
+
 #include "Ioctl.h"
 
 namespace drvut::internal {
@@ -130,17 +131,13 @@ TEST(IoctlHandlerTest, ListTests_BadOutput) {
 TEST(IoctlHandlerTest, RunTest_Sanity) {
     TestsManager::destroy();
     auto& manager = TestsManager::instance();
-    
+
     uint32_t expectNotCalledTestCallCount = 0;
     std::unique_ptr<drvut::internal::Test> expectNotCalledTest(
-        new RegularTest([&expectNotCalledTestCallCount]() {
-            expectNotCalledTestCallCount++;
-        }));
+        new RegularTest([&expectNotCalledTestCallCount]() { expectNotCalledTestCallCount++; }));
     uint32_t expectCalledTestCallCount = 0;
     std::unique_ptr<drvut::internal::Test> expectCalledTest(
-        new RegularTest([&expectCalledTestCallCount]() {
-            expectCalledTestCallCount++;
-        }));
+        new RegularTest([&expectCalledTestCallCount]() { expectCalledTestCallCount++; }));
 
     manager.add(std::move(expectNotCalledTest), "ExpectNotCalled");
     manager.add(std::move(expectCalledTest), "ExpectCalled");

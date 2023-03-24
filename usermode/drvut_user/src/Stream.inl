@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Stream.h"
 #include "CastUtils.h"
+#include "Stream.h"
 
 template <Connection ConnectionType>
 StreamImpl<ConnectionType>::StreamImpl(ConnectionType connection)

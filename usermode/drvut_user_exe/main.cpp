@@ -2,15 +2,14 @@
 
 #include <iostream>
 
-#include "WsaGuard.h"
-#include "WsaTcpSocket.h"
-#include "WinFile.h"
-#include "WinIoctlApi.h"
-
+#include "Communication.h"
+#include "ProtobufParser.h"
 #include "RequestsHandler.h"
 #include "RequestsRouter.h"
-#include "ProtobufParser.h"
-#include "Communication.h"
+#include "WinFile.h"
+#include "WinIoctlApi.h"
+#include "WsaGuard.h"
+#include "WsaTcpSocket.h"
 
 namespace {
 struct BadArgument : std::exception {

@@ -2,9 +2,8 @@
 
 #include <gmock/gmock.h>
 
-#include "Server.h"
-
 #include "MockConnection.h"
+#include "Server.h"
 
 class MockServer {
 public:
