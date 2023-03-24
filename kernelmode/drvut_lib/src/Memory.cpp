@@ -1,4 +1,4 @@
-#include "Defs.h"
+#include "drvut/Defs.h"
 
 static constexpr ULONG TEST_DRIVER_POOL_TAG = 'tset';
 

@@ -61,7 +61,7 @@
     <ClCompile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kernelmode\drvut;$(SolutionDir)common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)common;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -75,7 +75,7 @@
     <ClCompile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kernelmode\drvut;$(SolutionDir)common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)common;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -92,37 +92,37 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)common\Ioctl.h" />
-    <ClInclude Include="Array.h" />
-    <ClInclude Include="Assert.h" />
-    <ClInclude Include="Buffer.h" />
-    <ClInclude Include="Concepts.h" />
-    <ClInclude Include="Defs.h" />
-    <ClInclude Include="Error.h" />
-    <ClInclude Include="Fixture.h" />
-    <ClInclude Include="FunctionUtils.h" />
-    <ClInclude Include="IoctlHandler.h" />
-    <ClInclude Include="List.h" />
-    <ClInclude Include="Memory.h" />
-    <ClInclude Include="Printable.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="StringUtils.h" />
-    <ClInclude Include="Test.h" />
-    <ClInclude Include="Traits.h" />
-    <ClInclude Include="Tuple.h" />
-    <ClInclude Include="TupleUtils.h" />
-    <ClInclude Include="Utility.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Array.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\Assert.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Buffer.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Concepts.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\Defs.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Error.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\Fixture.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\FunctionUtils.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\IoctlHandler.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\List.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Memory.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\Printable.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Resource.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\StringUtils.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\Test.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Traits.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Tuple.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\TupleUtils.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Array.inl" />
-    <None Include="Assert.inl" />
-    <None Include="List.inl" />
-    <None Include="Memory.inl" />
-    <None Include="Printable.inl" />
-    <None Include="Resource.inl" />
-    <None Include="StringUtils.inl" />
-    <None Include="Test.inl" />
-    <None Include="Tuple.inl" />
-    <None Include="TupleUtils.inl" />
+    <None Include="$(SolutionDir)include\drvut\internal\Array.inl" />
+    <None Include="$(SolutionDir)include\drvut\Assert.inl" />
+    <None Include="$(SolutionDir)include\drvut\internal\List.inl" />
+    <None Include="$(SolutionDir)include\drvut\internal\Memory.inl" />
+    <None Include="$(SolutionDir)include\drvut\Printable.inl" />
+    <None Include="$(SolutionDir)include\drvut\internal\Resource.inl" />
+    <None Include="$(SolutionDir)include\drvut\internal\StringUtils.inl" />
+    <None Include="$(SolutionDir)include\drvut\Test.inl" />
+    <None Include="$(SolutionDir)include\drvut\internal\Tuple.inl" />
+    <None Include="$(SolutionDir)include\drvut\internal\TupleUtils.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

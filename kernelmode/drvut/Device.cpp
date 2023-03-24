@@ -1,6 +1,6 @@
 #include "Device.h"
 
-#include "Utility.h"
+#include "drvut/internal/Utility.h"
 
 namespace drvut {
 namespace internal {

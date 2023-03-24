@@ -1,16 +1,10 @@
-#include "drvut.h"
-
-#include "Test.h"
-#include "Assert.h"
-#include "Printable.h"
-
+#include <drvut/drvut.h>
 
 using drvut::test;
 using drvut::assert;
 using drvut::B;
 using drvut::I;
 using drvut::AreEqual;
-
 
 struct LeakCountFixture final {
     NTSTATUS setup() {

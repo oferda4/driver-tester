@@ -2,7 +2,7 @@
 
 #include <gmock/gmock.h>
 
-#include "Defs.h"
+#include "drvut/Defs.h"
 
 class MockResource {
 public:

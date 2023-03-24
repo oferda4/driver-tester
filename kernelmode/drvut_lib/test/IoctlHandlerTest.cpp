@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-#include "IoctlHandler.h"
+#include "drvut/internal/IoctlHandler.h"
 #include "Ioctl.h"
 
 namespace drvut::internal {

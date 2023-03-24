@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "Defs.h"
+#include "drvut/Defs.h"
 
-#include "Resource.h"
+#include "drvut/internal/Resource.h"
 #include "MockResource.h"
 
 namespace drvut::internal {

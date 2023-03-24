@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "Test.h"
-#include "Assert.h"
-#include "Error.h"
+#include "drvut/Test.h"
+#include "drvut/Assert.h"
+#include "drvut/internal/Error.h"
 
 namespace drvut {
 

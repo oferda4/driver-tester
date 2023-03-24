@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "FunctionUtils.h"
+#include "drvut/internal/FunctionUtils.h"
 
 namespace drvut {
 namespace internal {

@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Error.h"
+#include "drvut/internal/Error.h"
 
 namespace drvut {
 namespace internal {

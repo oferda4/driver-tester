@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "Printable.h"
+#include "drvut/Printable.h"
 
 namespace drvut {
 

@@ -39,96 +39,96 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Defs.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\Defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Traits.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Traits.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Concepts.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Concepts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="List.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\List.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Memory.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Test.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Array.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="$(SolutionDir)common\Ioctl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IoctlHandler.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\IoctlHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Buffer.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Fixture.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\Fixture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Tuple.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionUtils.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\FunctionUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Assert.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\Assert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StringUtils.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\StringUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Printable.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\Printable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TupleUtils.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\TupleUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Error.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\internal\Error.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resource.inl">
+    <None Include="$(SolutionDir)include\drvut\internal\Resource.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="List.inl">
+    <None Include="$(SolutionDir)include\drvut\internal\List.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Memory.inl">
+    <None Include="$(SolutionDir)include\drvut\internal\Memory.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Array.inl">
+    <None Include="$(SolutionDir)include\drvut\internal\Array.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Test.inl">
+    <None Include="$(SolutionDir)include\drvut\Test.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="StringUtils.inl">
+    <None Include="$(SolutionDir)include\drvut\internal\StringUtils.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Printable.inl">
+    <None Include="$(SolutionDir)include\drvut\Printable.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Tuple.inl">
+    <None Include="$(SolutionDir)include\drvut\internal\Tuple.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="TupleUtils.inl">
+    <None Include="$(SolutionDir)include\drvut\internal\TupleUtils.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Assert.inl">
+    <None Include="$(SolutionDir)include\drvut\Assert.inl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

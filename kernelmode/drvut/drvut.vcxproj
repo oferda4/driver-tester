@@ -61,7 +61,7 @@
     <ClCompile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kernelmode\drvut_lib\src;$(SolutionDir)kernelmode\drvut;$(SolutionDir)common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)common;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -75,7 +75,7 @@
     <ClCompile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kernelmode\drvut_lib\src;$(SolutionDir)kernelmode\drvut;$(SolutionDir)common\;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)common;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -88,9 +88,9 @@
     <ClCompile Include="SymbolicLink.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Device.h" />
-    <ClInclude Include="drvut.h" />
-    <ClInclude Include="SymbolicLink.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\Device.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\drvut.h" />
+    <ClInclude Include="$(SolutionDir)include\drvut\SymbolicLink.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\drvut_lib\src\drvut_lib.vcxproj">

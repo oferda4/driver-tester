@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Defs.h"
+#include "drvut/Defs.h"
 
 struct MockFixture final {
     NTSTATUS setup() {

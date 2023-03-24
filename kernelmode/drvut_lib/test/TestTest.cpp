@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "Defs.h"
-#include "Test.h"
+#include "drvut/Defs.h"
+#include "drvut/Test.h"
 
 #include "MockFixture.h"
 

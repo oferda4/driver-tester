@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "Array.h"
+#include "drvut/internal/Array.h"
 
 namespace drvut {
 namespace internal {

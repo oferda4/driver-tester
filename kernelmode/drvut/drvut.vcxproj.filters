@@ -30,13 +30,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="drvut.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\drvut.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Device.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\Device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SymbolicLink.h">
+    <ClInclude Include="$(SolutionDir)include\drvut\SymbolicLink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
