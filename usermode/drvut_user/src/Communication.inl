@@ -5,7 +5,7 @@
 template <Server ServerType>
 CommunicationSetupImpl<ServerType>::CommunicationSetupImpl(ServerType server)
     : m_server(std::move(server)) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <Server ServerType>
@@ -16,7 +16,7 @@ StreamImpl<typename ServerType::ConnectionType> CommunicationSetupImpl<ServerTyp
 template <Stream StreamType, RequestsRouter RouterType>
 CommunicationLogicImpl<StreamType, RouterType>::CommunicationLogicImpl(RouterType router)
     : m_router(std::move(router)) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <Stream StreamType, RequestsRouter RouterType>
@@ -35,7 +35,7 @@ template <
 Communication<CommunicationSetupType, CommunicationLogicType>::Communication(
     CommunicationSetupType setup, CommunicationLogicType logic)
     : m_setup(std::move(setup)), m_logic(std::move(logic)) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <

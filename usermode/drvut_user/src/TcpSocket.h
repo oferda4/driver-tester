@@ -7,7 +7,7 @@
 #include "Connection.h"
 
 struct BadIpAddress : std::exception {
-    // left blank intentionally
+    // intentionally left blank
 };
 
 template <typename T>

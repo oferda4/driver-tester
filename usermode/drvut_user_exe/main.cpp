@@ -14,7 +14,7 @@
 
 namespace {
 struct BadArgument : std::exception {
-    // left blank intentionally
+    // intentionally left blank
 };
 
 void trace(const std::string& msg);

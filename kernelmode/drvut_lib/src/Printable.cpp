@@ -3,7 +3,7 @@
 namespace drvut {
 
 B::B(bool boolean) : m_boolean(boolean) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 B::operator bool() const {

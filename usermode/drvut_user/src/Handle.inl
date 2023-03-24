@@ -5,14 +5,14 @@
 template <HandleTraits HandleTraitsType>
 HandleGuard<HandleTraitsType>::HandleGuard(HandleTraitsType traits, HandleTraitsType::Type handle)
     : m_traits(std::move(traits)), m_handle(handle), m_isValid(true) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <HandleTraits HandleTraitsType>
 template <typename>
 HandleGuard<HandleTraitsType>::HandleGuard(HandleTraitsType::Type handle)
     : HandleGuard(HandleTraitsType(), handle) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <HandleTraits HandleTraitsType>
@@ -24,7 +24,7 @@ template <HandleTraits HandleTraitsType>
 HandleGuard<HandleTraitsType>::HandleGuard(HandleGuard&& other) noexcept
     : m_traits(std::move(other.m_traits)), m_handle(other.m_handle),
       m_isValid(std::exchange(other.m_isValid, false)) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <HandleTraits HandleTraitsType>

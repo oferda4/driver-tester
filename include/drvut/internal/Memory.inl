@@ -9,12 +9,12 @@ namespace std {
 template <typename T>
 template <typename U, typename>
 unique_ptr<T>::unique_ptr(U* ptr) : m_ptr(ptr) {
-    // Left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T>
 unique_ptr<T>::unique_ptr(unique_ptr<T>&& other) noexcept : m_ptr(other.release()) {
-    // Left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T>

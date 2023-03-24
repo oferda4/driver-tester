@@ -5,7 +5,7 @@
 #include "TcpSocket.h"
 
 struct FakeExceptionForMockPosixSocket : std::exception {
-    // left blank intentionally
+    // intentionally left blank
 };
 
 class FakePosixSocketApi {

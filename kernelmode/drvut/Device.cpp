@@ -6,12 +6,12 @@ namespace drvut {
 namespace internal {
 
 Device::Device(PDEVICE_OBJECT initializedObj) : m_obj(initializedObj) {
-    // Left blank intentionally
+    // intentionally left blank
 }
 
 Device::Device(PDRIVER_OBJECT driver, PCUNICODE_STRING name)
     : m_obj(nullptr), m_driver(driver), m_name(name) {
-    // Left blank intentionally
+    // intentionally left blank
 }
 
 NTSTATUS Device::initialize() {

@@ -3,7 +3,7 @@
 #include "Defs.h"
 
 struct InvalidHandle : std::exception {
-    // left blank intentionally
+    // intentionally left blank
 };
 
 template <typename T>

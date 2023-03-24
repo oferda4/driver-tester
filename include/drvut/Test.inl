@@ -34,7 +34,7 @@ RegularTest& RegularTest::operator=(T func) {
 
 template <typename T>
 TestFuncImpl<T>::TestFuncImpl(T func) : m_func(std::move(func)) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T>

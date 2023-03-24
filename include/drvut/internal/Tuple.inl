@@ -9,7 +9,7 @@ template <typename T, typename... Ts>
 template <typename>
 Tuple<T, Ts...>::Tuple()
     : Tuple<Ts...>(), tail() {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T, typename... Ts>

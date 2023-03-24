@@ -6,7 +6,7 @@
 template <Connection ConnectionType>
 StreamImpl<ConnectionType>::StreamImpl(ConnectionType connection)
     : m_connection(std::move(connection)) {
-    // Left blank intentionally
+    // intentionally left blank
 }
 
 template <Connection ConnectionType>

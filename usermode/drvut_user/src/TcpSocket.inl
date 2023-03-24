@@ -21,14 +21,14 @@ template <typename Api>
 template <typename>
 TcpSocketConnection<Api>::TcpSocketConnection(SocketGuard<Api> socket)
     : TcpSocketConnection(Api(), std::move(socket)) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename Api>
     requires(PosixSocketApi<Api> && PosixTcpConnectionApi<Api>)
 TcpSocketConnection<Api>::TcpSocketConnection(Api api, SocketGuard<Api> socket)
     : m_api(std::move(api)), m_socket(std::move(socket)) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename Api>
@@ -60,7 +60,7 @@ template <typename Api>
 template <typename>
 TcpSocketServer<Api>::TcpSocketServer(const std::string& ip, uint16_t port)
     : TcpSocketServer(Api(), ip, port) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename Api>

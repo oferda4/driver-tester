@@ -5,12 +5,12 @@ namespace internal {
 
 SymbolicLink::SymbolicLink(PCUNICODE_STRING dosDeviceName, PCUNICODE_STRING ntDeviceName)
     : m_dosDeviceName(dosDeviceName), m_ntDeviceName(ntDeviceName) {
-    // Left blank intentionally
+    // intentionally left blank
 }
 
 SymbolicLink::SymbolicLink(PCUNICODE_STRING alreadyInitializedDosDeviceName)
     : m_dosDeviceName(alreadyInitializedDosDeviceName), m_ntDeviceName(nullptr) {
-    // Left blank intentionally
+    // intentionally left blank
 }
 
 NTSTATUS SymbolicLink::initialize() {

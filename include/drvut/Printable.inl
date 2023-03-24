@@ -51,7 +51,7 @@ String I<T>::toString() const {
 template <typename T, typename U>
     requires(internal::std::equality_comparable<T, U>)
 AreEqual<T, U>::AreEqual(T left, U right) : m_left(left), m_right(right) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T, typename U>
@@ -69,7 +69,7 @@ String AreEqual<T, U>::toString() const {
 template <typename T, typename U>
     requires(internal::std::equality_comparable<T, U>)
 AreNotEqual<T, U>::AreNotEqual(T left, U right) : m_left(left), m_right(right) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T, typename U>
@@ -87,7 +87,7 @@ String AreNotEqual<T, U>::toString() const {
 template <typename T, typename U>
     requires(internal::std::greater_comparable<T, U>)
 Greater<T, U>::Greater(T left, U right) : m_left(left), m_right(right) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T, typename U>
@@ -105,7 +105,7 @@ String Greater<T, U>::toString() const {
 template <typename T, typename U>
     requires(internal::std::greater_or_equal_comparable<T, U>)
 GreaterOrEqual<T, U>::GreaterOrEqual(T left, U right) : m_left(left), m_right(right) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T, typename U>
@@ -123,7 +123,7 @@ String GreaterOrEqual<T, U>::toString() const {
 template <typename T, typename U>
     requires(internal::std::lower_comparable<T, U>)
 Lower<T, U>::Lower(T left, U right) : m_left(left), m_right(right) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T, typename U>
@@ -141,7 +141,7 @@ String Lower<T, U>::toString() const {
 template <typename T, typename U>
     requires(internal::std::lower_or_equal_comparable<T, U>)
 LowerOrEqual<T, U>::LowerOrEqual(T left, U right) : m_left(left), m_right(right) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T, typename U>

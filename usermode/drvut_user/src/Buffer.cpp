@@ -4,7 +4,7 @@
 
 InvalidBufferSize::InvalidBufferSize(size_t size)
     : std::exception("invalid buffer size", static_cast<int>(size)) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 void BufferUtils::append(Buffer& dest, const Buffer& src) {

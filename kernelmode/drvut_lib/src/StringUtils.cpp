@@ -14,7 +14,7 @@ String::~String() {
 String::String(String&& other) noexcept
     : m_data(internal::std::exchange(other.m_data, nullptr)), 
       m_len(internal::std::exchange(other.m_len, 0)) {
-    // left blank intentionally
+    // intentionally left blank
 }
 
 String& String::operator=(String&& other) noexcept {

@@ -3,7 +3,7 @@
 #include "Defs.h"
 
 struct InvalidCast : std::exception {
-    // left blank intentionally
+    // intentionally left blank
 };
 
 class CastUtils final {

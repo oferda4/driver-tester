@@ -3,7 +3,7 @@
 #include "Defs.h"
 
 struct BadWsaVersion : std::exception {
-    // left blank intentionally
+    // intentionally left blank
 };
 
 class WsaGuard final {

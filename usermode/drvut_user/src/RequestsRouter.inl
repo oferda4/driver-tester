@@ -6,7 +6,7 @@ template <RequestsHandler RequestsHandlerType, Parser ParserType>
 RequestsRouterImpl<RequestsHandlerType, ParserType>::RequestsRouterImpl(RequestsHandlerType handler,
                                                                         ParserType parser)
     : m_handler(std::move(handler)), m_parser(std::move(parser)) {
-    // Left blank intentionally
+    // intentionally left blank
 }
 
 template <RequestsHandler RequestsHandlerType, Parser ParserType>

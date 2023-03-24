@@ -8,7 +8,7 @@ namespace internal {
 
 template <typename T>
 Array<T>::Array(size_t size) : m_data(new T[size]), m_size(size) {
-    // Left blank intentionally
+    // intentionally left blank
 }
 
 template <typename T>

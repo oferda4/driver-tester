@@ -5,11 +5,11 @@
 #include "Buffer.h"
 
 struct FailedSerializingMessage : std::exception {
-    // left blank intentionally
+    // intentionally left blank
 };
 
 struct FailedParsingMessage : std::exception {
-    // left blank intentionally
+    // intentionally left blank
 };
 
 class ProtobufUtils {
