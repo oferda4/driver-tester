@@ -23,7 +23,7 @@ ResourceGuard<T>::ResourceGuard(ResourceGuard&& other) noexcept
 }
 
 template <Resource T>
-ResourceGuard<T>& ResourceGuard<T>::operator=(ResourceGuard&& other) {
+ResourceGuard<T>& ResourceGuard<T>::operator=(ResourceGuard&& other) noexcept {
     if (this == &other) {
         return *this;
     }
