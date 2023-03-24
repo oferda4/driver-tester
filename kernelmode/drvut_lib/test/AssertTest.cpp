@@ -12,7 +12,11 @@ TEST(TestAssert, Sanity) {
     internal::TestsManager::destroy();
     auto& manager = internal::TestsManager::instance();
 
-    test("AboutToFailFromAssertion") = []() { assert(false); };
+    // making sure using the proper assertion
+    #undef assert
+    test("AboutToFailFromAssertion") = []() { 
+        assert(false); 
+    };
 
     auto tests = manager.list();
     const auto result = manager.run(tests.at(0).id);
