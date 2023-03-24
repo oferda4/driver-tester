@@ -1,3 +1,5 @@
-powershell.exe -ExecutionPolicy Bypass -Command "..\utilities\hyperv\run-on-vm.ps1 %TEST_MACHINE_NAME% ..\x64\Debug\drvut_test_driver.sys ..\x64\Debug\drvut_user.exe"
+set TARGET=..\x64\Release\drvut_test_driver_with_props.sys
+
+powershell.exe -ExecutionPolicy Bypass -Command "%DRVUT_PATH%\utilities\hyperv\run-on-vm.ps1 %TEST_MACHINE_NAME% %TARGET% %DRVUT_PATH%\bin\x64\drvut_user.exe"
 
 pause
