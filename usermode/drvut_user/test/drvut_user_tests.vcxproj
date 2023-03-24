@@ -71,7 +71,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Projects\vcpkg\installed\x64-windows-static\include;$(SolutionDir)common;$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\vcpkg\installed\x64-windows-static\include;$(SolutionDir)include;$(SolutionDir)common;$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -88,7 +88,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>C:\Projects\vcpkg\installed\x64-windows-static\include;$(SolutionDir)common;$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\vcpkg\installed\x64-windows-static\include;$(SolutionDir)include;$(SolutionDir)common;$(PROTOBUF_PATH)\include;$(SolutionDir)usermode\drvut_user\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
