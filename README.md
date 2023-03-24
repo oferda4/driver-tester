@@ -24,6 +24,12 @@ We are currently supporting only *C++ Windows Kernel Drivers*, but the framework
 * Allow running the test driver - You may do it by connecting a debugger, signing the driver or any other way you would run your "in developed" driver.
 * Enable guest services - `VM Settings -> Integration Services -> Guest Services`.
 
+### Project ###
+* Add an include to your testing driver project configuration:
+```
+<Import Project="$(DRVUT_PATH)\props\drvut.props" />
+```
+
 
 ## drvut 101 ##
 ### Tests Initialization ###
