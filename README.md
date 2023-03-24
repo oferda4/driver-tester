@@ -59,3 +59,48 @@ To have a better output from the test, it's recommended to use the printables wr
 * `AreNotEqua` - Checks that two values aren't equal.
 
 You may add more printables by implementing the `drvut::Printable` concept.
+
+### Fixtures ###
+Fixtures are a core concept in the drvut framework, because everything that needs to do RAII must be a fixture (See note in the "Assertion" section).
+
+A fixture is simply a class that implements the *Fixture* concept, aka implementing the functions:
+```
+NTSTATUS setup();
+void teardown();
+```
+As you can see a *setup* may fail by returning an error *NTSTATUS*.
+Then you simply pass a reference to the fixture in the test function args:
+```
+drvut::test("Test With Fixtures") = [](Fixture1& fxt1, Fixture2& fxt2) {
+    // some testings that can use the fixtures...
+};
+```
+
+### Putting it all together
+Let's make an example that puts everything together:
+```
+/// a fixture to create and delete a file in test scope.
+struct TempFile {
+    NTSTATUS setup() {
+        // creating the file
+    }
+
+    void teardown() {
+        // deleting the file
+    }
+}
+
+EXTERN_C void initializeTests() {
+    drvut::test("Passing Test") = []() {
+        drvut::assert(drvut::AreEqual(I(1+1), I(2)));
+    };
+
+    drvut::test("Passing Test") = []() {
+        drvut::assert(drvut::AreNotEqual(I(2*1), I(2)));
+    };
+
+    drvut::test("Something On a File") = [](TempFile& file) {
+        // some testing on the file
+    };
+}
+```
