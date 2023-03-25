@@ -5,7 +5,7 @@
       <AdditionalIncludeDirectories>$(DRVUT_PATH)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(DRVUT_PATH)\bin\x64\drvut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(DRVUT_PATH)\bin\x64\drvut.lib;$(DRVUT_PATH)\bin\x64\drvut_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 </Project>

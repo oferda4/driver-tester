@@ -85,14 +85,6 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)kernelmode\drvut\drvut.vcxproj">
-      <Project>{f2806d28-b8ab-4acc-b268-cd35a611f79b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\kernelmode\drvut_lib\src\drvut_lib.vcxproj">
-      <Project>{1cf337fe-dc7d-4f2c-b849-840257d145e0}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="SomeTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
