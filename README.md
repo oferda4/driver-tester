@@ -1,7 +1,9 @@
 # Driver Tester #
+A modern testing framework for kernel drivers development.
 
 ## Table of Contents ##
 - [Overview](#overview)
+- [Support Status](#support-status)
 - [Requirements](#requirements)
 - [Setup](#setup)
   - [Host](#host)
@@ -17,13 +19,23 @@
 - [Run](#run)
 
 ## Overview ##
-These days it's hard to find a way to unit test kernel drivers. The goal of this project is to improve the developing process and maintenance of kernel drivers by providing a framework with modern syntax. 
+These days it's hard to find a way to unit test kernel drivers. This leads to poorly tested drivers and to development methods like *TDD* to be impossible. 
 
-The test driver you'll create will actually run in kernel, which can significally help testing all of those complex kernel API, offsets and weird compilation edge cases.
+The goal of this project is to improve the developing process and maintenance of kernel drivers by providing a framework with modern syntax, less boilerplate and easy to extend. 
+
+The test driver you'll create will actually run in kernel mode, which can significally help testing all of those complex kernel API, offsets and weird compilation edge cases.
+
+**Note:** This is not a complete version yet and doesn't include all of the basic features. Feel free to vote for new features and contribute to this project and help it evolve. Contact me at - *oferda4@gmail.com*.
+
+## Support Status ##
 
 We are currently supporting only *C++ Windows Kernel Drivers*, but the framework is written in a way that extending it to more operating systems and languages should be relatively easy.
 
-**Note:** This is not a complete version yet and doesn't include all of the basic features. Feel free to vote for new features and contribute to this project and help it evolve. Contact me at - *oferda4@gmail.com*. 
+| | Windows | Unix | OSX |
+| --- | --- | --- | --- |
+| x86 | X | X | X |
+| x64 | V | X | X |
+| ARM | X | X | X | 
 
 
 ## Requirements ##
@@ -35,7 +47,7 @@ We are currently supporting only *C++ Windows Kernel Drivers*, but the framework
 ## Setup ##
 ### Host ###
 * Clone this repository - `git clone git@github.com:oferda4/driver-tester.git`
-* Setup the following environment variables:
+* Add the following environment variables:
     * `DRVUT_PATH` - path the cloned repository.
     * `TEST_MACHINE_NAME` - The name of the Hyper-V virtual machine.
 
