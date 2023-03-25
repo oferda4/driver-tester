@@ -94,7 +94,7 @@ To have a better output from the test, it's recommended to use the printables wr
 * `I` - Integral value.
 * `B` - Boolean value.
 * `AreEqual` - Compare two values.
-* `AreNotEqua` - Checks that two values aren't equal.
+* `AreNotEqual` - Checks that two values aren't equal.
 
 You may add more printables by implementing the `drvut::Printable` concept.
 
