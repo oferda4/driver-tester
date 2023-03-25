@@ -1,8 +1,27 @@
 # Driver Tester #
-## Overview ##
-These days it's hard to find a way to unit test kernel drivers. The goal of this project is to improve the developing process and maintenance of kernel drivers by providing a framework with modern syntax. The test driver you'll create will actually run in kernel, which can significally help testing all of those complex kernel API, offsets and weird compilation edge cases.
 
-We are currently supporting only *C++ Windows Kernel Drivers*, but the framework is written in a way that extending it to more operating systems and languages in the futer.
+## Table of Contents ##
+- [Overview](#overview)
+- [Requirements](#requirements)
+- [Setup](#setup)
+  - [Host](#host)
+  - [Guest](#guest)
+  - [Project](#project)
+- [drvut 101](#drvut-101)
+  - [Tests Initialization](#tests-initialization)
+  - [Test Creation](#test-creation)
+  - [Assertion](#assertion)
+  - [Printables](#printables)
+  - [Fixtures](#fixtures)
+  - [Putting it all together](#putting-it-all-together)
+- [Run](#run)
+
+## Overview ##
+These days it's hard to find a way to unit test kernel drivers. The goal of this project is to improve the developing process and maintenance of kernel drivers by providing a framework with modern syntax. 
+
+The test driver you'll create will actually run in kernel, which can significally help testing all of those complex kernel API, offsets and weird compilation edge cases.
+
+We are currently supporting only *C++ Windows Kernel Drivers*, but the framework is written in a way that extending it to more operating systems and languages should be relatively easy.
 
 **Note:** This is not a complete version yet and doesn't include all of the basic features. Feel free to vote for new features and contribute to this project and help it evolve. Contact me at - *oferda4@gmail.com*. 
 
