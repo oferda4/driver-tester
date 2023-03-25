@@ -117,6 +117,8 @@ drvut::test("Test With Fixtures") = [](Fixture1& fxt1, Fixture2& fxt2) {
 ### Putting it all together
 Let's make an example that puts everything together:
 ```
+#include <drvut/drvut.h>
+
 /// a fixture to create and delete a file in test scope.
 struct TempFile {
     NTSTATUS setup() {
