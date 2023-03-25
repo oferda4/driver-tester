@@ -58,7 +58,7 @@ We are currently supporting only *C++ Windows Kernel Drivers*, but the framework
 ### Project ###
 * Add an include to your testing driver project configuration:
 ```
-<Import Project="$(DRVUT_PATH)\props\drvut.props" />
+<Import Project="$(DRVUT_PATH)\utilities\props\drvut.props" />
 ```
 * Copy the file `utilities\run.bat.template` to your project. Remove the `.template` postfix. Edit the file and set the `TARGET` to your test driver path. 
 
