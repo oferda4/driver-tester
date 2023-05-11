@@ -9,20 +9,20 @@ RUN C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache  \
     --add Microsoft.Component.MSBuild --add Microsoft.Component.MSBuild.Redist                                              \
     && del C:\TEMP\vs_buildtools.exe
 
-# download and install Protocol Buffer compiler
-ADD https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protoc-3.17.3-win64.zip /temp/protoc.zip
-RUN powershell -Command \
-    "Expand-Archive C:\temp\protoc.zip -DestinationPath C:\temp\protoc; \ 
-    Move-Item C:\temp\protoc\bin\protoc.exe C:\Windows\System32;        \
-    del C:\temp\protoc.zip"
+# install vcpkg
+RUN powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force;  \
+    Invoke-WebRequest https://github.com/microsoft/vcpkg/archive/refs/heads/master.zip -OutFile vcpkg.zip -UseBasicParsing; \
+    Expand-Archive vcpkg.zip -DestinationPath C:\vcpkg; \
+    C:\bootstrap-vcpkg.bat;                              \
+    del vcpkg.zip"
+
+# install ProtocolBuffer
+RUN powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force;  \
+    C:\vcpkg\vcpkg install protobuf:x64-windows-static"
 
 # set environment variables for Visual Studio and Protocol Buffer compiler
-ENV PATH="C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin;C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.30.30705\bin\Hostx64\x64;C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Windows\System32;${PATH}"
-ENV INCLUDE="C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.30.30705\include;C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.30.30705\ATLMFC\include;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um;C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt;C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared;C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt;C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt"
-ENV LIB="C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.30.30705\lib\x64;C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.30.30705\ATLMFC\lib\x64;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\lib\um\x64;C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64;"
+ENV PATH="C:\vcpkg\installed\x64-windows-static\lib;C:\vcpkg\installed\x64-windows-static\include;C:\vcpkg\installed\x64-windows-static\bin;C:\vcpkg\installed\x64-windows-static\tools\protobuf; \
+          C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin;C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.30.30705\bin\Hostx64\x64;C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;${PATH}"
 
-# set the working directory for the container
 WORKDIR C:\\build
-
-# copy the source code to the container
 COPY . .
