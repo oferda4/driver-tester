@@ -1,7 +1,11 @@
 .vs\\*
 .git\\*
-bin\\*
+
 Debug\\*
 Release\\*
 TestResults\\*
 x64\\*
+**\\bin\\*
+**\\obj\\*
+
+!bin\\*
