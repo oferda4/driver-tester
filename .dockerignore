@@ -1,2 +1,7 @@
 .vs\\*
 .git\\*
+bin\\*
+Debug\\*
+Release\\*
+TestResults\\*
+x64\\*
