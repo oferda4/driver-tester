@@ -1,7 +1,11 @@
-common\\*
-runner\\*
-test\\*
-usermode\\*
-kernelmode\\*
 .vs\\*
 .git\\*
+
+Debug\\*
+Release\\*
+TestResults\\*
+x64\\*
+**\\bin\\*
+**\\obj\\*
+
+!bin\\*
